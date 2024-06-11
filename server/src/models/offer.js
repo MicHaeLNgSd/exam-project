@@ -1,6 +1,22 @@
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const Offer = sequelize.define(
-    'Offers',
+  class Offer extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate({ User, Contest, Rating }) {
+      // define association here
+      Offer.belongsTo(User, { foreignKey: 'userId', sourceKey: 'id' });
+
+      Offer.belongsTo(Contest, { foreignKey: 'contestId', sourceKey: 'id' });
+
+      Offer.hasOne(Rating, { foreignKey: 'offerId', targetKey: 'id' });
+    }
+  }
+  Offer.init(
     {
       id: {
         allowNull: false,
@@ -35,20 +51,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      sequelize,
+      modelName: 'Offer',
       timestamps: false,
     }
   );
-
-  Offer.associate = function (models) {
-    Offer.belongsTo(models.User, { foreignKey: 'user_id', sourceKey: 'id' });
-  };
-
-  Offer.associate = function (models) {
-    Offer.belongsTo(models.Contest, {
-      foreignKey: 'contest_id',
-      sourceKey: 'id',
-    });
-  };
-
   return Offer;
 };

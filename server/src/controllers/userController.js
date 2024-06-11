@@ -93,10 +93,10 @@ module.exports.changeMark = async (req, res, next) => {
     });
     const query = getQuery(offerId, userId, mark, isFirst, transaction);
     await query();
-    const offersArray = await db.Ratings.findAll({
+    const offersArray = await db.Rating.findAll({
       include: [
         {
-          model: db.Offers,
+          model: db.Offer,
           required: true,
           where: { userId: creatorId },
         },
@@ -162,7 +162,7 @@ module.exports.payment = async (req, res, next) => {
         prize,
       });
     });
-    await db.Contests.bulkCreate(req.body.contests, transaction);
+    await db.Contest.bulkCreate(req.body.contests, transaction);
     transaction.commit();
     res.send();
   } catch (err) {

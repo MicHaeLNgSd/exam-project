@@ -17,7 +17,7 @@ module.exports.dataForContest = async (req, res, next) => {
       Boolean
     );
 
-    const characteristics = await db.Selects.findAll({
+    const characteristics = await db.Select.findAll({
       where: {
         type: {
           [db.Sequelize.Op.or]: types,
@@ -42,19 +42,19 @@ module.exports.dataForContest = async (req, res, next) => {
 
 module.exports.getContestById = async (req, res, next) => {
   try {
-    let contestInfo = await db.Contests.findOne({
+    let contestInfo = await db.Contest.findOne({
       where: { id: req.headers.contestid },
-      order: [[db.Offers, 'id', 'asc']],
+      order: [[db.Offer, 'id', 'asc']],
       include: [
         {
-          model: db.Users,
+          model: db.User,
           required: true,
           attributes: {
             exclude: ['password', 'role', 'balance', 'accessToken'],
           },
         },
         {
-          model: db.Offers,
+          model: db.Offer,
           required: false,
           where:
             req.tokenData.role === CONSTANTS.CREATOR
@@ -63,14 +63,14 @@ module.exports.getContestById = async (req, res, next) => {
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
             {
-              model: db.Users,
+              model: db.User,
               required: true,
               attributes: {
                 exclude: ['password', 'role', 'balance', 'accessToken'],
               },
             },
             {
-              model: db.Ratings,
+              model: db.Rating,
               required: false,
               where: { userId: req.tokenData.userId },
               attributes: { exclude: ['userId', 'offerId'] },
@@ -165,10 +165,12 @@ const resolveOffer = async (
   const finishedContest = await contestQueries.updateContestStatus(
     {
       status: db.sequelize.literal(`   CASE
-            WHEN "id"=${contestId}  AND "orderId"='${orderId}' THEN '${CONSTANTS.CONTEST_STATUS_FINISHED}'
-            WHEN "orderId"='${orderId}' AND "priority"=${
-              priority + 1
-            }  THEN '${CONSTANTS.CONTEST_STATUS_ACTIVE}'
+            WHEN "id"=${contestId}  AND "orderId"='${orderId}' THEN '${
+        CONSTANTS.CONTEST_STATUS_FINISHED
+      }'
+            WHEN "orderId"='${orderId}' AND "priority"=${priority + 1}  THEN '${
+        CONSTANTS.CONTEST_STATUS_ACTIVE
+      }'
             ELSE '${CONSTANTS.CONTEST_STATUS_PENDING}'
             END
     `),
@@ -250,14 +252,14 @@ module.exports.setOfferStatus = async (req, res, next) => {
 };
 
 module.exports.getCustomersContests = (req, res, next) => {
-  db.Contests.findAll({
+  db.Contest.findAll({
     where: { status: req.headers.status, userId: req.tokenData.userId },
     limit: req.body.limit,
     offset: req.body.offset ? req.body.offset : 0,
     order: [['id', 'DESC']],
     include: [
       {
-        model: db.Offers,
+        model: db.Offer,
         required: false,
         attributes: ['id'],
       },
@@ -284,14 +286,14 @@ module.exports.getContests = (req, res, next) => {
     req.body.industry,
     req.body.awardSort
   );
-  db.Contests.findAll({
+  db.Contest.findAll({
     where: predicates.where,
     order: predicates.order,
     limit: req.body.limit,
     offset: req.body.offset ? req.body.offset : 0,
     include: [
       {
-        model: db.Offers,
+        model: db.Offer,
         required: req.body.ownEntries,
         where: req.body.ownEntries ? { userId: req.tokenData.userId } : {},
         attributes: ['id'],

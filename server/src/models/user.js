@@ -1,6 +1,23 @@
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    'Users',
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate({ Offer, Contest, Rating }) {
+      // define association here
+
+      User.hasMany(Offer, { foreignKey: 'userId', targetKey: 'id' });
+
+      User.hasMany(Contest, { foreignKey: 'userId', targetKey: 'id' });
+
+      User.hasMany(Rating, { foreignKey: 'userId', targetKey: 'id' });
+    }
+  }
+  User.init(
     {
       id: {
         allowNull: false,
@@ -57,31 +74,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      sequelize,
+      modelName: 'User',
       timestamps: false,
     }
   );
-
-  User.associate = function (models) {
-    User.hasMany(models.Order, { foreignKey: 'user_id', targetKey: 'id' });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.Participant, {
-      foreignKey: 'user_id',
-      targetKey: 'id',
-    });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.Offer, { foreignKey: 'user_id', targetKey: 'id' });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.RefreshToken, {
-      foreignKey: 'user_id',
-      targetKey: 'id',
-    });
-  };
-
   return User;
 };
