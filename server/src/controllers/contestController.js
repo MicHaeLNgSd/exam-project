@@ -13,7 +13,7 @@ module.exports.dataForContest = async (req, res, next) => {
     const {
       body: { characteristic1, characteristic2 },
     } = req;
-    console.log(req.body, characteristic1, characteristic2);
+    // console.log(req.body, characteristic1, characteristic2);
     const types = [characteristic1, characteristic2, 'industry'].filter(
       Boolean
     );
@@ -43,14 +43,10 @@ module.exports.dataForContest = async (req, res, next) => {
 
 module.exports.getContestById = async (req, res, next) => {
   try {
-    console.log('getContestById');
-
     const {
       params: { contestId },
       tokenData: { role, userId },
     } = req;
-
-    console.log('contestId', contestId);
 
     let contestInfo = await db.Contest.findOne({
       where: { id: contestId },
@@ -86,8 +82,6 @@ module.exports.getContestById = async (req, res, next) => {
         },
       ],
     });
-
-    console.log(contestInfo);
 
     contestInfo = contestInfo.get({ plain: true });
 
