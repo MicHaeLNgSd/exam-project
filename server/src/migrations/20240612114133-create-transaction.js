@@ -19,7 +19,7 @@ module.exports = {
         allowNull: false,
       },
       userId: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',
@@ -37,7 +37,7 @@ module.exports = {
     });
     await queryInterface.addConstraint('Transactions', {
       type: 'check',
-      field: ['amount'],
+      fields: ['amount'],
       where: { amount: { [Sequelize.Op.gte]: 0 } },
     });
   },
