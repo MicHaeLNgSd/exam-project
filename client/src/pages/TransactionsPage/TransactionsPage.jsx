@@ -1,34 +1,42 @@
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import Header from '../../components/Header/Header';
 import { connect } from 'react-redux';
 import SpinnerLoader from '../../components/Spinner/Spinner';
 import { getUserTransactions } from '../../store/slices/transactionsSlice';
+import styles from './TransactionsPage.module.sass';
 
 function TransactionsPage({ transactions, isFetching, error, get }) {
   useEffect(() => {
     get();
   }, []);
 
-  if (isFetching) return <SpinnerLoader />;
-  if (error) return null;
+  if (isFetching)
+    return (
+      <>
+        <Header />
+        <SpinnerLoader />
+      </>
+    );
+  if (error) return <Header />;
 
   return (
     <>
       <Header />
-      <main>
-        <table>
+      <main className={styles.main}>
+        <table className={styles.transitionsTable}>
           <caption>Finance Operations</caption>
           <thead>
-            <tr key={1}>Operation Type</tr>
-            <tr key={2}>Amount</tr>
-            <tr key={3}>Date</tr>
+            <th>Operation Type</th>
+            <th>Amount</th>
+            <th>Date</th>
           </thead>
           <tbody>
             {transactions.map((t) => (
               <tr key={t.id}>
                 <td>{t.operationType}</td>
                 <td>{t.amount}</td>
-                <td>{t.createdAt}</td>
+                <td>{moment(t.createdAt).format('DD/MM/YYYY hh:mm:ss')}</td>
               </tr>
             ))}
           </tbody>
