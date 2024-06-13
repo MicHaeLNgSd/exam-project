@@ -264,3 +264,17 @@ module.exports.cashout = async ({ body, tokenData }, res, next) => {
     next(err);
   }
 };
+
+module.exports.getUserTransactions = async ({ tokenData }, res, next) => {
+  const { userId } = tokenData;
+  try {
+    const userTransactions = await db.Transaction.findAll({
+      where: { userId },
+      raw: true,
+    });
+
+    res.status(200).send(userTransactions);
+  } catch (err) {
+    next(err);
+  }
+};

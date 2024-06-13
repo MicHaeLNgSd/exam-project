@@ -51,6 +51,9 @@ rootRouter.post(
   userController.changeMark
 );
 rootRouter.post('/updateUser', upload.uploadAvatar, userController.updateUser);
+
+rootRouter.get('users/id/transactions', userController.getUserTransactions);
+
 rootRouter.post(
   '/cashout',
   basicMiddlewares.onlyForCreative,
