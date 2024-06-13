@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../components/Header/Header';
+import { connect } from 'react-redux';
+import SpinnerLoader from '../../components/Spinner/Spinner';
+import { getUserTransactions } from '../../store/slices/transactionsSlice';
 
-function TransactionsPage() {
-  const transactions = [
-    { amount: 10, operationType: 'INCOME', date: '2024-01-01' },
-    { amount: 10, operationType: 'INCOME', date: '2024-02-02' },
-  ];
+function TransactionsPage({ transactions, isFetching, error, get }) {
+  useEffect(() => {
+    get();
+  }, []);
+
+  if (isFetching) return <SpinnerLoader />;
+  if (error) return null;
 
   return (
     <>
@@ -23,7 +28,7 @@ function TransactionsPage() {
               <tr key={t.id}>
                 <td>{t.operationType}</td>
                 <td>{t.amount}</td>
-                <td>{t.date}</td>
+                <td>{t.createdAt}</td>
               </tr>
             ))}
           </tbody>
@@ -33,4 +38,10 @@ function TransactionsPage() {
   );
 }
 
-export default TransactionsPage;
+const mapStateToProps = ({ transactionsStore }) => transactionsStore;
+
+const mapDispatchToProps = (dispatch) => ({
+  get: () => dispatch(getUserTransactions()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionsPage);

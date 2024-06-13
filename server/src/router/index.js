@@ -52,7 +52,7 @@ rootRouter.post(
 );
 rootRouter.post('/updateUser', upload.uploadAvatar, userController.updateUser);
 
-rootRouter.get('users/id/transactions', userController.getUserTransactions);
+rootRouter.get('/users/id/transactions', userController.getUserTransactions);
 
 rootRouter.post(
   '/cashout',
