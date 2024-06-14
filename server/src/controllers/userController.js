@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
+const { v4: uuid } = require('uuid');
 const CONSTANTS = require('../constants');
 const db = require('../models');
 const NotUniqueEmail = require('../errors/NotUniqueEmail');
-const moment = require('moment');
-const { v4: uuid } = require('uuid');
+const NotFound = require('../errors/UserNotFoundError');
 const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const bankQueries = require('./queries/bankQueries');
@@ -12,7 +13,9 @@ const ratingQueries = require('./queries/ratingQueries');
 module.exports.login = async (req, res, next) => {
   try {
     const foundUser = await userQueries.findUser({ email: req.body.email });
-    await userQueries.passwordCompare(req.body.password, foundUser.password);
+    const isValidPassword = await foundUser.passwordCompare(req.body.password);
+    if (!isValidPassword) throw new NotFound('user with this data dont exist');
+
     const accessToken = jwt.sign(
       {
         firstName: foundUser.firstName,
@@ -34,11 +37,9 @@ module.exports.login = async (req, res, next) => {
     next(err);
   }
 };
-module.exports.registration = async (req, res, next) => {
+module.exports.registration = async ({ body }, res, next) => {
   try {
-    const newUser = await userQueries.userCreation(
-      Object.assign(req.body, { password: req.hashPass })
-    );
+    const newUser = await userQueries.userCreation(body);
     const accessToken = jwt.sign(
       {
         firstName: newUser.firstName,
@@ -186,15 +187,13 @@ module.exports.payment = async ({ body, tokenData }, res, next) => {
   }
 };
 
-module.exports.updateUser = async (req, res, next) => {
+module.exports.updateUser = async ({ file, body, tokenData }, res, next) => {
+  const { userId } = tokenData;
   try {
-    if (req.file) {
-      req.body.avatar = req.file.filename;
+    if (file) {
+      body.avatar = file.filename;
     }
-    const updatedUser = await userQueries.updateUser(
-      req.body,
-      req.tokenData.userId
-    );
+    const updatedUser = await userQueries.updateUser(body, userId);
     res.send({
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
