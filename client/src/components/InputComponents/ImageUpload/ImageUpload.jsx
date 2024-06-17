@@ -3,16 +3,18 @@ import classNames from 'classnames';
 import { useField } from 'formik';
 
 const ImageUpload = (props) => {
-  const [field, meta, helpers] = useField(props.name);
+  const [{ value, ...field }, meta, helpers] = useField(props.name);
   const { uploadContainer, inputContainer, imgStyle } = props.classes;
-  const onChange = (e) => {
+
+  const onChange = ({ target }) => {
     const node = window.document.getElementById('imagePreview');
-    const file = e.target.files[0];
+    const file = target.files[0];
     const imageType = /image.*/;
+
     if (!file.type.match(imageType)) {
-      e.target.value = '';
+      target.value = '';
     } else {
-      field.onChange(file);
+      helpers.setValue(file);
       const reader = new FileReader();
       reader.onload = () => {
         node.src = reader.result;
@@ -29,7 +31,7 @@ const ImageUpload = (props) => {
           id="fileInput"
           type="file"
           accept=".jpg, .png, .jpeg"
-          onClick={onChange}
+          onChange={onChange}
         />
         <label htmlFor="fileInput">Chose file</label>
       </div>
