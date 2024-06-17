@@ -76,11 +76,12 @@ const OfferForm = (props) => {
       >
         <Form className={styles.form}>
           {renderOfferInput()}
-          {valid && (
+          {
+            //TODO check if btn need to be block at all // valid && ()
             <button type="submit" className={styles.btnOffer}>
               Send Offer
             </button>
-          )}
+          }
         </Form>
       </Formik>
     </div>
