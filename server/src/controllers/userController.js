@@ -247,7 +247,7 @@ module.exports.cashout = async ({ body, tokenData }, res, next) => {
     );
 
     const newTransaction = {
-      operationType: CONSTANTS.TRANSACTION_TYPE.INCOME,
+      operationType: CONSTANTS.TRANSACTION_TYPE.EXPENSE,
       amount: sum,
       userId,
     };

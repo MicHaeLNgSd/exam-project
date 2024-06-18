@@ -199,6 +199,14 @@ const resolveOffer = async (
     creatorId,
     transaction
   );
+
+  const newTransaction = {
+    operationType: CONSTANTS.TRANSACTION_TYPE.INCOME,
+    amount: finishedContest.prize,
+    userId: creatorId,
+  };
+  await db.Transaction.create(newTransaction, { transaction });
+
   const updatedOffers = await contestQueries.updateOfferStatus(
     {
       status: db.sequelize.literal(` CASE
