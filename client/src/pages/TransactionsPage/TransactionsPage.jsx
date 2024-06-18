@@ -36,7 +36,7 @@ function TransactionsPage({ transactions, isFetching, error, get }) {
               <tr key={t.id}>
                 <td>{t.operationType}</td>
                 <td>{t.amount}</td>
-                <td>{moment(t.createdAt).format('DD/MM/YYYY hh:mm:ss')}</td>
+                <td>{moment(t.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
               </tr>
             ))}
           </tbody>
