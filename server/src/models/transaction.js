@@ -1,5 +1,8 @@
 'use strict';
 const { Model } = require('sequelize');
+const { TRANSACTION_TYPE } = require('../constants');
+const { INCOME, EXPENSE } = TRANSACTION_TYPE;
+
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends Model {
     /**
@@ -14,8 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Transaction.init(
     {
       operationType: {
-        //TODO ['INCOME', 'EXPENSE'] to constants
-        type: DataTypes.ENUM(['INCOME', 'EXPENSE']),
+        type: DataTypes.ENUM([INCOME, EXPENSE]),
         allowNull: false,
       },
       amount: {

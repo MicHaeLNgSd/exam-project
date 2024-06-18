@@ -171,9 +171,8 @@ module.exports.payment = async ({ body, tokenData }, res, next) => {
     });
     await db.Contest.bulkCreate(contests, { transaction });
 
-    //TODO EXPENSE to constans
     const newTransaction = {
-      operationType: 'EXPENSE',
+      operationType: CONSTANTS.TRANSACTION_TYPE.EXPENSE,
       amount: price,
       userId,
     };
@@ -247,9 +246,8 @@ module.exports.cashout = async ({ body, tokenData }, res, next) => {
       transaction
     );
 
-    //TODO INCOME to constans
     const newTransaction = {
-      operationType: 'INCOME',
+      operationType: CONSTANTS.TRANSACTION_TYPE.INCOME,
       amount: sum,
       userId,
     };

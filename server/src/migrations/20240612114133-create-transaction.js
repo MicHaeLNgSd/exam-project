@@ -1,4 +1,8 @@
 'use strict';
+
+const { TRANSACTION_TYPE } = require('../constants');
+const { INCOME, EXPENSE } = TRANSACTION_TYPE;
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -10,8 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       operationType: {
-        //TODO ['INCOME', 'EXPENSE'] to constants
-        type: Sequelize.ENUM(['INCOME', 'EXPENSE']),
+        type: Sequelize.ENUM([INCOME, EXPENSE]),
         allowNull: false,
       },
       amount: {
