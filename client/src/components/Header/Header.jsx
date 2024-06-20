@@ -6,10 +6,12 @@ import CONSTANTS from '../../constants';
 import { clearUserStore } from '../../store/slices/userSlice';
 import { getUser } from '../../store/slices/userSlice';
 import Logo from '../Logo';
+import constants from '../../constants';
 
 class Header extends React.Component {
   componentDidMount() {
-    if (!this.props.data) {
+    const token = localStorage.getItem(constants.ACCESS_TOKEN);
+    if (!this.props.data && !!token) {
       this.props.getUser();
     }
   }

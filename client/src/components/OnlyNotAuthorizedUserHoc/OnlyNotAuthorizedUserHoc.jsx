@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../../store/slices/userSlice';
 import Spinner from '../Spinner/Spinner';
+import constants from '../../constants';
 
 const OnlyNotAuthorizedUserHoc = (Component) => {
   class HocForLoginSignUp extends React.Component {
     componentDidMount() {
-      this.props.checkAuth(this.props.history.replace);
+      const token = localStorage.getItem(constants.ACCESS_TOKEN);
+      if (!!token) {
+        this.props.checkAuth(this.props.history.replace);
+      }
     }
 
     render() {
