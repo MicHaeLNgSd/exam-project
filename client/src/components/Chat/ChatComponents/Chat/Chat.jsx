@@ -17,6 +17,7 @@ import CatalogListContainer from '../../CatalogComponents/CatalogListContainer/C
 import CatalogCreation from '../../CatalogComponents/CatalogCreation/CatalogCreation';
 import CatalogListHeader from '../../CatalogComponents/CatalogListHeader/CatalogListHeader';
 import ChatError from '../../../ChatError/ChatError';
+import Logo from '../../../Logo';
 
 class Chat extends React.Component {
   componentDidMount() {
@@ -43,7 +44,7 @@ class Chat extends React.Component {
         {isShowChatsInCatalog && <CatalogListHeader />}
         {!isShowChatsInCatalog && (
           <div className={styles.chatHeader}>
-            <img src={`${CONSTANTS.STATIC_IMAGES_PATH}logo.png`} alt="logo" />
+            <Logo src={`${CONSTANTS.STATIC_IMAGES_PATH}logo.png`} />
           </div>
         )}
         {!isShowChatsInCatalog && (
