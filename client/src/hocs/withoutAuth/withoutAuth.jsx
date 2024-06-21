@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../../store/slices/userSlice';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 import CONSTANTS from '../../constants';
 
-const OnlyNotAuthorizedUserHoc = (Component) => {
+const withoutAuth = (Component) => {
   class HocForLoginSignUp extends React.Component {
     componentDidMount() {
       const token = localStorage.getItem(CONSTANTS.ACCESS_TOKEN);
@@ -33,4 +33,4 @@ const OnlyNotAuthorizedUserHoc = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(HocForLoginSignUp);
 };
 
-export default OnlyNotAuthorizedUserHoc;
+export default withoutAuth;

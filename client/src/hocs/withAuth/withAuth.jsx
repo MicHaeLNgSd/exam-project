@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../../store/slices/userSlice';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 
-const PrivateHoc = (Component, props) => {
+const withAuth = (Component, props) => {
   class Hoc extends React.Component {
     componentDidMount() {
       if (!this.props.data) {
@@ -13,18 +13,15 @@ const PrivateHoc = (Component, props) => {
     }
 
     render() {
+      if (this.props.isFetching) {
+        return <Spinner />;
+      }
       return (
-        <>
-          {this.props.isFetching ? (
-            <Spinner />
-          ) : (
-            <Component
-              history={this.props.history}
-              match={this.props.match}
-              {...props}
-            />
-          )}
-        </>
+        <Component
+          history={this.props.history}
+          match={this.props.match}
+          {...props}
+        />
       );
     }
   }
@@ -38,4 +35,4 @@ const PrivateHoc = (Component, props) => {
   return connect(mapStateToProps, mapDispatchToProps)(Hoc);
 };
 
-export default PrivateHoc;
+export default withAuth;
