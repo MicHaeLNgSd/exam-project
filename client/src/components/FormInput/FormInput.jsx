@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import classNames from 'classnames';
 
-const FormInput = ({ classes, label, name, ...rest }) => (
+const FormInput = ({ classes, label, name, isError = true, ...rest }) => (
   <Field name={name}>
     {(props) => {
       const {
@@ -23,11 +23,13 @@ const FormInput = ({ classes, label, name, ...rest }) => (
             className={inputClassName}
             {...rest}
           />
-          <ErrorMessage
-            name={name}
-            component="span"
-            className={classes.warning}
-          />
+          {isError && (
+            <ErrorMessage
+              name={name}
+              component="span"
+              className={classes.warning}
+            />
+          )}
         </div>
       );
     }}
