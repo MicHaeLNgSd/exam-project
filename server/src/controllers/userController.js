@@ -151,8 +151,9 @@ module.exports.payment = async ({ body, tokenData }, res, next) => {
       transaction
     );
 
+    //TODO check behaviour when winter time
     const orderId = uuid();
-    const createdAt = moment().format('YYYY-MM-DD HH:mm');
+    const createdAt = moment().format('YYYY-MM-DD HH:mm Z');
 
     contests.forEach((contest, index) => {
       const prize =
