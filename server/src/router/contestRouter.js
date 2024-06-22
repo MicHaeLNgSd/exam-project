@@ -11,18 +11,27 @@ contestRouter.get(
 );
 
 //take id from tokent
-contestRouter.get('/customers', contestController.getCustomersContests);
+contestRouter.get('/customers', contestController.getCustomersContests); // '/'
 
-contestRouter.get(
-  '/:contestId',
-  basicMiddlewares.canGetContest,
-  contestController.getContestById
+contestRouter
+  .route('/:contestId')
+  .get(basicMiddlewares.canGetContest, contestController.getContestById)
+  .put(upload.updateContestFile, contestController.updateContest);
+
+//=========================
+
+contestRouter.post('/dataForContest', contestController.dataForContest);
+contestRouter.get('/downloadFile/:fileName', contestController.downloadFile);
+contestRouter.post(
+  '/setNewOffer',
+  upload.uploadLogoFiles,
+  basicMiddlewares.canSendOffer,
+  contestController.setNewOffer
 );
-
-contestRouter.put(
-  '/:contestId',
-  upload.updateContestFile,
-  contestController.updateContest
+contestRouter.post(
+  '/setOfferStatus',
+  basicMiddlewares.onlyForCustomerWhoCreateContest,
+  contestController.setOfferStatus
 );
 
 module.exports = contestRouter;

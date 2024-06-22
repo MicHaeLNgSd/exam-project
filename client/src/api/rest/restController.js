@@ -11,6 +11,14 @@ export const getContestById = ({ contestId }) =>
 export const updateContest = (data) =>
   http.put(`contests/${data.get('contestId')}`, data);
 
+export const dataForContest = (data) =>
+  http.post('contests/dataForContest', data);
+export const downloadContestFile = (data) =>
+  http.get(`contests/downloadFile/${data.fileName}`);
+export const setNewOffer = (data) => http.post('contests/setNewOffer', data);
+export const setOfferStatus = (data) =>
+  http.post('contests/setOfferStatus', data);
+
 //*CHAT
 export const newMessage = (data) => http.post('chats/newMessage', data);
 export const changeChatBlock = (data) => http.post('chats/blackList', data);
@@ -33,19 +41,12 @@ export const addChatToCatalog = ({ catalogId, chatId }) =>
 export const removeChatFromCatalog = ({ catalogId, chatId }) =>
   http.delete(`chats/catalogs/${catalogId}/chat-items/${chatId}`);
 
-//*REST
-export const registerRequest = (data) => http.post('registration', data);
-export const loginRequest = (data) => http.post('login', data);
-export const setNewOffer = (data) => http.post('setNewOffer', data);
-export const setOfferStatus = (data) => http.post('setOfferStatus', data);
-export const downloadContestFile = (data) =>
-  http.get(`downloadFile/${data.fileName}`);
-export const changeMark = (data) => http.post('changeMark', data);
-export const dataForContest = (data) => http.post('dataForContest', data);
-
-export const getUser = () => http.post('getUser');
-export const updateUser = (data) => http.post('updateUser', data);
-
-export const payMent = (data) => http.post('pay', data.formData);
-export const cashOut = (data) => http.post('cashout', data);
+//*USER
+export const registerRequest = (data) => http.post('users/registration', data);
+export const loginRequest = (data) => http.post('users/login', data);
+export const getUser = () => http.post('users/getUser');
+export const payMent = (data) => http.post('users/pay', data.formData);
+export const changeMark = (data) => http.post('users/changeMark', data);
+export const updateUser = (data) => http.post('users/updateUser', data);
 export const getUserTransactions = () => http.get('users/id/transactions');
+export const cashOut = (data) => http.post('users/cashout', data);
