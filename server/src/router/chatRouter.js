@@ -1,11 +1,12 @@
 const chatRouter = require('express').Router();
 const chatController = require('../controllers/chatController');
 
+chatRouter.get('/', chatController.getChat);
+chatRouter.get('/preview', chatController.getPreview);
 chatRouter.post('/newMessage', chatController.addMessage);
-chatRouter.post('/getChat', chatController.getChat);
-chatRouter.post('/getPreview', chatController.getPreview);
 chatRouter.post('/blackList', chatController.blackList);
 chatRouter.post('/favorite', chatController.favoriteChat);
+
 chatRouter.post('/createCatalog', chatController.createCatalog);
 chatRouter.post('/deleteCatalog', chatController.deleteCatalog);
 chatRouter.post('/updateNameCatalog', chatController.updateNameCatalog);

@@ -12,9 +12,9 @@ export const updateContest = (data) =>
   http.put(`contests/${data.get('contestId')}`, data);
 
 //*CHAT
+export const getDialog = (data) => http.get('chats/', { params: { ...data } });
+export const getPreviewChat = () => http.get('chats/preview');
 export const newMessage = (data) => http.post('chats/newMessage', data);
-export const getDialog = (data) => http.post('chats/getChat', data);
-export const getPreviewChat = () => http.post('chats/getPreview');
 export const changeChatBlock = (data) => http.post('chats/blackList', data);
 export const changeChatFavorite = (data) => http.post('chats/favorite', data);
 export const createCatalog = (data) => http.post('chats/createCatalog', data);

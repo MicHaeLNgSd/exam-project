@@ -72,10 +72,13 @@ module.exports.addMessage = async (req, res, next) => {
 };
 
 module.exports.getChat = async (req, res, next) => {
-  const participants = [req.tokenData.userId, req.body.interlocutorId];
-  participants.sort(
-    (participant1, participant2) => participant1 - participant2
-  );
+  const {
+    tokenData: { userId },
+    query: { interlocutorId },
+  } = req;
+
+  const participants = [userId, interlocutorId];
+  participants.sort((p1, p2) => p1 - p2);
   try {
     const messages = await Message.aggregate([
       {
@@ -101,7 +104,7 @@ module.exports.getChat = async (req, res, next) => {
     ]);
 
     const interlocutor = await userQueries.findUser({
-      id: req.body.interlocutorId,
+      id: interlocutorId,
     });
     res.send({
       messages,
@@ -119,6 +122,7 @@ module.exports.getChat = async (req, res, next) => {
 };
 
 module.exports.getPreview = async (req, res, next) => {
+  const { userId } = req.tokenData;
   try {
     const conversations = await Message.aggregate([
       {
@@ -134,7 +138,7 @@ module.exports.getPreview = async (req, res, next) => {
       },
       {
         $match: {
-          'conversationData.participants': req.tokenData.userId,
+          'conversationData.participants': userId,
         },
       },
       {
@@ -154,33 +158,32 @@ module.exports.getPreview = async (req, res, next) => {
         },
       },
     ]);
-    const interlocutors = [];
-    conversations.forEach((conversation) => {
-      interlocutors.push(
-        conversation.participants.find(
-          (participant) => participant !== req.tokenData.userId
-        )
-      );
-    });
+
+    const interlocutors = conversations.map((c) =>
+      c.participants.find((p) => p !== userId)
+    );
     const senders = await db.User.findAll({
       where: {
         id: interlocutors,
       },
       attributes: ['id', 'firstName', 'lastName', 'displayName', 'avatar'],
     });
-    conversations.forEach((conversation) => {
-      senders.forEach((sender) => {
-        if (conversation.participants.includes(sender.dataValues.id)) {
-          conversation.interlocutor = {
-            id: sender.dataValues.id,
-            firstName: sender.dataValues.firstName,
-            lastName: sender.dataValues.lastName,
-            displayName: sender.dataValues.displayName,
-            avatar: sender.dataValues.avatar,
+
+    conversations.forEach((c) => {
+      senders.forEach(({ dataValues }) => {
+        const { id, firstName, lastName, displayName, avatar } = dataValues;
+        if (c.participants.includes(id)) {
+          c.interlocutor = {
+            id,
+            firstName,
+            lastName,
+            displayName,
+            avatar,
           };
         }
       });
     });
+
     res.send(conversations);
   } catch (err) {
     next(err);
