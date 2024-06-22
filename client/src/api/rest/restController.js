@@ -12,20 +12,26 @@ export const updateContest = (data) =>
   http.put(`contests/${data.get('contestId')}`, data);
 
 //*CHAT
-export const getDialog = (data) => http.get('chats/', { params: { ...data } });
-export const getPreviewChat = () => http.get('chats/preview');
 export const newMessage = (data) => http.post('chats/newMessage', data);
 export const changeChatBlock = (data) => http.post('chats/blackList', data);
 export const changeChatFavorite = (data) => http.post('chats/favorite', data);
-export const createCatalog = (data) => http.post('chats/createCatalog', data);
-export const deleteCatalog = (data) => http.post('chats/deleteCatalog', data);
-export const changeCatalogName = (data) =>
-  http.post('chats/updateNameCatalog', data);
-export const addChatToCatalog = (data) =>
-  http.post('chats/addNewChatToCatalog', data);
-export const removeChatFromCatalog = (data) =>
-  http.post('chats/removeChatFromCatalog', data);
-export const getCatalogList = (data) => http.post('chats/getCatalogs', data);
+export const getDialog = (data) => http.get('chats/', { params: { ...data } });
+export const getPreviewChat = () => http.get('chats/preview');
+
+//*CHAT/CATALOG
+export const createCatalog = (data) => http.post('chats/catalogs', data);
+export const getCatalogList = (data) =>
+  http.get('chats/catalogs', { params: { ...data } });
+
+export const changeCatalogName = ({ catalogId, ...data }) =>
+  http.put(`chats/catalogs/${catalogId}`, data);
+export const deleteCatalog = ({ catalogId, ...data }) =>
+  http.delete(`chats/catalogs/${catalogId}`, data);
+
+export const addChatToCatalog = ({ catalogId, chatId }) =>
+  http.post(`chats/catalogs/${catalogId}/chat-items/${chatId}`);
+export const removeChatFromCatalog = ({ catalogId, chatId }) =>
+  http.delete(`chats/catalogs/${catalogId}/chat-items/${chatId}`);
 
 //*REST
 export const registerRequest = (data) => http.post('registration', data);
