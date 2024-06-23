@@ -12,10 +12,10 @@ userRouter.post(
   userController.registration
 );
 userRouter.post('/login', validators.validateLogin, userController.login);
-userRouter.post('/getUser', checkToken.checkAuth);
 
 userRouter.use(checkToken.checkToken);
 
+userRouter.get('/id', checkToken.checkAuth);
 userRouter.post(
   '/pay',
   basicMiddlewares.onlyForCustomer,

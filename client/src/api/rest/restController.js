@@ -44,9 +44,9 @@ export const removeChatFromCatalog = ({ catalogId, chatId }) =>
 //*USER
 export const registerRequest = (data) => http.post('users/registration', data);
 export const loginRequest = (data) => http.post('users/login', data);
-export const getUser = () => http.post('users/getUser');
+export const getUser = () => http.get('users/id');
+export const getUserTransactions = () => http.get('users/id/transactions');
 export const payMent = (data) => http.post('users/pay', data.formData);
 export const changeMark = (data) => http.post('users/changeMark', data);
 export const updateUser = (data) => http.post('users/updateUser', data);
-export const getUserTransactions = () => http.get('users/id/transactions');
 export const cashOut = (data) => http.post('users/cashout', data);

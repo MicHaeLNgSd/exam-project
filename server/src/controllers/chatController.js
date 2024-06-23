@@ -76,7 +76,6 @@ module.exports.getChat = async (req, res, next) => {
   const { interlocutorId } = req.query;
 
   const participants = [userId, interlocutorId].sort((a, b) => a - b);
-  console.log('getChat', participants);
   try {
     const messages = await Message.aggregate([
       {
