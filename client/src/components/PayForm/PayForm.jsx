@@ -9,32 +9,27 @@ import PayInput from '../InputComponents/PayInput/PayInput';
 import Schems from '../../utils/validators/validationSchems';
 
 const PayForm = (props) => {
-  const changeFocusOnCard = (name) => {
-    props.changeFocusOnCard(name);
+  const { focusOnElement, isPayForOrder, changeFocusOnCard } = props;
+
+  const initialValues = {
+    focuse: '',
+    name: '',
+    number: '',
+    cvc: '',
+    expiry: '',
   };
 
-  const pay = (values) => {
-    props.sendRequest(values);
-  };
+  const pay = (values) => props.sendRequest(values);
 
-  const { focusOnElement, isPayForOrder } = props;
   return (
     <div className={styles.payFormContainer}>
       <span className={styles.headerInfo}>Payment Information</span>
       <Formik
-        initialValues={{
-          focusOnElement: '',
-          name: '',
-          number: '',
-          cvc: '',
-          expiry: '',
-        }}
+        initialValues={initialValues}
         onSubmit={pay}
         validationSchema={Schems.PaymentSchema}
       >
-        {({ values }) => {
-          const { name, number, expiry, cvc } = values;
-
+        {({ values: { name, number, expiry, cvc } }) => {
           return (
             <>
               <div className={styles.cardContainer}>
@@ -155,8 +150,10 @@ const PayForm = (props) => {
   );
 };
 
+const mapStateToProps = ({ payment }) => payment;
+
 const mapDispatchToProps = (dispatch) => ({
   changeFocusOnCard: (data) => dispatch(changeFocusOnCard(data)),
 });
 
-export default connect(null, mapDispatchToProps)(PayForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PayForm);
