@@ -3,7 +3,7 @@ import CONTANTS from '../constants';
 import history from '../browserHistory';
 
 const instance = axios.create({
-  baseURL: CONTANTS.BASE_URL,
+  baseURL: `${CONTANTS.BASE_URL}api/`,
 });
 
 instance.interceptors.request.use(

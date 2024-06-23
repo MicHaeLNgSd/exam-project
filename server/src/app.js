@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(queryParser(queryParserConfigs));
 
 app.use('/public', express.static(filesPath));
-app.use(rootRouter);
+app.use('/api', rootRouter);
 app.use(multerHandlerError);
 app.use(handlerError);
 
