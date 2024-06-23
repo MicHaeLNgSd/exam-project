@@ -15,7 +15,6 @@ userRouter.post('/login', validators.validateLogin, userController.login);
 
 userRouter.use(checkToken.checkToken);
 
-userRouter.get('/id', checkToken.checkAuth);
 userRouter.post(
   '/pay',
   basicMiddlewares.onlyForCustomer,
@@ -24,20 +23,20 @@ userRouter.post(
   validators.validateContestCreation,
   userController.payment
 );
-
-userRouter.post(
-  '/changeMark',
-  basicMiddlewares.onlyForCustomer,
-  userController.changeMark
-);
-userRouter.post('/updateUser', upload.uploadAvatar, userController.updateUser);
-
-userRouter.get('/id/transactions', userController.getUserTransactions);
-
 userRouter.post(
   '/cashout',
   basicMiddlewares.onlyForCreative,
   userController.cashout
 );
+
+userRouter.get('/id', checkToken.checkAuth);
+userRouter.get('/id/transactions', userController.getUserTransactions);
+
+userRouter.put(
+  '/changeMark',
+  basicMiddlewares.onlyForCustomer,
+  userController.changeMark
+);
+userRouter.put('/updateUser', upload.uploadAvatar, userController.updateUser);
 
 module.exports = userRouter;
