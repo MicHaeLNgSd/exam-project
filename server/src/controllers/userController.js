@@ -82,19 +82,16 @@ function getQuery(offerId, userId, mark, isFirst, transaction) {
 }
 
 module.exports.changeMark = async (req, res, next) => {
-  let sum = 0;
-  let avg = 0;
-  let transaction;
   const { isFirst, offerId, mark, creatorId } = req.body;
-  const userId = req.tokenData.userId;
+  const { userId } = req.tokenData;
+
+  const transaction = await db.sequelize.transaction({
+    isolationLevel: db.Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED,
+  });
   try {
-    transaction = await db.sequelize.transaction({
-      isolationLevel:
-        db.Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED,
-    });
-    const query = getQuery(offerId, userId, mark, isFirst, transaction);
-    await query();
-    const offersArray = await db.Rating.findAll({
+    await getQuery(offerId, userId, mark, isFirst, transaction)();
+
+    const offers = await db.Rating.findAll({
       include: [
         {
           model: db.Offer,
@@ -104,10 +101,9 @@ module.exports.changeMark = async (req, res, next) => {
       ],
       transaction,
     });
-    for (let i = 0; i < offersArray.length; i++) {
-      sum += offersArray[i].dataValues.mark;
-    }
-    avg = sum / offersArray.length;
+
+    const sum = offers.reduce((acc, { dataValues: mark }) => acc + mark, 0);
+    const avg = sum / offers.length;
 
     await userQueries.updateUser({ rating: avg }, creatorId, transaction);
     transaction.commit();
