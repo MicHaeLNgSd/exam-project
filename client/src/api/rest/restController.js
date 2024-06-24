@@ -25,14 +25,14 @@ export const downloadContestFile = ({ fileName }) =>
   http.get(`contests/files/${fileName}`);
 
 //*OFFERS
-export const setNewOffer = (data) => http.post('offers/', data);
-export const setOfferStatus = (data) => http.put('offers/', data);
+export const setNewOffer = (data) => http.post('offers', data);
+export const setOfferStatus = (data) => http.put('offers', data);
 
 //*CHATS
 export const newMessage = (data) => http.post('chats/newMessage', data);
 export const changeChatBlock = (data) => http.post('chats/blackList', data);
 export const changeChatFavorite = (data) => http.post('chats/favorite', data);
-export const getDialog = (data) => http.get('chats/', { params: { ...data } });
+export const getDialog = (data) => http.get('chats', { params: { ...data } });
 export const getPreviewChat = () => http.get('chats/preview');
 
 //*CHATS/CATALOGS
