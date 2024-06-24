@@ -1,5 +1,15 @@
 import http from '../interceptor';
 
+//*USER
+export const registerRequest = (data) => http.post('user/registration', data);
+export const loginRequest = (data) => http.post('user/login', data);
+export const payMent = (data) => http.post('user/pay', data.formData);
+export const cashOut = (data) => http.post('user/cashout', data);
+export const getUser = () => http.get('user');
+export const getUserTransactions = () => http.get('user/transactions');
+export const updateUser = (data) => http.put('user', data);
+export const changeMark = (data) => http.put('user/changeMark', data);
+
 //*CONTEST
 export const getCustomersContests = (data) =>
   http.get(`contests/customers`, { params: { ...data } });
@@ -40,13 +50,3 @@ export const addChatToCatalog = ({ catalogId, chatId }) =>
   http.post(`chats/catalogs/${catalogId}/chat-items/${chatId}`);
 export const removeChatFromCatalog = ({ catalogId, chatId }) =>
   http.delete(`chats/catalogs/${catalogId}/chat-items/${chatId}`);
-
-//*USER
-export const registerRequest = (data) => http.post('users/registration', data);
-export const loginRequest = (data) => http.post('users/login', data);
-export const payMent = (data) => http.post('users/pay', data.formData);
-export const cashOut = (data) => http.post('users/cashout', data);
-export const getUser = () => http.get('users/id');
-export const getUserTransactions = () => http.get('users/id/transactions');
-export const updateUser = (data) => http.put('users/id', data);
-export const changeMark = (data) => http.put('users/changeMark', data);

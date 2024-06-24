@@ -5,7 +5,7 @@ const contestRouter = require('./contestRouter');
 const chatRouter = require('./chatRouter');
 const userRouter = require('./userRouter');
 
-rootRouter.use('/users', userRouter);
+rootRouter.use('/user', userRouter);
 rootRouter.use(checkToken.checkToken);
 rootRouter.use('/contests', contestRouter);
 rootRouter.use('/chats', chatRouter);

@@ -29,14 +29,16 @@ userRouter.post(
   userController.cashout
 );
 
-userRouter.get('/id', checkToken.checkAuth);
-userRouter.get('/id/transactions', userController.getUserTransactions);
+userRouter
+  .route('/')
+  .get(checkToken.checkAuth)
+  .put(upload.uploadAvatar, userController.updateUser);
 
+userRouter.get('/transactions', userController.getUserTransactions);
 userRouter.put(
   '/changeMark',
   basicMiddlewares.onlyForCustomer,
   userController.changeMark
 );
-userRouter.put('/updateUser', upload.uploadAvatar, userController.updateUser);
 
 module.exports = userRouter;
