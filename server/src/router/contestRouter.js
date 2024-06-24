@@ -20,18 +20,7 @@ contestRouter
 
 //=========================
 
-contestRouter.post('/dataForContest', contestController.dataForContest);
-contestRouter.get('/downloadFile/:fileName', contestController.downloadFile);
-contestRouter.post(
-  '/setNewOffer',
-  upload.uploadLogoFiles,
-  basicMiddlewares.canSendOffer,
-  contestController.setNewOffer
-);
-contestRouter.post(
-  '/setOfferStatus',
-  basicMiddlewares.onlyForCustomerWhoCreateContest,
-  contestController.setOfferStatus
-);
+contestRouter.post('/data', contestController.dataForContest);
+contestRouter.get('/files/:fileName', contestController.downloadFile);
 
 module.exports = contestRouter;

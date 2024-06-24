@@ -1,6 +1,6 @@
 import http from '../interceptor';
 
-//*USER
+//*USERS
 export const registerRequest = (data) => http.post('user/registration', data);
 export const loginRequest = (data) => http.post('user/login', data);
 export const payMent = (data) => http.post('user/pay', data.formData);
@@ -10,10 +10,9 @@ export const getUserTransactions = () => http.get('user/transactions');
 export const updateUser = (data) => http.put('user', data);
 export const changeMark = (data) => http.put('user/changeMark', data);
 
-//*CONTEST
+//*CONTESTS
 export const getCustomersContests = (data) =>
   http.get(`contests/customers`, { params: { ...data } });
-// limit, offset, typeIndex, contestId, industry, awardSort, ownEntries,
 export const getActiveContests = (data) =>
   http.get(`contests`, { params: { ...data } });
 export const getContestById = ({ contestId }) =>
@@ -21,22 +20,22 @@ export const getContestById = ({ contestId }) =>
 export const updateContest = (data) =>
   http.put(`contests/${data.get('contestId')}`, data);
 
-export const dataForContest = (data) =>
-  http.post('contests/dataForContest', data);
-export const downloadContestFile = (data) =>
-  http.get(`contests/downloadFile/${data.fileName}`);
-export const setNewOffer = (data) => http.post('contests/setNewOffer', data);
-export const setOfferStatus = (data) =>
-  http.post('contests/setOfferStatus', data);
+export const dataForContest = (data) => http.post('contests/data', data);
+export const downloadContestFile = ({ fileName }) =>
+  http.get(`contests/files/${fileName}`);
 
-//*CHAT
+//*OFFERS
+export const setNewOffer = (data) => http.post('offers/', data);
+export const setOfferStatus = (data) => http.put('offers/', data);
+
+//*CHATS
 export const newMessage = (data) => http.post('chats/newMessage', data);
 export const changeChatBlock = (data) => http.post('chats/blackList', data);
 export const changeChatFavorite = (data) => http.post('chats/favorite', data);
 export const getDialog = (data) => http.get('chats/', { params: { ...data } });
 export const getPreviewChat = () => http.get('chats/preview');
 
-//*CHAT/CATALOG
+//*CHATS/CATALOGS
 export const createCatalog = (data) => http.post('chats/catalogs', data);
 export const getCatalogList = (data) =>
   http.get('chats/catalogs', { params: { ...data } });
