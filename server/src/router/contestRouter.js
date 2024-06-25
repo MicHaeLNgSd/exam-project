@@ -1,5 +1,4 @@
 const contestRouter = require('express').Router();
-
 const basicMiddlewares = require('../middlewares/basicMiddlewares');
 const contestController = require('../controllers/contestController');
 const upload = require('../utils/fileUpload');
