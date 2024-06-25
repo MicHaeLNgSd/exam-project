@@ -1,5 +1,4 @@
 const userRouter = require('express').Router();
-
 const userController = require('../controllers/userController');
 const basicMiddlewares = require('../middlewares/basicMiddlewares');
 const checkToken = require('../middlewares/checkToken');
