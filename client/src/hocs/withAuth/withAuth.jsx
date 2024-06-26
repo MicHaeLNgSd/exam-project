@@ -16,6 +16,9 @@ const withAuth = (Component, props) => {
       if (this.props.isFetching) {
         return <Spinner />;
       }
+      if (!this.props.data) {
+        return <Redirect to="/login" />;
+      }
       return (
         <Component
           history={this.props.history}
