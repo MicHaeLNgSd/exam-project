@@ -1,6 +1,5 @@
 import axios from 'axios';
 import CONTANTS from '../constants';
-import history from '../browserHistory';
 
 const instance = axios.create({
   baseURL: `${CONTANTS.BASE_URL}api/`,
@@ -25,13 +24,14 @@ instance.interceptors.response.use(
     return response;
   },
   (err) => {
+    //TODO rewrite for the better if you know how
     if (
       err.response.status === 408 &&
-      history.location.pathname !== '/login' &&
-      history.location.pathname !== '/registration' &&
-      history.location.pathname !== '/'
+      window.location.pathname !== '/login' &&
+      window.location.pathname !== '/registration' &&
+      window.location.pathname !== '/'
     ) {
-      history.replace('/login');
+      window.location.pathname = '/login';
     }
     return Promise.reject(err);
   }
