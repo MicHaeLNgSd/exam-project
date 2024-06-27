@@ -7,9 +7,7 @@ const controller = require('../socketInit');
 
 module.exports.addMessage = async (req, res, next) => {
   const participants = [req.tokenData.userId, req.body.recipient];
-  participants.sort(
-    (participant1, participant2) => participant1 - participant2
-  );
+  participants.sort((a, b) => a - b);
   try {
     const newConversation = await Conversation.findOneAndUpdate(
       {
