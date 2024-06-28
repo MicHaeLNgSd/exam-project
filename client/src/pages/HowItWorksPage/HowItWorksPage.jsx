@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header';
 import CONSTANTS from '../../constants';
 import styles from './HowItWorksPage.module.sass';
 import classNames from 'classnames';
-import { WAYS_TO_USE } from './HowItWorksData';
+import { NAMING_CONTESTS_STEPS, WAYS_TO_USE } from './HowItWorksData';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const IMG_PATH = `${CONSTANTS.STATIC_IMAGES_PATH}how_it_works/`;
@@ -65,7 +65,35 @@ function HowItWorksPage() {
             ))}
           </div>
         </section>
-        <section></section>
+        <section className={styles.namingStepsSec}>
+          <div className={styles.namingStepsHead}>
+            <img
+              src={`${IMG_PATH}prize.svg`}
+              alt="prize"
+              className={styles.namingStepsImg}
+            />
+            <h2 className={styles.namingStepsHeader}>
+              How Do Naming Contests Work?
+            </h2>
+          </div>
+          <div className={styles.namingStepsList}>
+            {NAMING_CONTESTS_STEPS.map((step, index) => (
+              <div key={index} className={styles.namingStepsItem}>
+                <span className={styles.namingStepsNumber}>
+                  Step {index + 1}
+                </span>
+                <p>{step}</p>
+                <span className={styles.stepArrow}>
+                  <img
+                    className={styles.namingStepsArrow}
+                    src={`${IMG_PATH}arrow-right-purpule.svg`}
+                    alt="arrow-right"
+                  />
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
         <section></section>
         <section></section>
         <section></section>

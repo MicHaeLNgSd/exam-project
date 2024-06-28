@@ -25,4 +25,11 @@ const WAYS_TO_USE = [
   },
 ];
 
-export { WAYS_TO_USE };
+const NAMING_CONTESTS_STEPS = [
+  'Fill out your Naming Brief and begin receiving name ideas in minutes',
+  'Rate the submissions and provide feedback to creatives. Creatives submit even more names based on your feedback.',
+  'Our team helps you test your favorite names with your target audience. We also assist with Trademark screening.',
+  'Pick a Winner. The winner gets paid for their submission.',
+];
+
+export { WAYS_TO_USE, NAMING_CONTESTS_STEPS };

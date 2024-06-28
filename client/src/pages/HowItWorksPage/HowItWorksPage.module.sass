@@ -106,12 +106,14 @@ $headerColor: #19184A
   border-radius: 24px
   padding: 25px
 
+  background-color: #fff
   flex: 1
 
   @include flex($fd: column, $ai: flex-start)
   p
     flex: 1
     margin-bottom: 40px
+    color: rgba(25, 24, 74, 0.5)
 
 .useWaysHeader
 
@@ -131,4 +133,49 @@ $headerColor: #19184A
 
 //=====================
 
-  
+.namingStepsSec
+  @extend %section
+
+.namingStepsHead
+  @include flex($fd: column)
+  margin-bottom: 40px
+
+.namingStepsImg
+  height: 70px
+
+.namingStepsList
+  @include flex($gap: 24px, $ai: stretch)
+
+.namingStepsItem
+  // box-shadow: 0 16px 32px rgb(0 0 0 / .04)
+  position: relative
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+  border-radius: 24px
+  padding: 25px
+  background-color: #fff
+  flex: 1
+
+  @include flex(flex-start, flex-start, column, 10px)
+  p
+    color: rgba(25, 24, 74, 0.5)
+
+.stepArrow
+  position: absolute
+  display: block
+  color: rgba(25, 24, 74, 0.5)
+  width: 28px
+  height: 14px
+  top: 50%
+  left: 100%
+  z-index: 99
+  margin: -2px 0 0 -14px
+
+.namingStepsNumber
+  font-size: 14px
+  color: #fff
+  font-weight: 700
+  height: 32px
+  background: #4942F3
+  border-radius: 20px
+  line-height: 32px
+  padding: 0 15px
