@@ -39,7 +39,32 @@ function HowItWorksPage() {
             className={styles.howWorksImg}
           />
         </section>
-
+        <section className={styles.useWaysSec}>
+          <div className={styles.useWaysHead}>
+            <h4 className={styles.useWaysTag}>Our Services</h4>
+            <h2 className={styles.useWaysHeader}>3 Ways To Use Atom</h2>
+            <p className={styles.useWaysText}>
+              Atom offers 3 ways to get you a perfect name for your business.
+            </p>
+          </div>
+          <div className={styles.useWaysList}>
+            {WAYS_TO_USE.map((way, index) => (
+              <div key={index} className={styles.useWaysItem}>
+                <img src={`${IMG_PATH}${way.iconURL}`} alt={way.alt} />
+                <h3>{way.header}</h3>
+                <p>{way.text}</p>
+                <Link to={way.btnLink} className={styles.useWaysBtn}>
+                  {way.btnText}
+                  <img
+                    className={styles.useWaysBtnArrow}
+                    src={`${IMG_PATH}icon-arrow-long-right.svg`}
+                    alt="arrow-right"
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
         <section></section>
         <section></section>
         <section></section>

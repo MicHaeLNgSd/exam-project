@@ -1,6 +1,19 @@
-// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100..900&display=swap')
 $headerColor: #19184A
   
+%button 
+  display: block
+  width: max-content
+  background-image: linear-gradient(45deg,#5A73ED 0%,#3D57D5 100%)
+  border-radius: 8px
+  padding: 12px 16px
+  color: white
+  font-weight: 700
+  &:hover
+    background: linear-gradient(-45deg, #5A73ED 0%, #3D57D5 100%)
+
+%section 
+  padding: 60px 85px
+
 @mixin flex($jc: center, $ai: center, $fd: row, $gap: 0px)
   display: flex
   justify-content: $jc
@@ -10,23 +23,26 @@ $headerColor: #19184A
 
 .howItWorksMain
   // font-family: "Product Sans", sans-serif
-  // font-family: "Noto Sans HK", sans-serif
   box-sizing: border-box
-  padding: 60px 85px
   line-height: 1.5
 
   & h1
+    font-weight: 700
     font-size: 2.5rem
     margin-bottom: 10px
 
   & h2
+    font-weight: 700
     font-size: 32px
     
   & h3
+    font-weight: 700
     font-size: 24px
 
 .howWorksSec
+  @extend %section
   margin: 0 38px
+  background-color: #FBFBFB
   @include flex(space-around)
 
 .howWorksInfo
@@ -45,7 +61,6 @@ $headerColor: #19184A
 
 .howWorksHeader
   color: $headerColor
-  font-weight: 700
   margin: 0 0 10px
 
 .howWorksText
@@ -53,13 +68,67 @@ $headerColor: #19184A
   margin: 0 0 40px
 
 .howItWorksBtn
-  background-image: linear-gradient(-45deg,#5A73ED 0%,#3D57D5 100%)
-  border-radius: 8px
-  padding: 12px 16px
-  color: white
+  @extend %button
   .playBtn
     padding-right: 10px
 
 .howWorksImg
   width: 450px
   object-fit: contain
+
+//=====================
+
+.useWaysSec
+  @extend %section
+  @include flex($fd: column)
+  background: linear-gradient(271.19deg, rgba(48, 125, 246, .05) 0%, rgba(20, 187, 191, .05) 100%), #FFFFFF
+
+.useWaysTag
+  color: #377dff
+  background-color: rgba(55, 125, 255, 0.1)
+  padding: 7px 15px
+  margin: 0 0 8px
+  border-radius: 20px
+  font-size: 11px
+  width: max-content
+
+.useWaysHead
+  // text-align: center
+  @include flex($fd: column)
+  margin-bottom: 40px
+
+.useWaysList
+  @include flex($gap: 24px, $ai: stretch)
+
+.useWaysItem
+  // box-shadow: 0 16px 32px rgb(0 0 0 / .04)
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+  border-radius: 24px
+  padding: 25px
+
+  flex: 1
+
+  @include flex($fd: column, $ai: flex-start)
+  p
+    flex: 1
+    margin-bottom: 40px
+
+.useWaysHeader
+
+.useWaysBtn
+  @extend %button
+  
+  margin-top: auto
+
+  &Arrow
+    margin-left: 10px 
+    position: relative
+    transition: all 0.2s ease-in
+    left: 0
+
+  &:hover &Arrow
+    left: 5px
+
+//=====================
+
+  
