@@ -1,5 +1,11 @@
 $headerColor: #19184A
-  
+$secondColor: #377dff
+$plainTextColor: rgba(25, 24, 74, 0.5)
+
+%headerText
+  font-weight: 700
+  color: $headerColor
+
 %button 
   display: block
   width: max-content
@@ -14,30 +20,48 @@ $headerColor: #19184A
 %section 
   padding: 60px 85px
 
-@mixin flex($jc: center, $ai: center, $fd: row, $gap: 0px)
+%tag 
+  color: $secondColor
+  background-color: rgba(55, 125, 255, 0.1)
+  padding: 7px 15px
+  margin-bottom: 8px
+  border-radius: 20px
+  width: max-content
+
+%infoItem
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+  border-radius: 24px
+  padding: 25px
+  background-color: #fff
+  flex: 1
+
+@mixin flex($jc: center, $ai: center, $fd: row, $gap: 0px, $wrap: nowrap)
   display: flex
   justify-content: $jc
   align-items: $ai
   flex-direction: $fd
   gap: $gap
+  flex-wrap: $wrap
 
 .howItWorksMain
   // font-family: "Product Sans", sans-serif
-  box-sizing: border-box
   line-height: 1.5
 
+  & *
+    box-sizing: border-box
+
   & h1
-    font-weight: 700
+    @extend %headerText
     font-size: 2.5rem
     margin-bottom: 10px
 
   & h2
-    font-weight: 700
-    font-size: 32px
+    @extend %headerText
+    font-size: 2rem
     
   & h3
-    font-weight: 700
-    font-size: 24px
+    @extend %headerText
+    font-size: 1.75rem
 
 .howWorksSec
   @extend %section
@@ -49,23 +73,18 @@ $headerColor: #19184A
   max-width: 490px
 
 .howWorksTag
-  color: #377dff
-  background-color: rgba(55, 125, 255, 0.1)
-  padding: 7px 15px
-  margin: 0 0 8px
-  border-radius: 20px
+  @extend %tag
   font-size: 12px
-  width: max-content
 
 .howWorksInfo
 
+//TODO to take from element (not good)
 .howWorksHeader
-  color: $headerColor
-  margin: 0 0 10px
+  margin-bottom: 10px
 
 .howWorksText
-  color: rgba(25, 24, 74, 0.5)
-  margin: 0 0 40px
+  color: $plainTextColor
+  margin-bottom: 40px
 
 .howItWorksBtn
   @extend %button
@@ -84,16 +103,10 @@ $headerColor: #19184A
   background: linear-gradient(271.19deg, rgba(48, 125, 246, .05) 0%, rgba(20, 187, 191, .05) 100%), #FFFFFF
 
 .useWaysTag
-  color: #377dff
-  background-color: rgba(55, 125, 255, 0.1)
-  padding: 7px 15px
-  margin: 0 0 8px
-  border-radius: 20px
+  @extend %tag
   font-size: 11px
-  width: max-content
 
 .useWaysHead
-  // text-align: center
   @include flex($fd: column)
   margin-bottom: 40px
 
@@ -101,27 +114,18 @@ $headerColor: #19184A
   @include flex($gap: 24px, $ai: stretch)
 
 .useWaysItem
-  // box-shadow: 0 16px 32px rgb(0 0 0 / .04)
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
-  border-radius: 24px
-  padding: 25px
-
-  background-color: #fff
-  flex: 1
-
+  @extend %infoItem
   @include flex($fd: column, $ai: flex-start)
+  //TODO give class
   p
     flex: 1
     margin-bottom: 40px
-    color: rgba(25, 24, 74, 0.5)
+    color: $plainTextColor
 
 .useWaysHeader
 
 .useWaysBtn
   @extend %button
-  
-  margin-top: auto
-
   &Arrow
     margin-left: 10px 
     position: relative
@@ -147,26 +151,21 @@ $headerColor: #19184A
   @include flex($gap: 24px, $ai: stretch)
 
 .namingStepsItem
-  // box-shadow: 0 16px 32px rgb(0 0 0 / .04)
   position: relative
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
-  border-radius: 24px
-  padding: 25px
-  background-color: #fff
-  flex: 1
-
+  @extend %infoItem
   @include flex(flex-start, flex-start, column, 10px)
+  //TODO give class
   p
-    color: rgba(25, 24, 74, 0.5)
+    color: $plainTextColor
 
 .stepArrow
-  position: absolute
   display: block
-  color: rgba(25, 24, 74, 0.5)
   width: 28px
   height: 14px
+  position: absolute
   top: 50%
   left: 100%
+  color: $plainTextColor
   z-index: 99
   margin: -2px 0 0 -14px
 
