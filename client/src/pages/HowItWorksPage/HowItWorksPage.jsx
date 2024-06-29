@@ -1,9 +1,15 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import CONSTANTS from '../../constants';
 import styles from './HowItWorksPage.module.sass';
 import classNames from 'classnames';
-import { NAMING_CONTESTS_STEPS, WAYS_TO_USE } from './HowItWorksData';
+import {
+  FAQ_SECTIONS,
+  NAMING_CONTESTS_STEPS,
+  POPULAR_SEARCHES,
+  WAYS_TO_USE,
+} from './HowItWorksData';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const IMG_PATH = `${CONSTANTS.STATIC_IMAGES_PATH}how_it_works/`;
@@ -72,9 +78,9 @@ function HowItWorksPage() {
               alt="prize"
               className={styles.namingStepsImg}
             />
-            <h2 className={styles.namingStepsHeader}>
+            <h3 className={styles.namingStepsHeader}>
               How Do Naming Contests Work?
-            </h2>
+            </h3>
           </div>
           <div className={styles.namingStepsList}>
             {NAMING_CONTESTS_STEPS.map((step, index) => (
@@ -94,10 +100,63 @@ function HowItWorksPage() {
             ))}
           </div>
         </section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
+        <section className={styles.faqSec}>
+          <div className={styles.faqHead}>
+            <h3 className={styles.faqHeader}>Frequently Asked Questions</h3>
+          </div>
+          <nav className={styles.faqNav}>
+            {FAQ_SECTIONS.map((sec, index) => (
+              <div key={index} className={styles.faqNavItem}>
+                {sec.header}
+              </div>
+            ))}
+          </nav>
+          <div className={styles.faqList}>
+            {FAQ_SECTIONS.map((sec, index) => (
+              <section key={index} className={styles.faqSection}>
+                <h4 className={styles.faqSectionHeader}>{sec.header}</h4>
+                <ul>
+                  {sec.questions.map((q, index) => (
+                    <li key={index}>
+                      <div className={styles.faqQuestion}>{q.question}</div>
+                      <div className={styles.faqAnswer}>{q.answer}</div>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        </section>
+        <section className={styles.searchSec}>
+          <div className={styles.searchContainer}>
+            <img
+              src={`${IMG_PATH}icon-search.svg`}
+              alt="search"
+              className={styles.glassIcon}
+            ></img>
+            <input
+              className={styles.searchInput}
+              type="text"
+              placeholder="Search Over 200,000+ Premium Names"
+            />
+            <button className={styles.searchBtn}>
+              <img
+                src={`${IMG_PATH}icon-arrow-long-right.svg`}
+                alt="arrow-right"
+              />
+            </button>
+          </div>
+
+          <div className={styles.popularSearches}>
+            <span>Popular searches</span>
+            {POPULAR_SEARCHES.map((s, index) => (
+              <a href={s.url} key={index} className={styles.searchesLink}>
+                {s.name}
+              </a>
+            ))}
+          </div>
+        </section>
+        <Footer />
       </main>
     </>
   );
