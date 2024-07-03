@@ -2,6 +2,10 @@
 
 .namingStepsSec
   @extend %section
+  background: linear-gradient(271.19deg, rgb(68 51 241 / .04) 0%, rgb(98 142 255 / .04) 100%), #FFFFFF
+
+.namingStepsContainer
+  @extend %container
 
 .namingStepsHead
   @include flex($fd: column)
@@ -9,6 +13,10 @@
 
 .namingStepsImg
   height: 70px
+  margin-bottom: 20px
+
+.namingStepsHeader
+  margin-bottom: 35px
 
 .namingStepsList
   @include flex($gap: 24px, $ai: stretch)
@@ -20,6 +28,7 @@
   //TODO give class
   p
     color: $plainTextColor
+    margin-bottom: 35px
 
 .stepArrow
   display: block

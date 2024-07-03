@@ -21,34 +21,36 @@ function FAQSec({ imgPath }) {
 
   return (
     <section className={styles.faqSec}>
-      <div className={styles.faqHead}>
-        <h3 className={styles.faqHeader}>Frequently Asked Questions</h3>
-      </div>
-      <nav className={styles.faqNav} id={styles.nav}>
-        {FAQ_SECTIONS.map((sec, i) => (
-          <a
-            key={i}
-            href={`#section${i}`}
-            className={getNavClassnames(i)}
-            onClick={() => clickHandler(i)}
-          >
-            {sec.header}
-          </a>
-        ))}
-      </nav>
       <div className={styles.faqContainer}>
-        {FAQ_SECTIONS.map((sec, i) => (
-          <section key={i} id={getId(i)} className={styles.faqSection}>
-            <h4 className={styles.faqSectionHeader}>{sec.header}</h4>
-            <ul className={styles.faqList}>
-              {sec.questions.map((q, i) => (
-                <li key={i} className={styles.faqListItem}>
-                  <ClickOpenElement data={q} imgPath={imgPath} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+        <div className={styles.faqHead}>
+          <h3 className={styles.faqHeader}>Frequently Asked Questions</h3>
+        </div>
+        <nav className={styles.faqNav} id={styles.nav}>
+          {FAQ_SECTIONS.map((sec, i) => (
+            <a
+              key={i}
+              href={`#section${i}`}
+              className={getNavClassnames(i)}
+              onClick={() => clickHandler(i)}
+            >
+              {sec.header}
+            </a>
+          ))}
+        </nav>
+        <div className={styles.faqContainer}>
+          {FAQ_SECTIONS.map((sec, i) => (
+            <section key={i} id={getId(i)} className={styles.faqSection}>
+              <h4 className={styles.faqSectionHeader}>{sec.header}</h4>
+              <ul className={styles.faqList}>
+                {sec.questions.map((q, i) => (
+                  <li key={i} className={styles.faqListItem}>
+                    <ClickOpenElement data={q} imgPath={imgPath} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
       </div>
     </section>
   );

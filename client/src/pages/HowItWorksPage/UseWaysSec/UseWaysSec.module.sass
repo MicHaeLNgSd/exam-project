@@ -5,6 +5,10 @@
   @include flex($fd: column)
   background: linear-gradient(271.19deg, rgba(48, 125, 246, .05) 0%, rgba(20, 187, 191, .05) 100%), #FFFFFF
 
+.useWaysContainer
+  @extend %container
+  margin-bottom: 48px
+
 .useWaysTag
   @extend %tag
   font-size: 11px
@@ -22,13 +26,14 @@
   //TODO give class
   p
     flex: 1
-    margin-bottom: 40px
+    margin-bottom: 48px
     color: $plainTextColor
 
 .useWaysHeader
 
 .useWaysBtn
   @extend %button
+  margin-top: 30px
   &Arrow
     margin-left: 10px 
     position: relative

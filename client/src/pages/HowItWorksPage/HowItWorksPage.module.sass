@@ -17,7 +17,13 @@
     background: linear-gradient(-45deg, #5A73ED 0%, #3D57D5 100%)
 
 %section 
-  padding: 60px 85px
+  padding: 80px 0
+  @include flex(center)
+
+%container 
+  max-width: 1480px
+  width: 100%
+  @include flex($jc: space-between, $fd: column)
 
 %tag 
   color: $secondColor
