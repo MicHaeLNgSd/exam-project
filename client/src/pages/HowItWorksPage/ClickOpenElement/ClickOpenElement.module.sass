@@ -2,6 +2,7 @@
 @import './../../../common/style/templates'
   
 $animationTime: 0.5s
+$activeColor: #307DF6
 
 .container
   border: 1px solid #F3F5FE
@@ -10,11 +11,13 @@ $animationTime: 0.5s
   transition: all ease $animationTime
   cursor: pointer
   &:hover 
-    border: 1px solid #307DF6
+    border: 1px solid $activeColor
   &.active
-    background-color: #307DF6
+    background-color: $activeColor
 
 .header
+  @include flex(space-between)
+
   font-size: 19px
   font-weight: 700
   color: #19184A
@@ -27,31 +30,29 @@ $animationTime: 0.5s
   border: none
   outline: none
 
-  &:after
-    content: '\002B'
-    color: #19184A
-    font-weight: bold
-    float: right
-    margin-left: 5px
-    transition: all $animationTime 0s ease
-    .active &
-      color: white
-      transform: rotate(45deg)
-
   &:hover
     background-color: rgba(48, 125, 246, .1)
   .active &
     background-color: transparent
     color: white
 
-// .active .header:after 
-//   content: "\2212"
+.plusIcon
+  height: 25px
+  width: 25px
+  color: $activeColor
+  float: right
+  margin-left: 10px
+  transition: all ease $animationTime 
+  .active &
+    color: white
+    transform: rotate(45deg)
 
-.contentWrapper
+
+.contentContainer
   // max-height: 0 //move to jsx
   color: white
   overflow: hidden
-  transition: max-height $animationTime 0s ease
+  transition: max-height ease $animationTime  
 
   max-height: 0
   overflow: hidden
@@ -60,8 +61,19 @@ $animationTime: 0.5s
   .active &
     border-color: transparent
 
-// .active .contentWrapper
-//   max-height: max-content //problem //move to jsx
+// .active .contentContainer
+//   max-height: max-content //problem replaced by scrollHeight //move to jsx
+
+.contentWrapper
+  padding: 20px 24px 30px 24px
+  a
+    color: inherit
+    text-decoration: underline
+
 
 .text
-  padding: 20px 24px 30px 24px
+
+.list
+  list-style: disc
+  list-style-position: inside
+  &Item
