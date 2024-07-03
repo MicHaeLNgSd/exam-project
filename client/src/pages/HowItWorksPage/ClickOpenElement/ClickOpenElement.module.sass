@@ -1,0 +1,67 @@
+@import './../HowItWorksPage.module'
+@import './../../../common/style/templates'
+  
+$animationTime: 0.5s
+
+.container
+  border: 1px solid #F3F5FE
+  border-radius: 16px
+  overflow: hidden
+  transition: all ease $animationTime
+  cursor: pointer
+  &:hover 
+    border: 1px solid #307DF6
+  &.active
+    background-color: #307DF6
+
+.header
+  font-size: 19px
+  font-weight: 700
+  color: #19184A
+  background-color: white
+  border-radius: 16px
+  padding: 24px
+  width: 100%
+
+  text-align: left
+  border: none
+  outline: none
+
+  &:after
+    content: '\002B'
+    color: #19184A
+    font-weight: bold
+    float: right
+    margin-left: 5px
+    transition: all $animationTime 0s ease
+    .active &
+      color: white
+      transform: rotate(45deg)
+
+  &:hover
+    background-color: rgba(48, 125, 246, .1)
+  .active &
+    background-color: transparent
+    color: white
+
+// .active .header:after 
+//   content: "\2212"
+
+.contentWrapper
+  // max-height: 0 //move to jsx
+  color: white
+  overflow: hidden
+  transition: max-height $animationTime 0s ease
+
+  max-height: 0
+  overflow: hidden
+  transition: all ease $animationTime
+
+  .active &
+    border-color: transparent
+
+// .active .contentWrapper
+//   max-height: max-content //problem //move to jsx
+
+.text
+  padding: 20px 24px 30px 24px

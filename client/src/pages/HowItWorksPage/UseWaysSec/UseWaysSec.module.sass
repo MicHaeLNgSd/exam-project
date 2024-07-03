@@ -1,0 +1,39 @@
+@import './../HowItWorksPage.module'
+
+.useWaysSec
+  @extend %section
+  @include flex($fd: column)
+  background: linear-gradient(271.19deg, rgba(48, 125, 246, .05) 0%, rgba(20, 187, 191, .05) 100%), #FFFFFF
+
+.useWaysTag
+  @extend %tag
+  font-size: 11px
+
+.useWaysHead
+  @include flex($fd: column)
+  margin-bottom: 40px
+
+.useWaysList
+  @include flex($gap: 24px, $ai: stretch)
+
+.useWaysItem
+  @extend %infoItem
+  @include flex($fd: column, $ai: flex-start)
+  //TODO give class
+  p
+    flex: 1
+    margin-bottom: 40px
+    color: $plainTextColor
+
+.useWaysHeader
+
+.useWaysBtn
+  @extend %button
+  &Arrow
+    margin-left: 10px 
+    position: relative
+    transition: all 0.2s ease-in
+    left: 0
+
+  &:hover &Arrow
+    left: 5px

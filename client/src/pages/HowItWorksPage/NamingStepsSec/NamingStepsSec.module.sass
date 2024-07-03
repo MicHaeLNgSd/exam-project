@@ -1,0 +1,43 @@
+@import './../HowItWorksPage.module'
+
+.namingStepsSec
+  @extend %section
+
+.namingStepsHead
+  @include flex($fd: column)
+  margin-bottom: 40px
+
+.namingStepsImg
+  height: 70px
+
+.namingStepsList
+  @include flex($gap: 24px, $ai: stretch)
+
+.namingStepsItem
+  position: relative
+  @extend %infoItem
+  @include flex(flex-start, flex-start, column, 10px)
+  //TODO give class
+  p
+    color: $plainTextColor
+
+.stepArrow
+  display: block
+  width: 28px
+  height: 14px
+  position: absolute
+  top: 50%
+  left: 100%
+  color: $plainTextColor
+  z-index: 99
+  margin: -2px 0 0 -14px
+
+.namingStepsNumber
+  font-size: 14px
+  color: #fff
+  font-weight: 700
+  height: 32px
+  background: #4942F3
+  border-radius: 20px
+  line-height: 32px
+  padding: 0 15px
