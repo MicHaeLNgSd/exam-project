@@ -26,7 +26,7 @@ function SearchSec({ imgPath }) {
         </div>
 
         <div className={styles.popularSearches}>
-          <span>Popular searches</span>
+          <span className={styles.popularSearchesHeader}>Popular searches</span>
           {POPULAR_SEARCHES.map((s, index) => (
             <a href={s.url} key={index} className={styles.searchesLink}>
               {s.name}
