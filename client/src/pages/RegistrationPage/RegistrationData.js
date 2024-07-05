@@ -36,14 +36,7 @@ const RegistrationFooterColumns = [
     },
     {
       header: 'I have other questions! How can I get in touch with Squadhelp?',
-      article: [
-        { text: 'Check out our', span: 'FAQs' },
-        { text: 'or send us a', span: 'message', end: '.' },
-        {
-          text: `For assistance with launching a contest, you can also call us at ${CONSTANTS.PHONE_NUMBER} or schedule a`,
-          span: 'Branding Consultation',
-        },
-      ],
+      article: `Check out our <span>FAQs</span> or send us a <span>message</span>. For assistance with launching a contest, you can also call us at ${CONSTANTS.PHONE_NUMBER} or schedule a <span>Branding Consultation</span>`,
     },
   ],
 ];
