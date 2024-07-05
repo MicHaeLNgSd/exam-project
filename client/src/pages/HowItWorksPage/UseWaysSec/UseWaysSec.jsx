@@ -18,8 +18,8 @@ function UseWaysSec({ imgPath }) {
           {WAYS_TO_USE.map((way, index) => (
             <div key={index} className={styles.useWaysItem}>
               <img src={`${imgPath}${way.iconURL}`} alt={way.alt} />
-              <h3>{way.header}</h3>
-              <p>{way.text}</p>
+              <h3 className={styles.useWaysItemHeader}>{way.header}</h3>
+              <p className={styles.useWaysItemText}>{way.text}</p>
               <Link to={way.btnLink} className={styles.useWaysBtn}>
                 {way.btnText}
                 <img

@@ -20,7 +20,7 @@ function NamingStepsSec({ imgPath }) {
           {NAMING_CONTESTS_STEPS.map((step, index) => (
             <div key={index} className={styles.namingStepsItem}>
               <span className={styles.namingStepsNumber}>Step {index + 1}</span>
-              <p>{step}</p>
+              <p className={styles.namingStepsText}>{step}</p>
               <span className={styles.stepArrow}>
                 <img
                   className={styles.namingStepsArrow}

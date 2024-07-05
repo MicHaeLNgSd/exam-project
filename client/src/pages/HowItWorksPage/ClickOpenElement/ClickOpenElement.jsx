@@ -3,7 +3,7 @@ import styles from './ClickOpenElement.module.sass';
 import classNames from 'classnames';
 import { GoPlus } from 'react-icons/go';
 
-function ClickOpenElement({ data, imgPath }) {
+function ClickOpenElement({ data }) {
   const { question, answer, list } = data;
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef(null);

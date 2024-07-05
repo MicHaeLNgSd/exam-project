@@ -30,8 +30,7 @@
   position: relative
   @extend %infoItem
   @include flex(flex-start, flex-start, column, 10px)
-  //TODO give class
-  p
+  .namingStepsText
     color: $plainTextColor
     margin-bottom: 35px
 
@@ -44,7 +43,7 @@
     width: 100%
     font-size: 14px
     padding: 10px
-    p 
+    .namingStepsText
       margin-bottom: 15px
   @media(max-width: 576px)
     max-width: 100%

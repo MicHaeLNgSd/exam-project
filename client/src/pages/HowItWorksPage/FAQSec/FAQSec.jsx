@@ -4,7 +4,7 @@ import { FAQ_SECTIONS } from '../HowItWorksData';
 import ClickOpenElement from '../ClickOpenElement/ClickOpenElement';
 import classNames from 'classnames';
 
-function FAQSec({ imgPath }) {
+function FAQSec() {
   const getId = (i) => `section${i}`;
   const [activeNavIndex, setActiveNavIndex] = useState(0);
 
@@ -44,7 +44,7 @@ function FAQSec({ imgPath }) {
               <ul className={styles.faqList}>
                 {sec.questions.map((q, i) => (
                   <li key={i} className={styles.faqListItem}>
-                    <ClickOpenElement data={q} imgPath={imgPath} />
+                    <ClickOpenElement data={q} />
                   </li>
                 ))}
               </ul>

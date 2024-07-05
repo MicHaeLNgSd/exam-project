@@ -19,7 +19,7 @@ function HowItWorksPage() {
         <HowWorksSec imgPath={IMG_PATH} />
         <UseWaysSec imgPath={IMG_PATH} />
         <NamingStepsSec imgPath={IMG_PATH} />
-        <FAQSec imgPath={IMG_PATH} />
+        <FAQSec />
         <SearchSec imgPath={IMG_PATH} />
       </main>
       <Footer />
