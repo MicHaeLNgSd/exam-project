@@ -1,10 +1,7 @@
 import React from 'react';
 import styles from '../RegistrationFooter/RegistrationFooter.module.sass';
 
-function RegistrationFooterItem({ item }) {
-  const { header, article } = item;
-  console.log(article);
-
+function RegistrationFooterItem({ item: { header, article } }) {
   return (
     <>
       <div className={styles.headerArticle}>{header}</div>
