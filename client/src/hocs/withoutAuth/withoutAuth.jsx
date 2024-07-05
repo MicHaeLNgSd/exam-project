@@ -7,8 +7,8 @@ import CONSTANTS from '../../constants';
 const withoutAuth = (Component) => {
   class HocForLoginSignUp extends React.Component {
     componentDidMount() {
-      const token = localStorage.getItem(CONSTANTS.ACCESS_TOKEN);
-      if (!!token) {
+      const hasToken = localStorage.getItem(CONSTANTS.ACCESS_TOKEN) !== null;
+      if (hasToken) {
         this.props.checkAuth(this.props.history.replace);
       }
     }

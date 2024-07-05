@@ -12,8 +12,8 @@ import LoginButtons from './LoginButtons/LoginButtons';
 
 class Header extends React.Component {
   componentDidMount() {
-    const token = localStorage.getItem(CONSTANTS.ACCESS_TOKEN);
-    if (!this.props.data && !!token) {
+    const hasToken = localStorage.getItem(CONSTANTS.ACCESS_TOKEN) !== null;
+    if (!this.props.data && hasToken) {
       this.props.getUser();
     }
   }
@@ -25,7 +25,7 @@ class Header extends React.Component {
   };
 
   startContests = () => {
-    this.props.history.push('/startContest');
+    this.props.history.push('/start-contest');
   };
 
   render() {

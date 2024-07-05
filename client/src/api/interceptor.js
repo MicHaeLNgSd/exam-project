@@ -25,13 +25,16 @@ instance.interceptors.response.use(
   },
   (err) => {
     //TODO rewrite for the better if you know how
-    if (
-      err.response.status === 408 &&
-      window.location.pathname !== '/login' &&
-      window.location.pathname !== '/registration' &&
-      window.location.pathname !== '/'
-    ) {
-      window.location.pathname = '/login';
+    if (err.response.status === 408) {
+      window.localStorage.removeItem(CONTANTS.ACCESS_TOKEN);
+
+      if (
+        window.location.pathname !== '/login' &&
+        window.location.pathname !== '/registration' &&
+        window.location.pathname !== '/'
+      ) {
+        window.location.pathname = '/login';
+      }
     }
     return Promise.reject(err);
   }
