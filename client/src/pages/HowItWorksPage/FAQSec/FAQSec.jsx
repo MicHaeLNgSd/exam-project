@@ -9,7 +9,6 @@ function FAQSec() {
   const [activeNavIndex, setActiveNavIndex] = useState(0);
 
   const getNavClassnames = (index) => {
-    console.log(index, activeNavIndex, index === activeNavIndex);
     return classNames(styles.faqNavItem, {
       [styles.activeNav]: index === activeNavIndex,
     });
