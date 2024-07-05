@@ -1,0 +1,81 @@
+@import './../../common/style/vars'
+@import './../../common/style/templates'
+
+%headerText
+  font-weight: 700
+  color: $headerColor
+
+%button 
+  display: block
+  width: max-content
+  background-image: linear-gradient(45deg,#5A73ED 0%,#3D57D5 100%)
+  border-radius: 8px
+  padding: 12px 16px
+  color: white
+  font-weight: 700
+  &:hover
+    background: linear-gradient(-45deg, #5A73ED 0%, #3D57D5 100%)
+
+%section 
+  padding: 80px 0
+  @include flex(center)
+
+%container 
+  max-width: 1480px
+  width: 100%
+  padding: 0 10px
+  margin: 0 auto
+  @include flex($jc: space-between, $fd: column)
+
+  @media(max-width: 1560px)
+    max-width: 1116px
+  @media(max-width: 1200px)
+    max-width: 936px
+  @media(max-width: 992px)
+    max-width: 720px
+  @media(max-width: 768px)
+    max-width: 540px
+  @media(max-width: 576px)
+    max-width: 100%
+
+%tag 
+  color: $secondColor
+  background-color: rgba(55, 125, 255, 0.1)
+  padding: 7px 15px
+  margin-bottom: 8px
+  border-radius: 20px
+  width: max-content
+
+%infoItem
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+  border-radius: 24px
+  padding: 25px
+  background-color: #fff
+  flex: 1
+
+.howItWorksMain
+  // font-family: "Product Sans", sans-serif
+  line-height: 1.5
+
+  & *
+    box-sizing: border-box
+
+  & h1
+    @extend %headerText
+    font-size: 2.5rem
+    margin-bottom: 10px
+    @media(max-width: 992px)
+      font-size: 1.5rem
+
+  & h2
+    @extend %headerText
+    font-size: 2rem
+    
+  & h3
+    @extend %headerText
+    font-size: 1.75rem
+
+.howItWorksBtn
+  @extend %button
+  .playBtn
+    padding-right: 10px
