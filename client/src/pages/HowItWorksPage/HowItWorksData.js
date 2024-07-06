@@ -5,7 +5,7 @@ const WAYS_TO_USE = [
     header: 'Launch a Contest',
     text: 'Work with hundreds of creative experts to get custom name suggestions for your business or brand. All names are auto-checked for URL availability.',
     btnText: 'Launch a Contest',
-    btnLink: '/startContest',
+    btnLink: '/start-contest',
   },
   {
     iconURL: `monitor.svg`,

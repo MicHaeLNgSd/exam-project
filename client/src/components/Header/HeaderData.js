@@ -23,7 +23,7 @@ const NAVIGATION_LIST = [
   {
     title: 'CONTESTS',
     items: [
-      { name: 'HOW IT WORKS', link: '/howItWorks' },
+      { name: 'HOW IT WORKS', link: '/how-it-works' },
       { name: 'PRICING', link: '/pricing' },
       { name: 'AGENCY SERVICE', link: '#' },
       { name: 'ACTIVE CONTESTS', link: '#' },

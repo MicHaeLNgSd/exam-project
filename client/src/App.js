@@ -46,12 +46,12 @@ class App extends Component {
           <Route exact path="/payment" component={withAuth(Payment)} />
           <Route
             exact
-            path="/startContest"
+            path="/start-contest"
             component={withAuth(StartContestPage)}
           />
           <Route
             exact
-            path="/startContest/nameContest"
+            path="/start-contest/name-contest"
             component={withAuth(ContestCreationPage, {
               contestType: CONSTANTS.NAME_CONTEST,
               title: 'Company Name',
@@ -59,7 +59,7 @@ class App extends Component {
           />
           <Route
             exact
-            path="/startContest/taglineContest"
+            path="/start-contest/tagline-contest"
             component={withAuth(ContestCreationPage, {
               contestType: CONSTANTS.TAGLINE_CONTEST,
               title: 'TAGLINE',
@@ -67,7 +67,7 @@ class App extends Component {
           />
           <Route
             exact
-            path="/startContest/logoContest"
+            path="/start-contest/logo-contest"
             component={withAuth(ContestCreationPage, {
               contestType: CONSTANTS.LOGO_CONTEST,
               title: 'LOGO',
@@ -81,7 +81,7 @@ class App extends Component {
             path="/transactions"
             component={withAuth(TransactionsPage)}
           />
-          <Route exact path="/howItWorks" component={HowItWorksPage} />
+          <Route exact path="/how-it-works" component={HowItWorksPage} />
           <Route component={NotFound} />
         </Switch>
         <ChatContainer />

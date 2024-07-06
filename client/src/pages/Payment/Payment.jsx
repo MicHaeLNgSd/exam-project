@@ -41,7 +41,7 @@ const Payment = (props) => {
   const { error } = props.payment;
   const { clearPaymentStore } = props;
   if (isEmpty(contests)) {
-    props.history.replace('startContest');
+    props.history.replace('/start-contest');
   }
   return (
     <div>

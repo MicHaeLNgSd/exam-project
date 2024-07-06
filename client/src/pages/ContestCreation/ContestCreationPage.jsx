@@ -30,7 +30,7 @@ const ContestCreationPage = (props) => {
     }
   };
 
-  !props.bundleStore.bundle && props.history.replace('/startContest');
+  !props.bundleStore.bundle && props.history.replace('/start-contest');
 
   return (
     <div>
