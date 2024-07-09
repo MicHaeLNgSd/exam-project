@@ -1,0 +1,61 @@
+@import './../../../common/style/vars'
+@import './../../../common/style/templates'
+  
+$maincolor: rgb(69, 90, 137)
+$secondcolor: #8aca6b
+$animationTime: 0.3s
+
+%messageBox
+  position: absolute
+  content: ''
+  width: 15px
+  height: 15px
+  border-radius: 50%
+
+.eventsHelper
+  position: fixed
+  bottom: 20px
+  right: 20px
+  width: 50px
+  height: 50px
+  transition: all $animationTime ease
+
+  background-color: $maincolor
+  border-radius: 50%
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px 1px
+
+  &:hover
+    background-color: $secondcolor
+
+.eventsLink
+  @include flex()
+  position: relative
+  color: white
+  width: 100%
+  height: 100%
+  border-radius: 50%
+  transition: all $animationTime ease
+
+  &::before
+    @extend %messageBox
+    top: 0
+    left: 0
+    background-color: orange
+
+  &::after
+    @extend %messageBox
+    top: 0
+    right: 0
+    background-color: $secondcolor
+    transition: all $animationTime ease
+
+  &:hover
+    color: $maincolor
+    
+    &::after
+      background-color: $maincolor
+
+
+.timerIcon
+  width: 50%
+  height: 50%

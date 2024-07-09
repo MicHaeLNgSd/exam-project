@@ -19,6 +19,8 @@ import CONSTANTS from './constants';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import TransactionsPage from './pages/TransactionsPage/TransactionsPage';
 import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
+import EventsPage from './pages/EventsPage/EventsPage';
+import EventsContainer from './components/Events/EventsContainer/EventsContainer';
 
 class App extends Component {
   render() {
@@ -82,9 +84,11 @@ class App extends Component {
             component={withAuth(TransactionsPage)}
           />
           <Route exact path="/how-it-works" component={HowItWorksPage} />
+          <Route exact path="/events" component={withAuth(EventsPage)} />
           <Route component={NotFound} />
         </Switch>
         <ChatContainer />
+        <EventsContainer />
       </Router>
     );
   }
