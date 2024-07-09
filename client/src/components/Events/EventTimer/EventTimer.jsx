@@ -13,7 +13,8 @@ function EventTimer({ endTime, createdAt }) {
   // const fullTime = endTime.diff(createdAt);
 
   const [timeLeft, setTimeLeft] = useState(remainTime);
-  const progressPercentage = _.round((1 - remainTime / fullTime) * 100, 2);
+  const fullPercentage = _.round((1 - remainTime / fullTime) * 100, 2);
+  const progressPercentage = fullPercentage > 100 ? 100 : fullPercentage;
 
   // console.log(moment(remainTime).format('Y[y]:D[d]:HH[h]:mm[m]:ss[s]'));
 

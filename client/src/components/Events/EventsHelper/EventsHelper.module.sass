@@ -5,19 +5,27 @@ $maincolor: rgb(69, 90, 137)
 $secondcolor: #8aca6b
 $animationTime: 0.3s
 
+$helperSize: 60px
+$messageBoxSize: 0.4 * $helperSize
+$howFarFromBorder: 0.4 * $helperSize
+
 %messageBox
+  @include flex()
+  font-size: 0.75rem
   position: absolute
   content: ''
-  width: 15px
-  height: 15px
+  width: $messageBoxSize
+  height: $messageBoxSize
   border-radius: 50%
+  color: $maincolor
+  font-weight: 700
 
 .eventsHelper
   position: fixed
-  bottom: 20px
-  right: 20px
-  width: 50px
-  height: 50px
+  bottom: $howFarFromBorder
+  right: $howFarFromBorder
+  width: $helperSize
+  height: $helperSize
   transition: all $animationTime ease
 
   background-color: $maincolor
@@ -36,26 +44,28 @@ $animationTime: 0.3s
   border-radius: 50%
   transition: all $animationTime ease
 
-  &::before
-    @extend %messageBox
-    top: 0
-    left: 0
-    background-color: orange
-
-  &::after
-    @extend %messageBox
-    top: 0
-    right: 0
-    // background-color: $secondcolor
-    background-color: rgb(228 52 34)
-    transition: all $animationTime ease
-
   &:hover
     color: $maincolor
+
+  &:focus
+    outline: none
     
     // &::after
     //   background-color: $maincolor
 
+.remindAmount
+  @extend %messageBox
+  top: -($messageBoxSize / 8)
+  left: -($messageBoxSize / 8)
+  background-color: orange
+
+.finishAmount
+  @extend %messageBox
+  top: -($messageBoxSize / 8)
+  right: -($messageBoxSize / 8)
+  // background-color: $secondcolor
+  background-color: rgb(228 52 34)
+  transition: all $animationTime ease
 
 .timerIcon
   width: 50%
