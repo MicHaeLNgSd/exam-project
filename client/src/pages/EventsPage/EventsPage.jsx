@@ -9,23 +9,46 @@ function EventsPage() {
   return (
     <>
       <Header />
-      <main>
+      <main className={styles.eventsMain}>
         <h1>EventsPage</h1>
-        <section>Create</section>
-        <section>
+        <section className={styles.eventsSec}>Create</section>
+        <section className={styles.eventsSec}>
           <div className={styles.timersHeaderWrapper}>
-            <h2>Live upcomming checks</h2>
-            <div>
-              Remaining time <RxLapTimer className={styles.timerIcon} />
+            <h2 className={styles.timerHeader}>Live upcomming checks</h2>
+            <div className={styles.timerTimeWrapper}>
+              <h3 className={styles.timerTimeHeader}>Remaining time</h3>
+              <RxLapTimer className={styles.timerIcon} />
             </div>
           </div>
-          <div className={styles.timersWrapper}>
-            <ul>
-              <li>
-                <EventTimer />
-              </li>
-            </ul>
-          </div>
+          <ul className={styles.timersWrapper}>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+            <li className={styles.timersItem}>
+              <EventTimer />
+            </li>
+          </ul>
         </section>
       </main>
       <Footer />

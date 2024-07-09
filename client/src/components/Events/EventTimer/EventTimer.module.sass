@@ -1,0 +1,30 @@
+@import './../../../common/style/vars'
+@import './../../../common/style/templates'
+
+$timerFillerColor: rgb(209, 233, 207)
+$timerDefaultColor: rgb(238, 238, 238)
+// $timerFillerColor:  green
+// $timerDefaultColor: gray
+
+.timer
+  position: relative
+  border-radius: 4px
+  overflow: hidden
+  background-color: $timerDefaultColor
+  font-weight: 700
+
+.info
+  padding: 15px 10px
+  @include flex(space-between)
+  background-color: transparent
+  position: relative
+  z-index: 1
+
+.progress
+  position: absolute
+  background-color: $timerFillerColor,
+  height: 100%,
+  // width: 75%
+
+.timeInfo
+  color: rgb(187,187,187)
