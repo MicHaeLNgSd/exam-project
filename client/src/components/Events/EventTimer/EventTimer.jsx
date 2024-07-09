@@ -4,8 +4,8 @@ import moment from 'moment';
 import _ from 'lodash';
 
 function EventTimer({ endTime, createdAt }) {
-  endTime = moment('2024-07-9 20:20:30 +3');
-  createdAt = moment('2024-07-8 19:00:00 +3');
+  endTime = moment('2024-07-09T19:44:00+03:00');
+  createdAt = moment('2024-07-08T19:00:00+03:00');
 
   const remainTime = moment(endTime - moment());
   const fullTime = moment(endTime - createdAt);
@@ -18,12 +18,11 @@ function EventTimer({ endTime, createdAt }) {
   // console.log(moment(remainTime).format('Y[y]:D[d]:HH[h]:mm[m]:ss[s]'));
 
   useEffect(() => {
-    if (timeLeft <= 0) return null;
-    const timerId = setInterval(
-      () => setTimeLeft(moment(endTime - moment())),
-      1000
-    );
-    return () => clearInterval(timerId);
+    if (timeLeft <= 0) return undefined;
+    const timerId = setTimeout(() => {
+      setTimeLeft(moment(endTime - moment()));
+    }, 1000);
+    return () => clearTimeout(timerId);
   }, [endTime, timeLeft]);
 
   //TODO redo (perfectly if with moment)
@@ -42,7 +41,7 @@ function EventTimer({ endTime, createdAt }) {
     str += days ? `${days}d ` : '';
     str += hours ? `${hours}h ` : '';
     str += minutes ? `${minutes}m ` : '';
-    str += secs ? `${secs}s` : '00s';
+    str += secs ? `${secs}s` : '0s';
     return str;
   };
 
