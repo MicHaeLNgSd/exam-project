@@ -4,14 +4,16 @@ import styles from './EventsPage.module.sass';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import EventTimer from '../../components/Events/EventTimer/EventTimer';
+import EventCreatorForm from '../../components/Events/EventCreatorForm/EventCreatorForm';
 
 function EventsPage() {
   return (
     <>
       <Header />
       <main className={styles.eventsMain}>
-        <h1>EventsPage</h1>
-        <section className={styles.eventsSec}>Create</section>
+        <section className={styles.eventsSec}>
+          <EventCreatorForm />
+        </section>
         <section className={styles.eventsSec}>
           <div className={styles.timersHeaderWrapper}>
             <h2 className={styles.timerHeader}>Live upcomming checks</h2>
