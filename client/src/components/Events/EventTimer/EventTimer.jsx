@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import styles from './EventTimer.module.sass';
-import moment from 'moment';
+import moment from 'moment'; //TODO change to date-fns but everywhere
 import _ from 'lodash';
 
 function EventTimer({ event }) {
-  const { endTime, createdAt } = event;
+  const { text, endTime, createdAt, reminderTime } = event;
 
-  const remainTime = moment(endTime - moment()); //endTime.diff(now);
-  const fullTime = moment(endTime - createdAt); //endTime.diff(createdAt);
+  const [now, setNow] = useState(moment());
 
-  const [timeLeft, setTimeLeft] = useState(remainTime);
-  const fullPercentage = _.round((1 - remainTime / fullTime) * 100, 2);
-  const progressPercentage = fullPercentage > 100 ? 100 : fullPercentage;
-
-  // console.log(moment(remainTime).format('Y[y]:D[d]:HH[h]:mm[m]:ss[s]'));
+  const remainTime = moment(endTime).diff(now);
+  const fullTime = moment(endTime).diff(moment(createdAt));
 
   useEffect(() => {
-    if (timeLeft <= 0) return undefined;
+    if (remainTime <= 0) return undefined;
     const timerId = setTimeout(() => {
-      setTimeLeft(moment(endTime - moment()));
+      setNow(moment());
     }, 1000);
     return () => clearTimeout(timerId);
-  }, [endTime, timeLeft]);
+  }, [remainTime]);
 
-  //TODO redo (perfectly if with moment)
+  const fullPercentage = _.round((1 - remainTime / fullTime) * 100, 2);
+  const progressPercentage = _.clamp(fullPercentage, 0, 100);
+  // console.log(moment(remainTime).format('Y[y]:D[d]:HH[h]:mm[m]:ss[s]'));
+
+  //TODO redo (perfectly if with moment itself)
   const formatDuration = (time) => {
     const duration = moment.duration(time);
     if (duration <= 0) return '0s';
@@ -48,18 +48,26 @@ function EventTimer({ event }) {
     width: `${progressPercentage}%`,
   };
 
+  const timeBeforeRemind = moment(reminderTime).diff(moment());
+  if (timeBeforeRemind <= 0) {
+    // console.log(timeBeforeRemind);//TODO spam
+    progressStyle.backgroundColor = 'orange';
+  }
+
+  if (remainTime <= 0) {
+    // console.log(timeBeforeRemind);//TODO spam
+    progressStyle.backgroundColor = 'red';
+  }
+
   return (
     <div className={styles.timer}>
       <div className={styles.progress} style={progressStyle}></div>
       <div className={styles.info}>
-        <p>EventTimer: {progressPercentage}%</p>
-        <p className={styles.timeInfo}>{formatDuration(timeLeft)}</p>
+        <p>
+          {text} EventTimer: {progressPercentage}%
+        </p>
+        <p className={styles.timeInfo}>{formatDuration(remainTime)}</p>
       </div>
-
-      {/* <progress max={fullTime} value={fullTime - timeLeft}>
-        <p>text</p>
-        <p>{formatDuration(timeLeft)}</p>
-      </progress> */}
     </div>
   );
 }

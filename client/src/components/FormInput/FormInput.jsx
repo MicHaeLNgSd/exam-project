@@ -2,7 +2,14 @@ import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import classNames from 'classnames';
 
-const FormInput = ({ classes, label, name, isError = true, ...rest }) => (
+const FormInput = ({
+  classes = {},
+  label,
+  name,
+  type = 'text',
+  isError = true,
+  ...rest
+}) => (
   <Field name={name}>
     {(props) => {
       const {
@@ -17,7 +24,7 @@ const FormInput = ({ classes, label, name, isError = true, ...rest }) => (
       return (
         <div className={classes.container}>
           <input
-            type="text"
+            type={type}
             {...field}
             placeholder={label}
             className={inputClassName}

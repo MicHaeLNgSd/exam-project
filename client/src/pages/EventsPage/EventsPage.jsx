@@ -1,28 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RxLapTimer } from 'react-icons/rx';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './EventsPage.module.sass';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import EventTimer from '../../components/Events/EventTimer/EventTimer';
 import EventCreatorForm from '../../components/Events/EventCreatorForm/EventCreatorForm';
 import moment from 'moment';
+import { getEvents, setEvents } from '../../store/slices/eventsSlice';
 
-const InitEvents = [
-  {
-    endTime: moment('2024-07-10T22:44:00+03:00'),
-    createdAt: moment('2024-07-08T19:00:00+03:00'),
-  },
-  {
-    endTime: moment('2024-07-09T19:44:00+03:00'),
-    createdAt: moment('2024-07-08T19:00:00+03:00'),
-  },
-  {
-    endTime: moment('2024-07-11T10:44:00+03:00'),
-    createdAt: moment('2024-07-08T19:00:00+03:00'),
-  },
-].sort((a, b) => a.endTime - b.endTime);
+function EventsPage() {
+  const events = useSelector((state) => state.eventsStore.events);
+  const dispatch = useDispatch();
 
-function EventsPage({ events = InitEvents }) {
+  useEffect(() => {
+    dispatch(getEvents());
+    // console.log(events);
+    return () => {
+      dispatch(setEvents());
+    };
+  }, []);
+
   return (
     <>
       <Header />
