@@ -1,14 +1,15 @@
 @import './../../../common/style/vars'
 @import './../../../common/style/templates'
-css breakpoints
+
 .formHeader
-  // text-align: center
   font-size: 1.4rem
   margin-bottom: 20px
+  padding-bottom: 10px
+  border-bottom: 2px solid rgb(238, 238, 238)
 
 .form
   font-size: 1.2rem
-  max-width: 750px
+  max-width: 650px
   width: 100%
   margin: 0 auto
   @include flex($fd: column, $gap: 10px)
@@ -19,9 +20,7 @@ css breakpoints
 
 .textInput
   width: 100%
-  margin-left: 20px
   @media(max-width: 600px)
-    margin: 0
     width: 85%
   @media(max-width: 400px)
     width: 100%
@@ -29,13 +28,13 @@ css breakpoints
 .textWrapper
   white-space: nowrap
   width: 100%
-  @include flex(space-between)
+  margin-bottom: 10px
+  @include flex($ai: flex-start, $fd: column, $gap: 10px)
   @media(max-width: 600px)
-    flex-direction: column
-    gap: 10px
-    font-size: 1.3rem
+    align-items: center
+    font-size: 1.3rem 
 
-.eventTimeWrapper
+.timeWrapper
   width: 100%
   @include flex(space-between)
   @media(max-width: 600px)

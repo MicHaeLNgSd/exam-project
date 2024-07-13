@@ -10,21 +10,21 @@ function EventsHelper() {
   const [now, setNow] = useState(moment());
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timerId = setInterval(() => {
       setNow(moment());
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(timerId);
   }, []);
 
-  //* .isBefore(now) === .diff(now) < 0
-  //TODO rewrite with state form store that changes by ++ --
-  const remindAmount = events.filter(
-    (e) =>
-      moment(e.reminderTime).isBefore(now) && moment(e.endTime).isAfter(now)
-  ).length;
-  const finishAmount = events.filter((e) =>
-    moment(e.endTime).isBefore(now)
-  ).length;
+  const isReminded = (e) => moment(e?.reminderTime).isBefore(now);
+  const isFinished = (e) => moment(e?.endTime).isBefore(now);
+
+  let remindAmount = 0;
+  let finishAmount = 0;
+  events.forEach((e) => {
+    if (isFinished(e)) finishAmount++;
+    else if (isReminded(e)) remindAmount++;
+  });
 
   return (
     <div className={styles.eventsHelper}>

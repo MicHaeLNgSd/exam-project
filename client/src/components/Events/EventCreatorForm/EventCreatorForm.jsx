@@ -20,12 +20,12 @@ function EventCreatorForm() {
   };
 
   return (
-    <div>
-      <h2 className={styles.formHeader}>Add new event</h2>
+    <>
+      <h2 className={styles.formHeader}>Create new event</h2>
       <Formik initialValues={initialValues} onSubmit={submitHandler}>
         <Form className={styles.form}>
           <label className={styles.textWrapper}>
-            Event Text:
+            Event message:
             <Field type="text" name="text" className={styles.textInput}></Field>
             <ErrorMessage
               name="text"
@@ -34,7 +34,7 @@ function EventCreatorForm() {
             />
           </label>
 
-          <div className={styles.eventTimeWrapper}>
+          <div className={styles.timeWrapper}>
             <label className={styles.timeInputLabel}>
               Finish Time:
               <FormInput
@@ -63,7 +63,7 @@ function EventCreatorForm() {
           </div>
         </Form>
       </Formik>
-    </div>
+    </>
   );
 }
 
