@@ -10,6 +10,7 @@ function EventTimer({ event }) {
 
   const remainTime = moment(endTime).diff(now);
   const fullTime = moment(endTime).diff(moment(createdAt));
+  const timeBeforeRemind = moment(reminderTime).diff(now);
 
   useEffect(() => {
     if (remainTime <= 0) return undefined;
@@ -48,15 +49,11 @@ function EventTimer({ event }) {
     width: `${progressPercentage}%`,
   };
 
-  const timeBeforeRemind = moment(reminderTime).diff(moment());
   if (timeBeforeRemind <= 0) {
-    // console.log(timeBeforeRemind);//TODO spam
-    progressStyle.backgroundColor = 'orange';
-  }
-
-  if (remainTime <= 0) {
-    // console.log(timeBeforeRemind);//TODO spam
-    progressStyle.backgroundColor = 'red';
+    const readyColor = '#FCDECD';
+    const endColor = '#F8CFCF';
+    const timerColor = remainTime <= 0 ? endColor : readyColor;
+    progressStyle.backgroundColor = timerColor; //TODO spam
   }
 
   return (
@@ -64,7 +61,7 @@ function EventTimer({ event }) {
       <div className={styles.progress} style={progressStyle}></div>
       <div className={styles.info}>
         <p>
-          {text} EventTimer: {progressPercentage}%
+          {text}: {progressPercentage}%
         </p>
         <p className={styles.timeInfo}>{formatDuration(remainTime)}</p>
       </div>

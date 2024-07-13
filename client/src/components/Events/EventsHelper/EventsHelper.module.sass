@@ -19,6 +19,7 @@ $howFarFromBorder: 0.4 * $helperSize
   border-radius: 50%
   color: $maincolor
   font-weight: 700
+  overflow: hidden
 
 .eventsHelper
   position: fixed
@@ -63,9 +64,7 @@ $howFarFromBorder: 0.4 * $helperSize
   @extend %messageBox
   top: -($messageBoxSize / 8)
   right: -($messageBoxSize / 8)
-  // background-color: $secondcolor
   background-color: rgb(228 52 34)
-  transition: all $animationTime ease
 
 .timerIcon
   width: 50%
