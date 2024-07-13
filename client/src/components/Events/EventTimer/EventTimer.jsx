@@ -3,14 +3,11 @@ import styles from './EventTimer.module.sass';
 import moment from 'moment';
 import _ from 'lodash';
 
-function EventTimer({ endTime, createdAt }) {
-  endTime = moment('2024-07-09T19:44:00+03:00');
-  createdAt = moment('2024-07-08T19:00:00+03:00');
+function EventTimer({ event }) {
+  const { endTime, createdAt } = event;
 
-  const remainTime = moment(endTime - moment());
-  const fullTime = moment(endTime - createdAt);
-  // const remainTime = endTime.diff(now);
-  // const fullTime = endTime.diff(createdAt);
+  const remainTime = moment(endTime - moment()); //endTime.diff(now);
+  const fullTime = moment(endTime - createdAt); //endTime.diff(createdAt);
 
   const [timeLeft, setTimeLeft] = useState(remainTime);
   const fullPercentage = _.round((1 - remainTime / fullTime) * 100, 2);
@@ -35,14 +32,15 @@ function EventTimer({ endTime, createdAt }) {
     const days = duration.days();
     const hours = duration.hours();
     const minutes = duration.minutes();
-    const secs = duration.seconds();
+    const seconds = duration.seconds();
 
     let str = '';
-    str += years ? `${years}y ` : '';
-    str += days ? `${days}d ` : '';
-    str += hours ? `${hours}h ` : '';
-    str += minutes ? `${minutes}m ` : '';
-    str += secs ? `${secs}s` : '0s';
+    if (years) str += `${years}y `;
+    if (days) str += `${days}d `;
+    if (hours) str += `${hours}h `;
+    if (minutes) str += `${minutes}m `;
+    str += `${seconds ?? 0}s`;
+
     return str;
   };
 

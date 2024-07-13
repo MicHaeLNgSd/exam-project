@@ -5,8 +5,24 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import EventTimer from '../../components/Events/EventTimer/EventTimer';
 import EventCreatorForm from '../../components/Events/EventCreatorForm/EventCreatorForm';
+import moment from 'moment';
 
-function EventsPage() {
+const InitEvents = [
+  {
+    endTime: moment('2024-07-10T22:44:00+03:00'),
+    createdAt: moment('2024-07-08T19:00:00+03:00'),
+  },
+  {
+    endTime: moment('2024-07-09T19:44:00+03:00'),
+    createdAt: moment('2024-07-08T19:00:00+03:00'),
+  },
+  {
+    endTime: moment('2024-07-11T10:44:00+03:00'),
+    createdAt: moment('2024-07-08T19:00:00+03:00'),
+  },
+].sort((a, b) => a.endTime - b.endTime);
+
+function EventsPage({ events = InitEvents }) {
   return (
     <>
       <Header />
@@ -23,33 +39,11 @@ function EventsPage() {
             </div>
           </div>
           <ul className={styles.timersWrapper}>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
-            <li className={styles.timersItem}>
-              <EventTimer />
-            </li>
+            {events.map((e, i) => (
+              <li key={i} className={styles.timersItem}>
+                <EventTimer event={e} />
+              </li>
+            ))}
           </ul>
         </section>
       </main>
