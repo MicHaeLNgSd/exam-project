@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import EventsHelper from '../EventsHelper/EventsHelper';
+import { getEvents, setEvents } from '../../../store/slices/eventsSlice';
 
-const EventsContainer = ({ data }) => {
+const EventsContainer = ({ data, dispatch }) => {
+  useEffect(() => {
+    dispatch(getEvents());
+    return () => {
+      dispatch(setEvents());
+    };
+  }, [data, dispatch]);
+
   if (!data) return null;
   return <EventsHelper />;
 };

@@ -8,6 +8,7 @@ import moment from 'moment';
 function EventsHelper() {
   const events = useSelector((state) => state.eventsStore.events);
   const [now, setNow] = useState(moment());
+
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(moment());

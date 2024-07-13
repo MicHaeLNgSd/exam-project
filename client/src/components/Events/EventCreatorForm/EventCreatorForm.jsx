@@ -35,13 +35,21 @@ function EventCreatorForm() {
           </label>
 
           <div className={styles.eventTimeWrapper}>
-            <label>
+            <label className={styles.timeInputLabel}>
               Finish Time:
-              <FormInput type="datetime-local" name="endTime" />
+              <FormInput
+                type="datetime-local"
+                name="endTime"
+                className={styles.timeInput}
+              />
             </label>
-            <label>
+            <label className={styles.timeInputLabel}>
               Reminder Time:
-              <FormInput type="datetime-local" name="reminderTime" />
+              <FormInput
+                type="datetime-local"
+                name="reminderTime"
+                className={styles.timeInput}
+              />
             </label>
           </div>
 

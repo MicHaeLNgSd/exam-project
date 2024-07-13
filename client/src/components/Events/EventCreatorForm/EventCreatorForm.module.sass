@@ -1,31 +1,56 @@
 @import './../../../common/style/vars'
 @import './../../../common/style/templates'
-
+css breakpoints
 .formHeader
   // text-align: center
-  font-size: 1.5rem
+  font-size: 1.4rem
   margin-bottom: 20px
 
 .form
   font-size: 1.2rem
-  max-width: 90%
+  max-width: 750px
   width: 100%
   margin: 0 auto
   @include flex($fd: column, $gap: 10px)
-  input
-    margin-left: 20px
+  @media(max-width: 600px)
+    gap: 20px
+    max-width: 100%
+
 
 .textInput
-  width: 85%
+  width: 100%
+  margin-left: 20px
+  @media(max-width: 600px)
+    margin: 0
+    width: 85%
+  @media(max-width: 400px)
+    width: 100%
 
 .textWrapper
   white-space: nowrap
   width: 100%
   @include flex(space-between)
+  @media(max-width: 600px)
+    flex-direction: column
+    gap: 10px
+    font-size: 1.3rem
 
 .eventTimeWrapper
   width: 100%
   @include flex(space-between)
+  @media(max-width: 600px)
+    flex-direction: column
+    gap: 20px
+
+.timeInputLabel
+  @include flex($ai: flex-start, $fd: column, $gap: 10px)
+  @media(max-width: 600px)
+    align-items: center
+    font-size: 1.3rem
+
+.timeInput
+  @media(max-width: 600px)
+    font-size: 1.2rem
 
 .btnsWrapper
   width: 100%

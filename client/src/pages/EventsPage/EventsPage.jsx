@@ -1,25 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { RxLapTimer } from 'react-icons/rx';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './EventsPage.module.sass';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import EventTimer from '../../components/Events/EventTimer/EventTimer';
 import EventCreatorForm from '../../components/Events/EventCreatorForm/EventCreatorForm';
-import moment from 'moment';
-import { getEvents, setEvents } from '../../store/slices/eventsSlice';
 
 function EventsPage() {
   const events = useSelector((state) => state.eventsStore.events);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getEvents());
-    // console.log(events);
-    return () => {
-      dispatch(setEvents());
-    };
-  }, []);
 
   return (
     <>
