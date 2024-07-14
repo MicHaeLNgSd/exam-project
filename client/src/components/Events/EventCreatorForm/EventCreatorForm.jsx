@@ -1,15 +1,25 @@
 import React from 'react';
 import styles from './EventCreatorForm.module.sass';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import FormInput from '../../FormInput/FormInput';
 import { useDispatch } from 'react-redux';
 import { addEvent, setEvents } from '../../../store/slices/eventsSlice';
+import Schems from '../../../utils/validators/validationSchems';
 
 const initialValues = {
   text: '',
   endTime: '',
   reminderTime: '',
 };
+
+const classes = {
+  container: styles.inputContainer,
+  warning: styles.warning,
+  notValid: styles.notValid,
+  valid: styles.valid,
+};
+const classesText = { ...classes, input: styles.textInput };
+const classesTime = { ...classes, input: styles.timeInput };
 
 function EventCreatorForm() {
   const dispatch = useDispatch();
@@ -22,33 +32,32 @@ function EventCreatorForm() {
   return (
     <>
       <h2 className={styles.formHeader}>Create new event</h2>
-      <Formik initialValues={initialValues} onSubmit={submitHandler}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={submitHandler}
+        validationSchema={Schems.EventCreationSchema}
+      >
         <Form className={styles.form}>
           <label className={styles.textWrapper}>
             Event message:
-            <Field type="text" name="text" className={styles.textInput}></Field>
-            <ErrorMessage
-              name="text"
-              component="span"
-              className={styles.error}
-            />
+            <FormInput name="text" classes={classesText} />
           </label>
 
-          <div className={styles.timeWrapper}>
-            <label className={styles.timeInputLabel}>
+          <div className={styles.timeContiner}>
+            <label className={styles.timeWrapper}>
               Finish Time:
               <FormInput
                 type="datetime-local"
                 name="endTime"
-                className={styles.timeInput}
+                classes={classesTime}
               />
             </label>
-            <label className={styles.timeInputLabel}>
+            <label className={styles.timeWrapper}>
               Reminder Time:
               <FormInput
                 type="datetime-local"
                 name="reminderTime"
-                className={styles.timeInput}
+                classes={classesTime}
               />
             </label>
           </div>

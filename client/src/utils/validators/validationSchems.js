@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import valid from 'card-validator';
 
-export default {
+const Schems = {
   LoginSchem: yup.object().shape({
     email: yup.string().email('check email').required('required'),
     password: yup
@@ -213,4 +213,35 @@ export default {
       )
       .required('required'),
   }),
+  EventCreationSchema: yup.object({
+    text: yup
+      .string()
+      .test(
+        'test-text',
+        'required',
+        (value) => value && value.trim().length >= 1
+      )
+      .min(3, 'Write minimum 3 characters')
+      .max(80, 'Write maximum 80 characters')
+      .required('required'),
+    endTime: yup
+      .date()
+      .test('test-endTime', 'Select date from the future', function (value) {
+        return value > new Date();
+      })
+      .required('required'),
+    reminderTime: yup
+      .date()
+      .test(
+        'test-reminderTime',
+        'Select date from the future',
+        function (value) {
+          return value > new Date();
+        }
+      )
+      .max(yup.ref('endTime'), 'Select date between now and end of event')
+      .required('required'),
+  }),
 };
+
+export default Schems;
