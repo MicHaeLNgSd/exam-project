@@ -31,7 +31,9 @@ function EventCreatorForm() {
 
   return (
     <>
-      <h2 className={styles.formHeader}>Create new event</h2>
+      <div className={styles.headerWrapper}>
+        <h2 className={styles.formHeader}>Create new event</h2>
+      </div>
       <Formik
         initialValues={initialValues}
         onSubmit={submitHandler}

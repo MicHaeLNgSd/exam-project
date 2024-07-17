@@ -1,12 +1,20 @@
 @import './../../common/style/vars'
 @import './../../common/style/templates'
 
+.eventsPageWrapper
+  @include flex($fd: column)
+  min-height: 100vh
+
 .eventsMain
-  & *
-    box-sizing: border-box
   padding: 40px 20px
   background-color: rgb(252 247 251)
   @include flex($fd: column, $gap: 20px)
+
+  width: 100%
+  flex: 1
+  box-sizing: border-box
+  & *
+    box-sizing: border-box
 
 .eventsSec
   max-width: 960px
@@ -15,58 +23,11 @@
   background-color: #fff
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1)
 
-.timersHeaderWrapper
+.headerWrapper
   @include flex(space-between)
   border-bottom: 2px solid rgb(238, 238, 238)
   padding-bottom: 10px
   margin-bottom: 10px
-
-.timerHeader
-  font-size: 1.5rem
-  
-
-.timerTimeWrapper
-  @include flex(space-between)
-  color: #555
-
-.timerTimeHeader
-  margin-right: 10px
-  font-weight: bold
-
-.timerIcon
-  height: 35px
-  width: 35px
-
-.timersWrapper
-  position: relative
-  max-height: 40vh
-  overflow: auto
-
-  &::-webkit-scrollbar 
-    width: 8px
-    &-track 
-      background-color: #f1f1f1
-    &-thumb 
-      background:  #bbb
-      border-radius: 10px
-      &:hover 
-        background: #888
-
-
-.timersItem 
-  margin-right: 20px
-  & + &
-    margin-top: 15px
-
-.emptyEventsString
-  font-size: 1.2rem
-  color: #666
-  text-align: center
-  margin-top: 20px
-
-.btnWrapper
-  @include flex()
-  margin-top: 10px
 
 .btn
   background-color: rgb(69, 90, 137)
