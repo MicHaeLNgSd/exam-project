@@ -17,9 +17,9 @@ function EventTimer({ event }) {
 
   const [now, setNow] = useState(moment());
 
-  const remainTime = moment(endTime).diff(now);
-  const fullTime = moment(endTime).diff(moment(createdAt));
-  const timeBeforeRemind = moment(reminderTime).diff(now);
+  const remainTime = moment(endTime).diff(now, 'seconds');
+  const fullTime = moment(endTime).diff(moment(createdAt), 'seconds');
+  const timeBeforeRemind = moment(reminderTime).diff(now, 'seconds');
 
   useEffect(() => {
     if (remainTime <= 0) return undefined;
@@ -35,7 +35,7 @@ function EventTimer({ event }) {
 
   //TODO redo (perfectly if with moment itself)
   const formatDuration = (time) => {
-    const duration = moment.duration(time);
+    const duration = moment.duration(time, 'seconds');
     if (duration <= 0) return '0s';
 
     const years = Math.floor(duration.asYears());
