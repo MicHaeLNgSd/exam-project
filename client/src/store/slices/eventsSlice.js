@@ -24,12 +24,22 @@ const eventsSlice = createSlice({
         (a, b) => a.endTime - b.endTime
       );
     },
+    deleteEvent: (state, { payload }) => {
+      //Todo maybe rewrite with "uuid" in the future
+      state.events = state.events.filter((e) => e.createdAt !== payload);
+    },
   },
 });
 
 const { actions, reducer } = eventsSlice;
 
-export const { getEvents, setEvents, addEvent, removeEvent, clearEvents } =
-  actions;
+export const {
+  getEvents,
+  setEvents,
+  addEvent,
+  removeEvent,
+  clearEvents,
+  deleteEvent,
+} = actions;
 
 export default reducer;

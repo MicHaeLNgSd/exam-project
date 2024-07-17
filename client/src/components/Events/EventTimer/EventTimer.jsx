@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import styles from './EventTimer.module.sass';
 import moment from 'moment'; //TODO change to date-fns but everywhere
 import _ from 'lodash';
+import { IoClose } from 'react-icons/io5';
+import styles from './EventTimer.module.sass';
+import { useDispatch } from 'react-redux';
+import { deleteEvent, setEvents } from '../../../store/slices/eventsSlice';
 
 function EventTimer({ event }) {
   const { text, endTime, createdAt, reminderTime } = event;
+
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(deleteEvent(createdAt));
+    dispatch(setEvents());
+  };
 
   const [now, setNow] = useState(moment());
 
@@ -49,7 +58,7 @@ function EventTimer({ event }) {
     width: `${progressPercentage}%`,
   };
 
-  if (timeBeforeRemind <= 0) {
+  if (timeBeforeRemind <= 0 || remainTime <= 0) {
     const readyColor = '#FCDECD';
     const endColor = '#F8CFCF';
     const timerColor = remainTime <= 0 ? endColor : readyColor;
@@ -60,11 +69,12 @@ function EventTimer({ event }) {
     <div className={styles.timer}>
       <div className={styles.progress} style={progressStyle}></div>
       <div className={styles.info}>
-        <p>
-          {text}: {progressPercentage}%
-        </p>
+        <p>{text}</p>
         <p className={styles.timeInfo}>{formatDuration(remainTime)}</p>
       </div>
+      <button className={styles.closeBtn} onClick={handleClick}>
+        <IoClose className={styles.closeIcon} />
+      </button>
     </div>
   );
 }

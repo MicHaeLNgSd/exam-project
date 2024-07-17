@@ -57,3 +57,30 @@
   margin-right: 20px
   & + &
     margin-top: 15px
+
+.emptyEventsString
+  font-size: 1.2rem
+  color: #666
+  text-align: center
+  margin-top: 20px
+
+.btnWrapper
+  @include flex()
+  margin-top: 10px
+
+.btn
+  background-color: rgb(69, 90, 137)
+  border: none
+  color: white
+  border-radius: 20px
+  padding: 10px 20px
+  cursor: pointer
+  margin-top: 10px
+  font-size: 1.2rem
+  &:hover
+    background-color: rgb(45, 64, 109)
+
+  &[disabled]
+    background-color: #ccc
+    color: #666
+

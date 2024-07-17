@@ -3,8 +3,7 @@
 
 $timerFillerColor: rgb(209, 233, 207)
 $timerDefaultColor: rgb(238, 238, 238)
-// $timerFillerColor:  green
-// $timerDefaultColor: gray
+$closeBtnSize: 20px
 
 .timer
   position: relative
@@ -12,18 +11,37 @@ $timerDefaultColor: rgb(238, 238, 238)
   overflow: hidden
   background-color: $timerDefaultColor
   font-weight: 700
+  @include flex($gap: 10px)
+  padding: 0 10px
+  &:hover .closeBtn
+    max-width: $closeBtnSize
 
 .info
-  padding: 15px 10px
+  position: relative
+  width: 100%
   @include flex(space-between)
   background-color: transparent
-  position: relative
-  z-index: 1
+  padding: 15px 0
 
 .progress
   position: absolute
+  left:0
   background-color: $timerFillerColor,
-  height: 100%,
+  height: 100%
 
 .timeInfo
   color: rgb(187,187,187)
+
+.closeBtn
+  @include flex()
+  z-index: 10
+  border: none
+  background: none
+  padding: 0
+
+  max-width: 0
+  transition: all 0.3s ease
+
+.closeIcon
+  width: $closeBtnSize
+  height: $closeBtnSize
