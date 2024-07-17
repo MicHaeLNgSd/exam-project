@@ -20,9 +20,10 @@ const eventsSlice = createSlice({
     clearEvents: () => initialState,
     addEvent: (state, { payload }) => {
       payload.createdAt = new Date().toISOString();
-      state.events = [...state.events, payload].sort(
-        (a, b) => a.endTime - b.endTime
+      const sortedEvents = [...state.events, payload].sort(
+        (a, b) => new Date(a.endTime) - new Date(b.endTime)
       );
+      state.events = sortedEvents;
     },
     deleteEvent: (state, { payload }) => {
       //Todo maybe rewrite with "uuid" in the future
