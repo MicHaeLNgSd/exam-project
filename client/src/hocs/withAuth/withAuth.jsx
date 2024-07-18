@@ -1,36 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../../store/slices/userSlice';
 import Spinner from '../../components/Spinner/Spinner';
 
 const withAuth = (Component, props) => {
-  class Hoc extends React.Component {
-    componentDidMount() {
-      if (!this.props.data) {
-        this.props.getUser();
+  const Hoc = ({ data, isFetching, getUser, history, match }) => {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      if (!data) {
+        getUser();
       }
-    }
+      setLoading(false);
+    }, [data, getUser, loading]);
 
-    render() {
-      if (this.props.isFetching) {
-        return <Spinner />;
-      }
-      if (!this.props.data) {
-        return <Redirect to="/login" />;
-      }
-      return (
-        <Component
-          history={this.props.history}
-          match={this.props.match}
-          {...props}
-        />
-      );
-    }
-  }
+    if (isFetching || loading) return <Spinner />;
+
+    if (!data) return <Redirect to="/login" />;
+
+    return <Component history={history} match={match} {...props} />;
+  };
 
   const mapStateToProps = (state) => state.userStore;
-
   const mapDispatchToProps = (dispatch) => ({
     getUser: () => dispatch(getUser()),
   });
