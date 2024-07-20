@@ -5,6 +5,19 @@ import FormInput from '../FormInput/FormInput';
 import styles from '../ContestForm/ContestForm.module.sass';
 import Spinner from '../Spinner/Spinner';
 
+const classesFormInput = {
+  container: styles.componentInputContainer,
+  input: styles.input,
+  warning: styles.warning,
+};
+
+const classesSelectInput = {
+  inputContainer: styles.selectInputContainer,
+  inputHeader: styles.selectHeader,
+  selectInput: styles.select,
+  warning: styles.warning,
+};
+
 const OptionalSelects = (props) => {
   if (props.isFetching) {
     return <Spinner />;
@@ -16,24 +29,14 @@ const OptionalSelects = (props) => {
           <SelectInput
             name="typeOfName"
             header="type of company"
-            classes={{
-              inputContainer: styles.selectInputContainer,
-              inputHeader: styles.selectHeader,
-              selectInput: styles.select,
-              warning: styles.warning,
-            }}
             optionsArray={props.dataForContest.data.typeOfName}
+            classes={classesSelectInput}
           />
           <SelectInput
             name="styleName"
             header="Style name"
-            classes={{
-              inputContainer: styles.selectInputContainer,
-              inputHeader: styles.selectHeader,
-              selectInput: styles.select,
-              warning: styles.warning,
-            }}
             optionsArray={props.dataForContest.data.nameStyle}
+            classes={classesSelectInput}
           />
         </>
       );
@@ -49,23 +52,14 @@ const OptionalSelects = (props) => {
               name="nameVenture"
               type="text"
               label="name of venture"
-              classes={{
-                container: styles.componentInputContainer,
-                input: styles.input,
-                warning: styles.warning,
-              }}
+              classes={classesFormInput}
             />
           </div>
           <SelectInput
             name="brandStyle"
-            classes={{
-              inputContainer: styles.selectInputContainer,
-              inputHeader: styles.selectHeader,
-              selectInput: styles.select,
-              warning: styles.warning,
-            }}
             header="Brand Style"
             optionsArray={props.dataForContest.data.brandStyle}
+            classes={classesSelectInput}
           />
         </>
       );
@@ -81,27 +75,20 @@ const OptionalSelects = (props) => {
               name="nameVenture"
               type="text"
               label="name of venture"
-              classes={{
-                container: styles.componentInputContainer,
-                input: styles.input,
-                warning: styles.warning,
-              }}
+              classes={classesFormInput}
             />
           </div>
           <SelectInput
             name="typeOfTagline"
-            classes={{
-              inputContainer: styles.selectInputContainer,
-              inputHeader: styles.selectHeader,
-              selectInput: styles.select,
-              warning: styles.warning,
-            }}
             header="Type tagline"
             optionsArray={props.dataForContest.data.typeOfTagline}
+            classes={classesSelectInput}
           />
         </>
       );
     }
+    default:
+      return;
   }
 };
 
