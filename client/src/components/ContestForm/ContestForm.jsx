@@ -13,11 +13,13 @@ import FormTextArea from '../InputComponents/FormTextArea/FormTextArea';
 import TryAgain from '../TryAgain/TryAgain';
 import Schems from '../../utils/validators/validationSchems';
 import OptionalSelects from '../OptionalSelects/OptionalSelects';
+import BUTTON_GROUP_LIST from '../OptionalSelects/ButtonGroupData';
 
 const variableOptions = {
   [CONSTANTS.NAME_CONTEST]: {
     styleName: '',
     typeOfName: '',
+    nameMatchingDomain: BUTTON_GROUP_LIST[0].value,
   },
   [CONSTANTS.LOGO_CONTEST]: {
     nameVenture: '',

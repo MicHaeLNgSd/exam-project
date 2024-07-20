@@ -4,6 +4,8 @@ import SelectInput from '../SelectInput/SelectInput';
 import FormInput from '../FormInput/FormInput';
 import styles from '../ContestForm/ContestForm.module.sass';
 import Spinner from '../Spinner/Spinner';
+import ButtonGroup from '../ButtonGroup/ButtonGroup';
+import BUTTON_GROUP_LIST from './ButtonGroupData';
 
 const classesFormInput = {
   container: styles.componentInputContainer,
@@ -18,6 +20,11 @@ const classesSelectInput = {
   warning: styles.warning,
 };
 
+const classesButtonGroup = {
+  groupContainer: styles.selectInputContainer,
+  groupHeader: styles.selectHeader,
+};
+
 const OptionalSelects = (props) => {
   if (props.isFetching) {
     return <Spinner />;
@@ -26,6 +33,12 @@ const OptionalSelects = (props) => {
     case CONSTANTS.NAME_CONTEST: {
       return (
         <>
+          <ButtonGroup
+            name="nameMatchingDomain"
+            header="Do you want a matching domain (.com URL) with your name?"
+            buttons={BUTTON_GROUP_LIST}
+            classes={classesButtonGroup}
+          />
           <SelectInput
             name="typeOfName"
             header="type of company"
