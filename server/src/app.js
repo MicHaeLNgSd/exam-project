@@ -4,6 +4,7 @@ const cors = require('cors');
 const rootRouter = require('./router');
 const handlerError = require('./handlerError/handler');
 const multerHandlerError = require('./handlerError/multerHandler');
+const errorLogHandler = require('./handlerError/errorLogHandler');
 const env = process.env.NODE_ENV || 'development';
 const { DEV_FILES_PATH, PROD_FILES_PATH } = require('./constants');
 
@@ -24,6 +25,7 @@ app.use(queryParser(queryParserConfigs));
 
 app.use('/public', express.static(filesPath));
 app.use('/api', rootRouter);
+app.use(errorLogHandler);
 app.use(multerHandlerError);
 app.use(handlerError);
 
