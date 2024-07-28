@@ -28,6 +28,10 @@ class Header extends React.Component {
     this.props.history.push('/start-contest');
   };
 
+  startOffersReview = () => {
+    this.props.history.push('/offers-review');
+  };
+
   render() {
     if (this.props.isFetching) {
       return null;
@@ -61,12 +65,20 @@ class Header extends React.Component {
             <nav className={styles.nav}>
               <NavBarList navList={NAVIGATION_LIST} />
             </nav>
-            {this.props.data && this.props.data.role !== CONSTANTS.CREATOR && (
+            {this.props.data?.role === CONSTANTS.CUSTOMER && (
               <div
                 className={styles.startContestBtn}
                 onClick={this.startContests}
               >
                 START CONTEST
+              </div>
+            )}
+            {this.props.data?.role === CONSTANTS.MODERATOR && (
+              <div
+                className={styles.startContestBtn}
+                onClick={this.startOffersReview}
+              >
+                START OFFERS REVIEW
               </div>
             )}
           </div>
