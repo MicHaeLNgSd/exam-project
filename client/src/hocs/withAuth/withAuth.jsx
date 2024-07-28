@@ -3,20 +3,25 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getUser } from '../../store/slices/userSlice';
 import Spinner from '../../components/Spinner/Spinner';
+import CONSTANTS from '../../constants';
+const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS;
 
-const withAuth = (Component, props) => {
+const allRoles = [CUSTOMER, CREATOR, MODERATOR];
+
+const withAuth = (Component, props, accessRoles = allRoles) => {
   const Hoc = ({ data, isFetching, getUser, history, match }) => {
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
       if (!data) {
         getUser();
       }
-      setLoading(false);
-    }, [data, getUser, loading]);
+      setIsLoading(false);
+    }, [data, getUser, isLoading]);
 
-    if (isFetching || loading) return <Spinner />;
+    if (isFetching || isLoading) return <Spinner />;
 
-    if (!data) return <Redirect to="/login" />;
+    if (!data || !accessRoles.includes(data?.role))
+      return <Redirect to="/login" />;
 
     return <Component history={history} match={match} {...props} />;
   };

@@ -21,6 +21,9 @@ import TransactionsPage from './pages/TransactionsPage/TransactionsPage';
 import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
 import EventsPage from './pages/EventsPage/EventsPage';
 import EventsContainer from './components/Events/EventsContainer/EventsContainer';
+import OffersReview from './pages/OffersReview/OffersReview';
+
+const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS;
 
 class App extends Component {
   render() {
@@ -75,7 +78,11 @@ class App extends Component {
               title: 'LOGO',
             })}
           />
-          <Route exact path="/dashboard" component={withAuth(Dashboard)} />
+          <Route
+            exact
+            path="/dashboard"
+            component={withAuth(Dashboard, null, [CUSTOMER, CREATOR])}
+          />
           <Route exact path="/contest/:id" component={withAuth(ContestPage)} />
           <Route exact path="/account" component={withAuth(UserProfile)} />
           <Route
@@ -85,6 +92,11 @@ class App extends Component {
           />
           <Route exact path="/how-it-works" component={HowItWorksPage} />
           <Route exact path="/events" component={withAuth(EventsPage)} />
+          <Route
+            exact
+            path="/offers-review"
+            component={withAuth(OffersReview, null, [MODERATOR])}
+          />
           <Route component={NotFound} />
         </Switch>
         <ChatContainer />
