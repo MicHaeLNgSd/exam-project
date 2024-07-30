@@ -20,6 +20,8 @@ module.exports = {
   NAME_CONTEST: 'name',
   LOGO_CONTEST: 'logo',
   TAGLINE_CONTEST: 'tagline',
+  OFFER_STATUS_REVIEWING: 'reviewing',
+  OFFER_STATUS_DENIED: 'denied',
   OFFER_STATUS_PENDING: 'pending',
   OFFER_STATUS_REJECTED: 'rejected',
   OFFER_STATUS_WON: 'won',

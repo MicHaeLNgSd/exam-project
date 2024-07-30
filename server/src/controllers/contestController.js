@@ -131,6 +131,68 @@ module.exports.updateContest = async (req, res, next) => {
   }
 };
 
+module.exports.getOffers = async (req, res, next) => {
+  try {
+    const { where, limit, offset } = req.query;
+
+    const offers = await db.Offer.findAll({
+      where,
+      limit,
+      offset: offset || 0,
+      include: [
+        {
+          model: db.Contest,
+          required: true,
+          where: { status: CONSTANTS.CONTEST_STATUS_ACTIVE },
+          attributes: [
+            'id',
+            'title',
+            'contestType',
+
+            'typeOfName',
+            'brandStyle',
+            'typeOfTagline',
+
+            'fileName',
+            'originalFileName',
+
+            'industry',
+            'focusOfWork',
+            'targetCustomer',
+
+            'styleName',
+            'nameVenture',
+          ],
+        },
+        {
+          model: db.User,
+          required: true,
+          attributes: ['id', 'firstName', 'lastName', 'displayName', 'email'],
+        },
+      ],
+    });
+    res.send({ offers, haveMore: offers.length !== 0 });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const approveOffer = async (offerId) => {
+  const offer = await offerQueries.updateOffer(
+    { status: CONSTANTS.OFFER_STATUS_PENDING },
+    { id: offerId }
+  );
+  return offer;
+};
+
+const denyOffer = async (offerId) => {
+  const offer = await offerQueries.updateOffer(
+    { status: CONSTANTS.OFFER_STATUS_DENIED },
+    { id: offerId }
+  );
+  return offer;
+};
+
 module.exports.setNewOffer = async (req, res, next) => {
   const obj = {};
   if (req.body.contestType === CONSTANTS.LOGO_CONTEST) {
@@ -272,6 +334,21 @@ module.exports.setOfferStatus = async (req, res, next) => {
       transaction.rollback();
       next(err);
     }
+  }
+};
+
+module.exports.setOfferReviewStatus = async (req, res, next) => {
+  const { command, offerId, creatorId } = req.body;
+  try {
+    if (command === 'deny') {
+      const offer = await denyOffer(offerId, creatorId);
+      res.send(offer);
+    } else if (command === 'approve') {
+      const offer = await approveOffer(offerId, creatorId);
+      res.send(offer);
+    }
+  } catch (err) {
+    next(err);
   }
 };
 

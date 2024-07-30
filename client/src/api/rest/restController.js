@@ -26,7 +26,9 @@ export const downloadContestFile = ({ fileName }) =>
 
 //*OFFERS
 export const setNewOffer = (data) => http.post('offers', data);
+export const getOffers = (data) => http.get('offers', { params: { ...data } });
 export const setOfferStatus = (data) => http.put('offers', data);
+export const setOfferReviewStatus = (data) => http.put('offers/review', data);
 
 //*CHATS
 export const newMessage = (data) => http.post('chats/newMessage', data);

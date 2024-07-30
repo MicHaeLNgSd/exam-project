@@ -4,7 +4,15 @@ const basicMiddlewares = require('../middlewares/basicMiddlewares');
 const contestController = require('../controllers/contestController');
 
 offerRouter
+  .route('/review')
+  .put(
+    basicMiddlewares.onlyForModerator,
+    contestController.setOfferReviewStatus
+  );
+
+offerRouter
   .route('/')
+  .get(basicMiddlewares.onlyForModerator, contestController.getOffers)
   .post(
     upload.uploadLogoFiles,
     basicMiddlewares.canSendOffer,
