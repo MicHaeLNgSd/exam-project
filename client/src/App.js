@@ -21,7 +21,7 @@ import TransactionsPage from './pages/TransactionsPage/TransactionsPage';
 import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
 import EventsPage from './pages/EventsPage/EventsPage';
 import EventsContainer from './components/Events/EventsContainer/EventsContainer';
-import OffersReview from './pages/OffersReview/OffersReview';
+import OffersReviewPage from './pages/OffersReviewPage/OffersReviewPage';
 
 const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS;
 
@@ -95,7 +95,7 @@ class App extends Component {
           <Route
             exact
             path="/offers-review"
-            component={withAuth(OffersReview, null, [MODERATOR])}
+            component={withAuth(OffersReviewPage, null, [MODERATOR])}
           />
           <Route component={NotFound} />
         </Switch>
