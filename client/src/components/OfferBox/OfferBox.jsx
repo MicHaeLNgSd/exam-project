@@ -20,9 +20,7 @@ const OfferBox = (props) => {
   const findConversationInfo = () => {
     const { messagesPreview, id } = props;
     const participants = [id, props.data.User.id];
-    participants.sort(
-      (participant1, participant2) => participant1 - participant2
-    );
+    participants.sort((a, b) => a - b);
     for (let i = 0; i < messagesPreview.length; i++) {
       if (isEqual(participants, messagesPreview[i].participants)) {
         return {

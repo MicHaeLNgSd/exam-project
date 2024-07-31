@@ -5,6 +5,7 @@ import {
   pendingReducer,
   rejectedReducer,
 } from '../../utils/store';
+import * as restController from '../../api/rest/restController';
 
 const OFFERS_SLICE_NAME = 'offers';
 
@@ -23,10 +24,10 @@ export const getOffers = decorateAsyncThunk({
   },
 });
 
-export const setOfferStatus = decorateAsyncThunk({
-  key: `${OFFERS_SLICE_NAME}/setOfferStatus`,
+export const setOfferReviewStatus = decorateAsyncThunk({
+  key: `${OFFERS_SLICE_NAME}/setOfferReviewStatus`,
   thunk: async (payload) => {
-    const { data } = await setOfferStatus(payload);
+    const { data } = await restController.setOfferReviewStatus(payload);
     return data;
   },
 });
@@ -48,18 +49,18 @@ const extraReducers = (builder) => {
   });
   builder.addCase(getOffers.rejected, rejectedReducer);
 
-  //setOfferStatus
-  builder.addCase(setOfferStatus.pending, (state) => {
+  //setOfferReviewStatus
+  builder.addCase(setOfferReviewStatus.pending, (state) => {
     state.error = null;
   });
-  builder.addCase(setOfferStatus.fulfilled, (state, { payload }) => {
+  builder.addCase(setOfferReviewStatus.fulfilled, (state, { payload }) => {
     state.offers = state.offers.map((o) => {
       const { id, status } = payload;
       if (o.id === id) o.status = status;
       return o;
     });
   });
-  builder.addCase(setOfferStatus.rejected, (state, { payload }) => {
+  builder.addCase(setOfferReviewStatus.rejected, (state, { payload }) => {
     state.error = payload;
   });
 };
