@@ -48,6 +48,20 @@ module.exports.getContestById = async (req, res, next) => {
       tokenData: { role, userId },
     } = req;
 
+    const whereByRole = (role) => {
+      if (role === CONSTANTS.CREATOR) return { userId };
+      if (role === CONSTANTS.CUSTOMER)
+        return {
+          status: {
+            [db.Sequelize.Op.notIn]: [
+              CONSTANTS.OFFER_STATUS_REVIEWING,
+              CONSTANTS.OFFER_STATUS_DENIED,
+            ],
+          },
+        };
+      return {};
+    };
+
     let contestInfo = await db.Contest.findOne({
       where: { id: contestId },
       order: [[db.Offer, 'id', 'asc']],
@@ -62,7 +76,7 @@ module.exports.getContestById = async (req, res, next) => {
         {
           model: db.Offer,
           required: false,
-          where: role === CONSTANTS.CREATOR ? { userId } : {},
+          where: whereByRole(role),
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
             {
@@ -95,7 +109,14 @@ module.exports.getContestById = async (req, res, next) => {
     contestInfo.Offers = contestInfo.Offers.map(({ Rating, ...rest }) => ({
       mark: Rating?.mark,
       ...rest,
-    }));
+    })).filter((o) => {
+      if (role === CONSTANTS.CUSTOMER) {
+        return (
+          o.satus !== CONSTANTS.OFFER_STATUS_REVIEWING &&
+          o.satus !== CONSTANTS.OFFER_STATUS_DENIED
+        );
+      }
+    });
 
     res.send(contestInfo);
   } catch (e) {
@@ -133,7 +154,7 @@ module.exports.updateContest = async (req, res, next) => {
 
 module.exports.getOffers = async (req, res, next) => {
   try {
-    const { where, limit, offset } = req.query;
+    const { limit, offset, ...where } = req.query;
 
     const offers = await db.Offer.findAll({
       where,
@@ -157,8 +178,6 @@ module.exports.getOffers = async (req, res, next) => {
             'originalFileName',
 
             'industry',
-            'focusOfWork',
-            'targetCustomer',
 
             'styleName',
             'nameVenture',
@@ -178,7 +197,7 @@ module.exports.getOffers = async (req, res, next) => {
 };
 
 const approveOffer = async (offerId) => {
-  const offer = await offerQueries.updateOffer(
+  const offer = await contestQueries.updateOffer(
     { status: CONSTANTS.OFFER_STATUS_PENDING },
     { id: offerId }
   );
@@ -186,7 +205,7 @@ const approveOffer = async (offerId) => {
 };
 
 const denyOffer = async (offerId) => {
-  const offer = await offerQueries.updateOffer(
+  const offer = await contestQueries.updateOffer(
     { status: CONSTANTS.OFFER_STATUS_DENIED },
     { id: offerId }
   );
@@ -338,13 +357,13 @@ module.exports.setOfferStatus = async (req, res, next) => {
 };
 
 module.exports.setOfferReviewStatus = async (req, res, next) => {
-  const { command, offerId, creatorId } = req.body;
+  const { command, offerId } = req.body;
   try {
     if (command === 'deny') {
-      const offer = await denyOffer(offerId, creatorId);
+      const offer = await denyOffer(offerId);
       res.send(offer);
     } else if (command === 'approve') {
-      const offer = await approveOffer(offerId, creatorId);
+      const offer = await approveOffer(offerId);
       res.send(offer);
     }
   } catch (err) {

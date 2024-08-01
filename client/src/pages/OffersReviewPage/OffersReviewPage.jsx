@@ -21,16 +21,16 @@ function OffersReviewPage() {
 
   useEffect(() => {
     dispatch(clearOffers());
-    dispatch(getOffers());
+    dispatch(getOffers({ status: CONSTANTS.OFFER_STATUS_REVIEWING }));
   }, [dispatch]);
 
   const tryGetOffers = () => {
-    dispatch(getOffers());
+    dispatch(getOffers({ status: CONSTANTS.OFFER_STATUS_REVIEWING }));
   };
 
   const renderData = () => {
     if (error) return <TryAgain getData={tryGetOffers} />;
-    if (offers.length === 0 && !isFetching) return <p>No offers to review</p>; //className={styles.emptyText}
+    if (offers.length === 0 && !isFetching) return <p>No offers to review</p>;
     return <OffersReviewList offers={offers} />;
   };
 

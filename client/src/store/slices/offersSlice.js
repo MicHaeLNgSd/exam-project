@@ -37,6 +37,9 @@ const reducers = {
     state.error = null;
     state.offers = [];
   },
+  deleteOffer: (state, { payload }) => {
+    state.offers = state.offers.filter((o) => o.id !== payload.id);
+  },
 };
 
 const extraReducers = (builder) => {
@@ -73,5 +76,5 @@ const offersSlice = createSlice({
 });
 
 const { actions, reducer } = offersSlice;
-export const { clearOffers } = actions;
+export const { clearOffers, deleteOffer } = actions;
 export default reducer;
