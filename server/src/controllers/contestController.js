@@ -99,25 +99,10 @@ module.exports.getContestById = async (req, res, next) => {
 
     contestInfo = contestInfo.get({ plain: true });
 
-    // contestInfo.Offers.forEach((o) => {
-    //   if (o.Rating) {
-    //     o.mark = o.Rating.mark;
-    //   }
-    //   delete o.Rating;
-    // });
-
     contestInfo.Offers = contestInfo.Offers.map(({ Rating, ...rest }) => ({
       mark: Rating?.mark,
       ...rest,
-    })).filter((o) => {
-      if (role === CONSTANTS.CUSTOMER) {
-        return (
-          o.satus !== CONSTANTS.OFFER_STATUS_REVIEWING &&
-          o.satus !== CONSTANTS.OFFER_STATUS_DENIED
-        );
-      }
-    });
-
+    }));
     res.send(contestInfo);
   } catch (e) {
     next(new ServerError());
@@ -371,32 +356,40 @@ module.exports.setOfferReviewStatus = async (req, res, next) => {
   }
 };
 
-module.exports.getCustomersContests = (req, res, next) => {
-  const {
-    tokenData: { userId },
-    query: { limit, offset, contestStatus: status },
-  } = req;
+module.exports.getCustomersContests = async (req, res, next) => {
+  try {
+    const {
+      tokenData: { userId },
+      query: { limit, offset, contestStatus: status },
+    } = req;
 
-  db.Contest.findAll({
-    where: { status, userId },
-    limit,
-    offset: offset ?? 0,
-    order: [['id', 'DESC']],
-    include: [
-      {
-        model: db.Offer,
-        required: false,
-        attributes: ['id'],
-      },
-    ],
-  })
-    .then((contests) => {
-      contests.forEach(
-        (c) => (c.dataValues.count = c.dataValues.Offers.length)
-      );
-      res.send({ contests, haveMore: contests.length !== 0 });
-    })
-    .catch((err) => next(new ServerError(err)));
+    const contests = await db.Contest.findAll({
+      where: { status, userId },
+      limit,
+      offset: offset || 0,
+      order: [['id', 'DESC']],
+      include: [
+        {
+          model: db.Offer,
+          required: false,
+          attributes: ['id'],
+          where: {
+            status: {
+              [db.Sequelize.Op.notIn]: [
+                CONSTANTS.OFFER_STATUS_REVIEWING,
+                CONSTANTS.OFFER_STATUS_DENIED,
+              ],
+            },
+          },
+        },
+      ],
+    });
+
+    contests.forEach((c) => (c.dataValues.count = c.dataValues.Offers.length));
+    res.send({ contests, haveMore: contests.length !== 0 });
+  } catch (err) {
+    next(new ServerError(err));
+  }
 };
 
 module.exports.getContests = (req, res, next) => {
@@ -420,7 +413,7 @@ module.exports.getContests = (req, res, next) => {
     where,
     order,
     limit,
-    offset: offset ?? 0,
+    offset: offset || 0,
     include: [
       {
         model: db.Offer,
