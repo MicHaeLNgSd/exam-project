@@ -19,13 +19,41 @@ function OffersReviewPage() {
     (state) => state.contestByIdStore
   );
 
+  const loadMore = (startFrom = 0) => {
+    dispatch(
+      getOffers({
+        limit: 8,
+        offset: startFrom,
+        status: CONSTANTS.OFFER_STATUS_REVIEWING,
+      })
+    );
+  };
+
+  const scrollHandler = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      if (haveMore) {
+        loadMore(offers.length);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, [offers]);
+
   useEffect(() => {
     dispatch(clearOffers());
-    dispatch(getOffers({ status: CONSTANTS.OFFER_STATUS_REVIEWING }));
+    dispatch(getOffers({ limit: 8, status: CONSTANTS.OFFER_STATUS_REVIEWING }));
   }, [dispatch]);
 
   const tryGetOffers = () => {
-    dispatch(getOffers({ status: CONSTANTS.OFFER_STATUS_REVIEWING }));
+    dispatch(getOffers({ limit: 8, status: CONSTANTS.OFFER_STATUS_REVIEWING }));
   };
 
   const renderData = () => {
