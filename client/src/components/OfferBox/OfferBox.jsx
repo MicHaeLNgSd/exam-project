@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import Rating from 'react-rating';
 import { withRouter } from 'react-router-dom';
 import isEqual from 'lodash/isEqual';
-import classNames from 'classnames';
 import { confirmAlert } from 'react-confirm-alert';
+import {
+  FaTimesCircle,
+  FaCheckCircle,
+  FaExclamationCircle,
+  FaPauseCircle,
+} from 'react-icons/fa';
 import { goToExpandedDialog } from '../../store/slices/chatSlice';
 import {
   changeMark,
@@ -80,21 +85,20 @@ const OfferBox = (props) => {
 
   const offerStatus = () => {
     const { status } = props.data;
-    if (status === CONSTANTS.OFFER_STATUS_REJECTED) {
-      return (
-        <i
-          className={classNames('fas fa-times-circle reject', styles.reject)}
-        />
-      );
+    switch (status) {
+      case CONSTANTS.OFFER_STATUS_REVIEWING:
+        return <FaPauseCircle className={styles.reviewing} />;
+      case CONSTANTS.OFFER_STATUS_DENIED:
+        return <FaExclamationCircle className={styles.denied} />;
+      // case CONSTANTS.OFFER_STATUS_PENDING:
+      //   return <FaCircle className={styles.pending} />;
+      case CONSTANTS.OFFER_STATUS_REJECTED:
+        return <FaTimesCircle className={styles.reject} />;
+      case CONSTANTS.OFFER_STATUS_WON:
+        return <FaCheckCircle className={styles.resolve} />;
+      default:
+        return null;
     }
-    if (status === CONSTANTS.OFFER_STATUS_WON) {
-      return (
-        <i
-          className={classNames('fas fa-check-circle resolve', styles.resolve)}
-        />
-      );
-    }
-    return null;
   };
 
   const goChat = () => {
