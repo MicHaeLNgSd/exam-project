@@ -5,7 +5,7 @@ const userQueries = require('./queries/userQueries');
 const controller = require('../socketInit');
 const UtilFunctions = require('../utils/functions');
 const CONSTANTS = require('../constants');
-// const { query } = require('express');
+const { sendMail } = require('../utils/mailer');
 
 module.exports.dataForContest = async (req, res, next) => {
   const response = {};
@@ -168,33 +168,12 @@ module.exports.getOffers = async (req, res, next) => {
             'nameVenture',
           ],
         },
-        {
-          model: db.User,
-          required: true,
-          attributes: ['id', 'firstName', 'lastName', 'displayName', 'email'],
-        },
       ],
     });
     res.send({ offers, haveMore: offers.length !== 0 });
   } catch (err) {
     next(err);
   }
-};
-
-const approveOffer = async (offerId) => {
-  const offer = await contestQueries.updateOffer(
-    { status: CONSTANTS.OFFER_STATUS_PENDING },
-    { id: offerId }
-  );
-  return offer;
-};
-
-const denyOffer = async (offerId) => {
-  const offer = await contestQueries.updateOffer(
-    { status: CONSTANTS.OFFER_STATUS_DENIED },
-    { id: offerId }
-  );
-  return offer;
 };
 
 module.exports.setNewOffer = async (req, res, next) => {
@@ -341,16 +320,43 @@ module.exports.setOfferStatus = async (req, res, next) => {
   }
 };
 
+const getStatusByCommand = (command) => {
+  switch (command) {
+    case 'approve':
+      return CONSTANTS.OFFER_STATUS_PENDING;
+    case 'deny':
+      return CONSTANTS.OFFER_STATUS_DENIED;
+    default:
+      return null;
+  }
+};
+
 module.exports.setOfferReviewStatus = async (req, res, next) => {
   const { command, offerId } = req.body;
   try {
-    if (command === 'deny') {
-      const offer = await denyOffer(offerId);
-      res.send(offer);
-    } else if (command === 'approve') {
-      const offer = await approveOffer(offerId);
-      res.send(offer);
-    }
+    const status = getStatusByCommand(command);
+    if (!status) return null;
+
+    const updatedOffer = await contestQueries.updateOffer(
+      { status },
+      { id: offerId }
+    );
+
+    const offer = await db.Offer.findOne({
+      where: { id: offerId },
+      include: [
+        {
+          model: db.User,
+          required: true,
+          attributes: ['id', 'displayName', 'email'],
+        },
+      ],
+    });
+    const { email, displayName } = offer.User;
+
+    sendMail(email, status, displayName);
+
+    res.send(updatedOffer);
   } catch (err) {
     next(err);
   }

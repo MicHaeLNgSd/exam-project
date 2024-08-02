@@ -41,4 +41,8 @@ module.exports = {
     INCOME: 'INCOME',
     EXPENSE: 'EXPENSE',
   },
+  MAILER_EMAIL: {
+    ADDRESS: 'testtestenko864@gmail.com',
+    PASSWORD: 'qcfk nnyy csvf adwa',
+  },
 };
