@@ -23,6 +23,15 @@ import Spinner from '../../components/Spinner/Spinner';
 import TryAgain from '../../components/TryAgain/TryAgain';
 import 'react-18-image-lightbox/style.css';
 import Error from '../../components/Error/Error';
+import { sortByArr } from '../../utils/functions';
+
+const orderArr = [
+  CONSTANTS.OFFER_STATUS_REVIEWING,
+  CONSTANTS.OFFER_STATUS_PENDING,
+  CONSTANTS.OFFER_STATUS_WON,
+  CONSTANTS.OFFER_STATUS_DENIED,
+  CONSTANTS.OFFER_STATUS_REJECTED,
+];
 
 class ContestPage extends React.Component {
   componentWillUnmount() {
@@ -39,7 +48,10 @@ class ContestPage extends React.Component {
   };
 
   setOffersList = () => {
-    const array = this.props.contestByIdStore.offers.map((o) => (
+    const offers = this.props.contestByIdStore.offers;
+    const sortedOffers = sortByArr(offers, 'status', orderArr);
+
+    const array = sortedOffers.map((o) => (
       <OfferBox
         data={o}
         key={o.id}
@@ -135,7 +147,7 @@ class ContestPage extends React.Component {
     } = contestByIdStore;
     return (
       <div>
-        {/* <Chat/> */}
+        {/*TODO <Chat/> */}
         {isShowOnFull && (
           <LightBox
             mainSrc={`${CONSTANTS.publicContestsURL}${imagePath}`}
