@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       Conversation.belongsToMany(Catalog, {
-        through: 'ConversationsToCatalogs',
+        through: 'Conversations_to_Catalogs',
         foreignKey: 'conversationId',
       });
     }

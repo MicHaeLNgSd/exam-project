@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       Catalog.belongsToMany(Conversation, {
-        through: 'ConversationsToCatalogs',
+        through: 'Conversations_to_Catalogs',
         foreignKey: 'catalogId',
       });
     }
