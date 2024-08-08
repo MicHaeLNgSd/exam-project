@@ -5,35 +5,18 @@ import SelectInput from '../../../SelectInput/SelectInput';
 import { addChatToCatalog } from '../../../../store/slices/chatSlice';
 import styles from './AddToCatalog.module.sass';
 
-const AddToCatalog = (props) => {
-  const getCatalogsNames = () => {
-    const { catalogList } = props;
-    const namesArray = [];
-    catalogList.forEach((catalog) => {
-      namesArray.push(catalog.catalogName);
-    });
-    return namesArray;
-  };
+const AddToCatalog = ({ catalogList, addChatToCatalog, addChatId }) => {
+  const getCatalogsNames = () => catalogList.map((c) => c.catalogName);
+  const getValueArray = () => catalogList.map((c) => c.id);
 
-  const getValueArray = () => {
-    const { catalogList } = props;
-    const valueArray = [];
-    catalogList.forEach((catalog) => {
-      valueArray.push(catalog._id);
-    });
-    return valueArray;
-  };
-
-  const click = (values) => {
-    const { addChatId } = props;
-    props.addChatToCatalog({ chatId: addChatId, catalogId: values.catalogId });
-  };
+  const submitHandler = ({ catalogId }) =>
+    addChatToCatalog({ chatId: addChatId, catalogId });
 
   const selectArray = getCatalogsNames();
   return (
     <>
       {selectArray.length !== 0 ? (
-        <Formik onSubmit={click} initialValues={{ catalogId: '' }}>
+        <Formik onSubmit={submitHandler} initialValues={{ catalogId: '' }}>
           <Form className={styles.form}>
             <SelectInput
               name="catalogId"
