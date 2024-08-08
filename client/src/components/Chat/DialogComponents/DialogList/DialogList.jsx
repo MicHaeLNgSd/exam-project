@@ -36,7 +36,7 @@ const DialogList = (props) => {
   const getTimeStr = (time) => {
     const currentTime = moment();
     if (currentTime.isSame(time, 'day')) return moment(time).format('HH:mm');
-    if (currentTime.isSame(time, 'week')) return moment(time).format('dddd');
+    if (currentTime.isSame(time, 'week')) return moment(time).format('ddd');
     if (currentTime.isSame(time, 'year')) return moment(time).format('MM DD');
     return moment(time).format('MMMM DD, YYYY');
   };
