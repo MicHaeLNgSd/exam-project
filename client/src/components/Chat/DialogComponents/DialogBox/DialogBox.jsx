@@ -15,7 +15,7 @@ const DialogBox = (props) => {
     chatMode,
     interlocutor,
   } = props;
-  const { favoriteList, participants, blackList, _id, text, createAt } =
+  const { favoriteList, participants, blackList, id, text, createAt } =
     chatPreview;
   const isFavorite = favoriteList[participants.indexOf(userId)];
   const isBlocked = blackList[participants.indexOf(userId)];
@@ -27,7 +27,7 @@ const DialogBox = (props) => {
           interlocutor,
           conversationData: {
             participants,
-            _id,
+            id,
             blackList,
             favoriteList,
           },
@@ -82,7 +82,7 @@ const DialogBox = (props) => {
             })}
           />
           <i
-            onClick={(event) => catalogOperation(event, _id)}
+            onClick={(event) => catalogOperation(event, id)}
             className={classNames({
               'far fa-plus-square':
                 chatMode !== CONSTANTS.CATALOG_PREVIEW_CHAT_MODE,
