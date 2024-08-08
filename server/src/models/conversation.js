@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       Conversation.belongsToMany(Catalog, {
         through: 'Conversations_to_Catalogs',
         foreignKey: 'conversationId',
+        timestamps: false,
       });
     }
   }
