@@ -72,8 +72,8 @@ class Dialog extends React.Component {
     const userIndex = participants.indexOf(userId);
 
     const message = blackList[userIndex]
-      ? 'You block this user'
-      : 'This user block you';
+      ? 'You have blocked this user'
+      : 'This user has blocked you';
 
     return <span className={styles.messageBlock}>{message}</span>;
   };
