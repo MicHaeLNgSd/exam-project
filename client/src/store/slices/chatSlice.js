@@ -311,32 +311,37 @@ const changeCatalogNameExtraReducers = createExtraReducers({
 
 const reducers = {
   changeBlockStatusInStore: (state, { payload }) => {
-    const { messagesPreview } = state;
-    messagesPreview.forEach((preview) => {
+    const { messagesPreview, chatData } = state;
+
+    state.messagesPreview = messagesPreview.map((preview) => {
       if (isEqual(preview.participants, payload.participants))
         preview.blackList = payload.blackList;
+      return preview;
     });
-    state.chatData = payload;
-    state.messagesPreview = messagesPreview;
+
+    if (isEqual(payload?.participants, chatData?.participants))
+      state.chatData = payload;
   },
 
   addMessage: (state, { payload }) => {
     const { message, preview } = payload;
-    const { messagesPreview } = state;
+    const { messagesPreview, chatData } = state;
     let isNew = true;
-    messagesPreview.forEach((preview) => {
+
+    state.messagesPreview = messagesPreview.map((preview) => {
       if (isEqual(preview.participants, message.participants)) {
         preview.text = message.body;
         preview.sender = message.sender;
         preview.createAt = message.createdAt;
         isNew = false;
       }
+      return preview;
     });
-    if (isNew) {
-      messagesPreview.push(preview);
-    }
-    state.messagesPreview = messagesPreview;
-    state.messages = [...state.messages, payload.message];
+
+    if (isNew) state.messagesPreview.push(preview);
+
+    if (isEqual(message?.participants, chatData?.participants))
+      state.messages = [...state.messages, message];
   },
 
   backToDialogList: (state) => {
