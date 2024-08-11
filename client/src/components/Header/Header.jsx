@@ -9,6 +9,7 @@ import Logo from '../Logo';
 import NavBarList from './NavBarList/NavBarList';
 import { NAVIGATION_LIST } from './HeaderData';
 import LoginButtons from './LoginButtons/LoginButtons';
+import { clearChatStore } from '../../store/slices/chatSlice';
 
 class Header extends React.Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class Header extends React.Component {
   logOut = () => {
     localStorage.clear();
     this.props.clearUserStore();
+    this.props.clearChatStore();
     this.props.history.replace('/login');
   };
 
@@ -92,6 +94,7 @@ const mapStateToProps = (state) => state.userStore;
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(getUser()),
   clearUserStore: () => dispatch(clearUserStore()),
+  clearChatStore: () => dispatch(clearChatStore()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
