@@ -1,27 +1,31 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { useEffect, useState } from 'react';
 import { useField } from 'formik';
 
-const ImageUpload = (props) => {
-  const [{ value, ...field }, meta, helpers] = useField(props.name);
-  const { uploadContainer, inputContainer, imgStyle } = props.classes;
+const ImageUpload = ({ name, classes }) => {
+  const [{ value, ...field }, , helpers] = useField(name);
+  const { uploadContainer, inputContainer, imgStyle } = classes;
+  const [imgSrc, setImgSrc] = useState('');
 
   const onChange = ({ target }) => {
-    const node = window.document.getElementById('imagePreview');
     const file = target.files[0];
     const imageType = /image.*/;
 
-    if (!file.type.match(imageType)) {
-      target.value = '';
-    } else {
-      helpers.setValue(file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        node.src = reader.result;
-      };
-      reader.readAsDataURL(file);
+    if (!file?.type.match(imageType)) {
+      helpers.setValue(null);
+      return setImgSrc('');
     }
+
+    helpers.setValue(file);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => setImgSrc(reader.result);
   };
+
+  useEffect(() => {
+    if (!value) setImgSrc('');
+  }, [value]);
+
   return (
     <div className={uploadContainer}>
       <div className={inputContainer}>
@@ -35,11 +39,7 @@ const ImageUpload = (props) => {
         />
         <label htmlFor="fileInput">Chose file</label>
       </div>
-      <img
-        id="imagePreview"
-        className={classNames({ [imgStyle]: !!field.value })}
-        alt="user"
-      />
+      {imgSrc && <img src={imgSrc} className={imgStyle} alt="imagePreview" />}
     </div>
   );
 };
