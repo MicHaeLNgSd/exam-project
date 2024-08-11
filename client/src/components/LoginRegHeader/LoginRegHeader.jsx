@@ -6,13 +6,11 @@ import Logo from '../Logo';
 
 function LoginRegHeader({ to, linkText }) {
   return (
-    <div className={styles.headerSignUpPage}>
+    <div className={styles.header}>
       <Logo src={`${CONSTANTS.STATIC_IMAGES_PATH}logo.png`} />
-      <div className={styles.linkLoginContainer}>
-        <Link to={to}>
-          <span>{linkText}</span>
-        </Link>
-      </div>
+      <Link to={to} className={styles.loginRegLink}>
+        {linkText}
+      </Link>
     </div>
   );
 }

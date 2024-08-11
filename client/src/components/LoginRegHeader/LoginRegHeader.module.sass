@@ -1,30 +1,22 @@
-.headerSignUpPage
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  align-items: center
+@import './../../common/style/vars'
+@import './../../common/style/templates'
+  
+.header
+  @include flex(space-between, $gap: 10px)
   margin-top: 26px
   padding-left: 45px
   padding-right: 100px
   @media (max-width: 530px)
     padding-right: 45px
+  @media (max-width: 400px)
+    padding: 0 30px
 
-// .headerSignUpPage
-//   padding-right: 60px
-//   @media (max-width: 530px)
-//     padding: 0
-
-.linkLoginContainer
-  border: 1px solid white
+.loginRegLink
+  @include flex()
+  color: white
   width: 80px
+  height: 40px
+  border: 1px solid white
   border-radius: 4px
-  display: flex
-  justify-content: center
-  align-items: center
   font-size: 18px
   font-weight: bold
-  height: 40px
-  text-decoration: none
-
-  span
-    color: white
