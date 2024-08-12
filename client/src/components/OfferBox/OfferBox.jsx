@@ -24,18 +24,15 @@ import './confirmStyle.css';
 const OfferBox = (props) => {
   const findConversationInfo = () => {
     const { messagesPreview, id } = props;
-    const participants = [id, props.data.User.id];
-    participants.sort((a, b) => a - b);
-    for (let i = 0; i < messagesPreview.length; i++) {
-      if (isEqual(participants, messagesPreview[i].participants)) {
-        return {
-          participants: messagesPreview[i].participants,
-          id: messagesPreview[i].id,
-          blackList: messagesPreview[i].blackList,
-          favoriteList: messagesPreview[i].favoriteList,
-        };
+    const participants = [id, props.data.User.id].sort((a, b) => a - b);
+
+    messagesPreview.forEach((mp) => {
+      if (isEqual(participants, mp.participants)) {
+        const { participants, id, blackList, favoriteList } = mp;
+        return { participants, id, blackList, favoriteList };
       }
-    }
+    });
+
     return null;
   };
 
