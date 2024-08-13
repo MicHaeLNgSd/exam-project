@@ -1,9 +1,9 @@
+@import './../../common/style/vars'
+@import './../../common/style/templates'
+  
 .mainContainer
+  @include flex(flex-start, flex-start)
   margin: 0 auto
-  display: flex
-  flex-direction: row
-  align-items: flex-start
-  justify-content: flex-start
   padding: 100px
   @media(max-width: 800px)
     padding: 40px
@@ -20,19 +20,13 @@
   font-weight: 500
 
 .container
-  display: flex
-  flex-direction: row
-  justify-content: center
-  align-items: flex-start
+  @include flex($ai: flex-start)
   width: 100%
   padding-top: 30px
 
 .aside
+  @include flex(flex-start, flex-start, column)
   margin-right: 40px
-  display: flex
-  flex-direction: column
-  align-items: flex-start
-  justify-content: flex-start
   box-shadow: 0 5px 10px 3px rgba(0, 0, 0, 0.1)
   @media(max-width: 800px)
     align-self: stretch
@@ -47,10 +41,7 @@
   font-weight: 500
 
 .optionsContainer
-  display: flex
-  flex-direction: column
-  align-items: flex-start
-  justify-content: flex-start
+  @include flex(flex-start, flex-start, column)
   gap: 10px
   align-self: stretch
   padding: 15px 0

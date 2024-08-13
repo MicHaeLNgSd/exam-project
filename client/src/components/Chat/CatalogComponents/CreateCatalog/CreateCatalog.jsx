@@ -30,7 +30,9 @@ const CreateCatalog = (props) => {
             notValid: styles.notValid,
           }}
         />
-        <button type="submit">Create Catalog</button>
+        <button className={styles.btn} type="submit">
+          Create Catalog
+        </button>
       </Form>
     </Formik>
   );

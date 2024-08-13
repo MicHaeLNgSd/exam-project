@@ -55,7 +55,9 @@ const CatalogListHeader = (props) => {
                 type="text"
                 label="Catalog Name"
               />
-              <button type="submit">Change</button>
+              <button className={styles.btn} type="submit">
+                Change
+              </button>
             </Form>
           </Formik>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import CONSTANTS from '../../../../constants';
 import {
   changeTypeOfChatAdding,
@@ -29,14 +30,14 @@ class CatalogCreation extends React.Component {
       <>
         {!isFetching && (
           <div className={styles.catalogCreationContainer}>
-            <i
-              className="far fa-times-circle"
+            <FaRegTimesCircle
+              className={styles.closeIcon}
               onClick={() => changeShowAddChatToCatalogMenu()}
             />
             <div className={styles.buttonsContainer}>
               <span
                 onClick={() => changeTypeOfChatAdding(ADD_CHAT_TO_OLD_CATALOG)}
-                className={classNames({
+                className={classNames(styles.tab, {
                   [styles.active]:
                     catalogCreationMode === ADD_CHAT_TO_OLD_CATALOG,
                 })}
@@ -47,7 +48,7 @@ class CatalogCreation extends React.Component {
                 onClick={() =>
                   changeTypeOfChatAdding(CREATE_NEW_CATALOG_AND_ADD_CHAT)
                 }
-                className={classNames({
+                className={classNames(styles.tab, {
                   [styles.active]:
                     catalogCreationMode === CREATE_NEW_CATALOG_AND_ADD_CHAT,
                 })}
