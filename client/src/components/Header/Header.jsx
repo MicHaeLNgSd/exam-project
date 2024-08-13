@@ -39,7 +39,7 @@ class Header extends React.Component {
       return null;
     }
     return (
-      <div className={styles.headerContainer}>
+      <>
         <div className={styles.fixedHeader}>
           <span className={styles.info}>
             Squadhelp recognized as one of the Most Innovative Companies by Inc
@@ -47,45 +47,48 @@ class Header extends React.Component {
           </span>
           <a href="http://www.google.com">Read Announcement</a>
         </div>
-        <div className={styles.loginSignnUpHeaders}>
-          <div className={styles.numberContainer}>
-            <a href={`tel:${CONSTANTS.PHONE_NUMBER}`}>
-              <img
-                src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`}
-                alt="phone"
-              />
-              <span>{CONSTANTS.PHONE_NUMBER}</span>
-            </a>
+
+        <div className={styles.headerContainer}>
+          <div className={styles.loginSignnUpHeaders}>
+            <div className={styles.numberContainer}>
+              <a href={`tel:${CONSTANTS.PHONE_NUMBER}`}>
+                <img
+                  src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`}
+                  alt="phone"
+                />
+                <span>{CONSTANTS.PHONE_NUMBER}</span>
+              </a>
+            </div>
+            <div className={styles.userButtonsContainer}>
+              <LoginButtons data={this.props.data} logOut={this.logOut} />
+            </div>
           </div>
-          <div className={styles.userButtonsContainer}>
-            <LoginButtons data={this.props.data} logOut={this.logOut} />
+          <div className={styles.navContainer}>
+            <Logo className={styles.logo} alt="blue_logo" />
+            <div className={styles.leftNav}>
+              <nav className={styles.nav}>
+                <NavBarList navList={NAVIGATION_LIST} />
+              </nav>
+              {this.props.data?.role === CONSTANTS.CUSTOMER && (
+                <button
+                  className={styles.startContestBtn}
+                  onClick={this.startContests}
+                >
+                  START CONTEST
+                </button>
+              )}
+              {this.props.data?.role === CONSTANTS.MODERATOR && (
+                <button
+                  className={styles.startContestBtn}
+                  onClick={this.startOffersReview}
+                >
+                  START OFFERS REVIEW
+                </button>
+              )}
+            </div>
           </div>
         </div>
-        <div className={styles.navContainer}>
-          <Logo className={styles.logo} alt="blue_logo" />
-          <div className={styles.leftNav}>
-            <nav className={styles.nav}>
-              <NavBarList navList={NAVIGATION_LIST} />
-            </nav>
-            {this.props.data?.role === CONSTANTS.CUSTOMER && (
-              <div
-                className={styles.startContestBtn}
-                onClick={this.startContests}
-              >
-                START CONTEST
-              </div>
-            )}
-            {this.props.data?.role === CONSTANTS.MODERATOR && (
-              <div
-                className={styles.startContestBtn}
-                onClick={this.startOffersReview}
-              >
-                START OFFERS REVIEW
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      </>
     );
   }
 }
