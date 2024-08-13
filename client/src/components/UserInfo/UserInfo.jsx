@@ -34,7 +34,7 @@ const UserInfo = (props) => {
             className={styles.avatar}
             alt="user"
           />
-          <div className={styles.infoContainer}>
+          <div className={styles.infoWrapper}>
             <div className={styles.infoBlock}>
               <span className={styles.label}>First Name</span>
               <span className={styles.info}>{firstName}</span>

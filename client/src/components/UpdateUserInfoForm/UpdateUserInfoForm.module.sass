@@ -1,3 +1,5 @@
+@import '../UserInfo/UserInfo.module'
+  
 .updateContainer
   margin: 40px 0
   display: flex
@@ -33,9 +35,9 @@
       flex-direction: column
       align-items: center
       justify-content: flex-start
-      margin-bottom: 10px
+      margin: 10px 0
 
-      span
+      .error
         font-size: 14px
         margin-bottom: 4px
         color: red
@@ -52,7 +54,7 @@
         color: white
         background-color: #455a89
         border-radius: 4px
-        align-self: flex-start
+        align-self: flex-end
         cursor: pointer
 
         &:hover

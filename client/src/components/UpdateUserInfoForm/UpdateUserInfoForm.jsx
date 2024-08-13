@@ -7,6 +7,7 @@ import ImageUpload from '../InputComponents/ImageUpload/ImageUpload';
 import FormInput from '../FormInput/FormInput';
 import Schems from '../../utils/validators/validationSchems';
 import Error from '../Error/Error';
+import CONSTANTS from '../../constants';
 
 const UpdateUserInfoForm = (props) => {
   const { onSubmit, submitting, error, clearUserError } = props;
@@ -24,6 +25,15 @@ const UpdateUserInfoForm = (props) => {
             clearError={clearUserError}
           />
         )}
+        <ImageUpload
+          name="avatar"
+          classes={{
+            uploadContainer: styles.imageUploadContainer,
+            inputContainer: styles.uploadInputContainer,
+            imgStyle: styles.avatar,
+            error: styles.error,
+          }}
+        />
         <div className={styles.container}>
           <span className={styles.label}>First Name</span>
           <FormInput
@@ -66,14 +76,6 @@ const UpdateUserInfoForm = (props) => {
             }}
           />
         </div>
-        <ImageUpload
-          name="file"
-          classes={{
-            uploadContainer: styles.imageUploadContainer,
-            inputContainer: styles.uploadInputContainer,
-            imgStyle: styles.imgStyle,
-          }}
-        />
         <button type="submit" disabled={submitting}>
           Submit
         </button>
@@ -90,6 +92,10 @@ const mapStateToProps = (state) => {
       firstName: data.firstName,
       lastName: data.lastName,
       displayName: data.displayName,
+      avatar:
+        data.avatar === 'anon.png'
+          ? CONSTANTS.ANONYM_IMAGE_PATH
+          : `${CONSTANTS.publicImagesURL}${data.avatar}`,
     },
   };
 };
