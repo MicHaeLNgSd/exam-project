@@ -182,24 +182,27 @@ module.exports.getOffers = async (req, res, next) => {
 };
 
 module.exports.setNewOffer = async (req, res, next) => {
-  const obj = {};
-  if (req.body.contestType === CONSTANTS.LOGO_CONTEST) {
+  const { contestType, offerData, contestId } = req.body;
+  const { userId } = req.tokenData;
+
+  const obj = { userId, contestId };
+  if (contestType === CONSTANTS.LOGO_CONTEST) {
     obj.fileName = req.file.filename;
     obj.originalFileName = req.file.originalname;
   } else {
-    obj.text = req.body.offerData;
+    obj.text = offerData;
   }
-  obj.userId = req.tokenData.userId;
-  obj.contestId = req.body.contestId;
+
   try {
     const result = await createOffer(obj);
-    delete result.contestId;
-    delete result.userId;
+    const { contestId, userId: uId, ...response } = result;
+
     controller
       .getNotificationController()
       .emitEntryCreated(req.body.customerId);
-    const User = Object.assign({}, req.tokenData, { id: req.tokenData.userId });
-    res.send(Object.assign({}, result, { User }));
+
+    const User = { ...req.tokenData, id: userId };
+    res.send({ ...response, User });
   } catch (e) {
     return next(new ServerError());
   }

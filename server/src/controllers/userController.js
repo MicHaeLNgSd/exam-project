@@ -14,51 +14,43 @@ const {
 const { updateBankBalance } = require('./services/bank.service');
 const { createRating, updateRating } = require('./services/rating.service');
 
+const getAccessToken = (user) => {
+  const accessToken = jwt.sign(
+    {
+      userId: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      displayName: user.displayName,
+      avatar: user.avatar,
+      role: user.role,
+      balance: user.balance,
+      email: user.email,
+      rating: user.rating,
+    },
+    CONSTANTS.JWT_SECRET,
+    { expiresIn: CONSTANTS.ACCESS_TOKEN_TIME }
+  );
+  return accessToken;
+};
+
 module.exports.login = async (req, res, next) => {
   try {
     const foundUser = await findUser({ email: req.body.email });
     const isValidPassword = await foundUser.passwordCompare(req.body.password);
     if (!isValidPassword) throw new NotFound('user with this data dont exist');
 
-    const accessToken = jwt.sign(
-      {
-        firstName: foundUser.firstName,
-        userId: foundUser.id,
-        role: foundUser.role,
-        lastName: foundUser.lastName,
-        avatar: foundUser.avatar,
-        displayName: foundUser.displayName,
-        balance: foundUser.balance,
-        email: foundUser.email,
-        rating: foundUser.rating,
-      },
-      CONSTANTS.JWT_SECRET,
-      { expiresIn: CONSTANTS.ACCESS_TOKEN_TIME }
-    );
+    const accessToken = getAccessToken(foundUser);
     await updateUser({ accessToken }, foundUser.id);
     res.send({ token: accessToken });
   } catch (err) {
     next(err);
   }
 };
+
 module.exports.registration = async ({ body }, res, next) => {
   try {
     const newUser = await userCreation(body);
-    const accessToken = jwt.sign(
-      {
-        firstName: newUser.firstName,
-        userId: newUser.id,
-        role: newUser.role,
-        lastName: newUser.lastName,
-        avatar: newUser.avatar,
-        displayName: newUser.displayName,
-        balance: newUser.balance,
-        email: newUser.email,
-        rating: newUser.rating,
-      },
-      CONSTANTS.JWT_SECRET,
-      { expiresIn: CONSTANTS.ACCESS_TOKEN_TIME }
-    );
+    const accessToken = getAccessToken(newUser);
     await updateUser({ accessToken }, newUser.id);
     res.send({ token: accessToken });
   } catch (err) {
@@ -188,13 +180,16 @@ module.exports.payment = async ({ body, tokenData }, res, next) => {
 };
 
 module.exports.updateUser = async ({ file, body, tokenData }, res, next) => {
-  const { userId } = tokenData;
+  const { userId, ...restTokenData } = tokenData;
   try {
-    if (file) {
-      body.avatar = file.filename;
-    }
-    const updatedUser = await updateUser(body, userId);
+    if (file) body.avatar = file.filename;
+
+    const tokenReqData = { id: userId, ...restTokenData, ...body };
+    const accessToken = getAccessToken(tokenReqData);
+
+    const updatedUser = await updateUser({ ...body, accessToken }, userId);
     res.send({
+      token: accessToken,
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       displayName: updatedUser.displayName,
