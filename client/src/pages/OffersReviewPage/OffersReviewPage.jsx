@@ -19,10 +19,10 @@ function OffersReviewPage() {
     (state) => state.contestByIdStore
   );
 
-  const loadMore = (startFrom = 0) => {
+  const loadMore = (startFrom = 0, limit = 8) => {
     dispatch(
       getOffers({
-        limit: 8,
+        limit,
         offset: startFrom,
         status: CONSTANTS.OFFER_STATUS_REVIEWING,
       })
@@ -31,14 +31,20 @@ function OffersReviewPage() {
 
   const scrollHandler = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - 1
     ) {
       if (haveMore) {
         loadMore(offers.length);
       }
     }
   };
+
+  useEffect(() => {
+    if (offers.length > 0 && offers.length < 8 && haveMore) {
+      loadMore(offers.length);
+    }
+  }, [offers, haveMore]); //, loadMore
 
   useEffect(() => {
     window.addEventListener('scroll', scrollHandler);
