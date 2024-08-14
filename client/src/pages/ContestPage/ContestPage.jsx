@@ -42,6 +42,12 @@ class ContestPage extends React.Component {
     this.getData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params?.id !== prevProps.match.params?.id) {
+      this.getData();
+    }
+  }
+
   getData = () => {
     const { params } = this.props.match;
     this.props.getData({ contestId: params.id });

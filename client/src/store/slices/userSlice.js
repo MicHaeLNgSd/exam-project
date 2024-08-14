@@ -35,6 +35,7 @@ export const updateUser = decorateAsyncThunk({
 
 const reducers = {
   clearUserStore: (state) => {
+    controller.unsubscribe(state.data.id);
     state.error = null;
     state.data = null;
   },
