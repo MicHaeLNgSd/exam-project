@@ -1,6 +1,8 @@
+@import './../../common/style/vars'
+@import './../../common/style/templates'
+  
 .main
-  display: flex
-  justify-content: center
+  @include flex($fd: column)
   
 .transitionsTable
   width: 60%
@@ -22,22 +24,23 @@
     margin-bottom: 10px
 
   thead
-    color: white
-    background-color: rgb(69, 90, 137)
     width: 100%
-    display: flex
+    color: white
+    background-color: #455A89
     th
-      flex: 1
-      padding: 10px
-      text-align: left
       font-weight: bold
-      border: 1px solid #c0c0c0
 
-  tbody
-    tr
-      display: flex
-    td
-      flex: 1
-      padding: 10px
-      text-align: left
-      border: 1px solid #c0c0c0
+  tr
+    display: flex
+  th, td
+    flex: 1
+    padding: 10px
+    text-align: left
+    border: 1px solid #c0c0c0
+
+.notFound
+  color: #455a89
+  font-size: 20px
+  margin-top: 40px
+  width: 100%
+  text-align: center
