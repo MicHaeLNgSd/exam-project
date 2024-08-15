@@ -28,6 +28,7 @@ const FormInput = ({
             {...field}
             placeholder={label}
             className={inputClassName}
+            autoComplete="on"
             {...rest}
           />
           {isError && (

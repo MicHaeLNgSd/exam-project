@@ -42,6 +42,7 @@ class CreatorDashboard extends React.Component {
     );
     return (
       <select
+        name={'typeIndex'}
         onChange={({ target }) =>
           this.changePredicate({
             name: 'typeIndex',
@@ -74,6 +75,7 @@ class CreatorDashboard extends React.Component {
     );
     return (
       <select
+        name={'industry'}
         onChange={({ target }) =>
           this.changePredicate({
             name: 'industry',
@@ -88,9 +90,9 @@ class CreatorDashboard extends React.Component {
     );
   };
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.location.search !== this.props.location.search) {
-      this.parseUrlForParams(nextProps.location.search);
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.search !== this.props.location.search) {
+      this.parseUrlForParams(this.props.location.search);
     }
   }
 
@@ -239,6 +241,7 @@ class CreatorDashboard extends React.Component {
             <div className={styles.inputContainer}>
               <span>By amount award</span>
               <select
+                name={'awardSort'}
                 onChange={({ target }) =>
                   this.changePredicate({
                     name: 'awardSort',

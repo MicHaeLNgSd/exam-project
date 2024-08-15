@@ -16,24 +16,21 @@ class Dialog extends React.Component {
     this.scrollToBottom();
   }
 
-  messagesEnd = React.createRef();
-
-  scrollToBottom = () => {
-    this.messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.interlocutor.id !== this.props.interlocutor.id)
-      this.props.getDialog({ interlocutorId: nextProps.interlocutor.id });
+  componentDidUpdate(prevProps) {
+    if (this.messagesEnd.current) this.scrollToBottom();
+    if (prevProps.interlocutor.id !== this.props.interlocutor.id)
+      this.props.getDialog({ interlocutorId: this.props.interlocutor.id });
   }
 
   componentWillUnmount() {
     this.props.clearMessageList();
   }
 
-  componentDidUpdate() {
-    if (this.messagesEnd.current) this.scrollToBottom();
-  }
+  messagesEnd = React.createRef();
+
+  scrollToBottom = () => {
+    this.messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
   renderMainDialog = () => {
     const messagesArray = [];
