@@ -1,19 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import styles from './ContestSideBar.module.sass';
 import CONSTANTS from '../../constants';
-import { sortByArr } from '../../utils/functions';
 import _ from 'lodash';
-
-const orderArr = [
-  CONSTANTS.OFFER_STATUS_REVIEWING,
-  CONSTANTS.OFFER_STATUS_PENDING,
-  CONSTANTS.OFFER_STATUS_WON,
-  CONSTANTS.OFFER_STATUS_DENIED,
-  CONSTANTS.OFFER_STATUS_REJECTED,
-];
 
 const getEntriesInfo = (infoObj, namingArr = []) =>
   Object.entries(infoObj)
@@ -40,12 +30,10 @@ const ContestSideBar = (props) => {
   };
 
   const renderContestInfo = () => {
-    // const { totalEntries } = props;
     const { offers } = props;
 
     const totalEntries = offers.length;
-    const sortedOffers = sortByArr(offers, 'status', orderArr);
-    const entriesCountsObj = _.countBy(sortedOffers, 'status');
+    const entriesCountsObj = _.countBy(offers, 'status');
 
     const { User, prize } = props.contestData;
     return (
