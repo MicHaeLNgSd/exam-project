@@ -63,9 +63,9 @@ const UserProfile = (props) => {
         ) : (
           <div className={styles.container}>
             {parseInt(balance) === 0 ? (
-              <span className={styles.notMoney}>
+              <div className={styles.notMoney}>
                 There is no money on your balance
-              </span>
+              </div>
             ) : (
               <div>
                 {error && (

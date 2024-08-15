@@ -68,7 +68,7 @@ function OffersReviewPage() {
     if (error) return <TryAgain getData={tryGetOffers} />;
     if (offers.length === 0 && !isFetching)
       return (
-        <div className={styles.notFound}>There is no offers at this moment</div>
+        <div className={styles.notFound}>There is no offer at the moment</div>
       );
     return <OffersReviewList offers={offers} />;
   };

@@ -27,7 +27,7 @@ function TransactionsPage() {
     if (transactions.length === 0 && !isFetching)
       return (
         <div className={styles.notFound}>
-          There is no transactions at this moment
+          There is no transaction at the moment
         </div>
       );
     return (

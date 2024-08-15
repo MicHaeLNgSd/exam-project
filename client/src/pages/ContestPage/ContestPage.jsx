@@ -78,7 +78,7 @@ const ContestPage = ({
     if (offerList.length === 0)
       return (
         <div className={styles.notFound}>
-          There is no suggestion at this moment
+          There is no suggestion at the moment
         </div>
       );
 
