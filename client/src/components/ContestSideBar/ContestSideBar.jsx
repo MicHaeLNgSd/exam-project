@@ -1,9 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import styles from './ContestSideBar.module.sass';
 import CONSTANTS from '../../constants';
+import { sortByArr } from '../../utils/functions';
+import _ from 'lodash';
+
+const orderArr = [
+  CONSTANTS.OFFER_STATUS_REVIEWING,
+  CONSTANTS.OFFER_STATUS_PENDING,
+  CONSTANTS.OFFER_STATUS_WON,
+  CONSTANTS.OFFER_STATUS_DENIED,
+  CONSTANTS.OFFER_STATUS_REJECTED,
+];
+
+const getEntriesInfo = (infoObj, namingArr = []) =>
+  Object.entries(infoObj)
+    .filter(([, count]) => count)
+    .map(([status, count]) => (
+      <div key={status} className={styles.totalEntrie}>
+        <span className={styles.totalEntriesLabel}>
+          {namingArr[status] || `${_.startCase(status)} Entries`}
+        </span>
+        <span>{count}</span>
+      </div>
+    ));
 
 const ContestSideBar = (props) => {
   const getTimeStr = () => {
@@ -18,7 +40,13 @@ const ContestSideBar = (props) => {
   };
 
   const renderContestInfo = () => {
-    const { totalEntries } = props;
+    // const { totalEntries } = props;
+    const { offers } = props;
+
+    const totalEntries = offers.length;
+    const sortedOffers = sortByArr(offers, 'status', orderArr);
+    const entriesCountsObj = _.countBy(sortedOffers, 'status');
+
     const { User, prize } = props.contestData;
     return (
       <div className={styles.contestSideBarInfo}>
@@ -57,6 +85,7 @@ const ContestSideBar = (props) => {
               <span className={styles.totalEntriesLabel}>Total Entries</span>
               <span>{totalEntries}</span>
             </div>
+            {getEntriesInfo(entriesCountsObj)}
           </div>
         </div>
         {props.data.id !== User.id && (
