@@ -129,7 +129,7 @@ class CreatorDashboard extends React.Component {
     Object.keys(creatorFilter).forEach((el) => {
       if (creatorFilter[el]) obj[el] = creatorFilter[el];
     });
-    this.props.history.push(`/Dashboard?${queryString.stringify(obj)}`);
+    this.props.history.push(`/dashboard?${queryString.stringify(obj)}`);
   };
 
   parseUrlForParams = (search) => {
@@ -142,13 +142,11 @@ class CreatorDashboard extends React.Component {
       ownEntries:
         typeof obj.ownEntries === 'undefined' ? false : obj.ownEntries,
     };
-    if (!isEqual(filter, this.props.creatorFilter)) {
-      this.props.newFilter(filter);
-      this.props.clearContestsList();
-      this.getContests(filter);
-      return false;
-    }
-    return true;
+    this.props.newFilter(filter);
+    this.props.clearContestsList();
+    this.getContests(filter);
+
+    return isEqual(filter, this.props.creatorFilter);
   };
 
   getPredicateOfRequest = () => {
@@ -221,12 +219,10 @@ class CreatorDashboard extends React.Component {
               <span>By contest ID</span>
               <input
                 type="text"
-                onChange={({ target }) =>
-                  this.changePredicate({
-                    name: 'contestId',
-                    value: target.value,
-                  })
-                }
+                onChange={({ target: { value } }) => {
+                  if (Number.isSafeInteger(+value))
+                    this.changePredicate({ name: 'contestId', value });
+                }}
                 name="contestId"
                 value={creatorFilter.contestId}
                 className={styles.input}
