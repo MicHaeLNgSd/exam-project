@@ -71,7 +71,7 @@ const ContestInfo = (props) => {
         </div>
         <div className={styles.dataContainer}>
           <span className={styles.label}>
-            Description target customers of company{' '}
+            Description target customers of company
           </span>
           <span className={styles.data}>{targetCustomer}</span>
         </div>
