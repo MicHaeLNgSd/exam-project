@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
-import isEqual from 'lodash/isEqual';
 import {
   getContests,
   clearContestsList,
@@ -98,11 +97,11 @@ class CreatorDashboard extends React.Component {
 
   componentDidMount() {
     this.props.getDataForContest();
-    if (
-      this.parseUrlForParams(this.props.location.search) &&
-      !this.props.contests.length
-    )
-      this.getContests(this.props.creatorFilter);
+    this.parseUrlForParams(this.props.location.search);
+  }
+
+  componentWillUnmount() {
+    this.props.clearContestsList();
   }
 
   getContests = (filter) => {
@@ -145,8 +144,6 @@ class CreatorDashboard extends React.Component {
     this.props.newFilter(filter);
     this.props.clearContestsList();
     this.getContests(filter);
-
-    return isEqual(filter, this.props.creatorFilter);
   };
 
   getPredicateOfRequest = () => {
