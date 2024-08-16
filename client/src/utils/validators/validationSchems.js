@@ -61,7 +61,6 @@ const Schems = {
       .required('Must Accept Terms and Conditions'),
   }),
   ContestSchem: yup.object({
-    nameVenture: yup.string().min(3),
     contestType: yup
       .string()
       .matches(/(name|tagline|logo)/)
@@ -91,6 +90,13 @@ const Schems = {
         (value) => value && value.trim().length >= 1
       )
       .required('target customers required'),
+    nameVenture: yup
+      .string()
+      .min(3)
+      .when('contestType', {
+        is: (val) => /(tagline|logo)/.test(val),
+        then: yup.string().required('name of venture required'),
+      }),
     styleName: yup.string().min(1),
     typeOfName: yup.string().min(1),
     typeOfTagline: yup.string().min(1),
