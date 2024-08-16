@@ -413,11 +413,10 @@ module.exports.getContests = (req, res, next) => {
       contestId,
       industry,
       awardSort,
-      ownEntries,
+      ownEntries: isOwnEntries,
     },
   } = req;
 
-  const isOwnEntries = ownEntries === 'true';
   const data = [typeIndex, contestId, industry, awardSort];
   const { where, order } = UtilFunctions.createWhereForAllContests(...data);
   db.Contest.findAll({
@@ -430,14 +429,17 @@ module.exports.getContests = (req, res, next) => {
         model: db.Offer,
         required: isOwnEntries,
         where: isOwnEntries ? { userId } : {},
-        attributes: ['id'],
+        attributes: ['id', 'userId'],
       },
     ],
   })
     .then((contests) => {
-      contests.forEach(
-        (c) => (c.dataValues.count = c.dataValues.Offers.length)
-      );
+      contests.forEach((c) => {
+        c.dataValues.Offers = c.dataValues.Offers.filter(
+          (o) => o.dataValues.userId === userId
+        );
+        c.dataValues.count = c.dataValues.Offers.length;
+      });
       res.send({ contests, haveMore: contests.length !== 0 });
     })
     .catch((err) => {
