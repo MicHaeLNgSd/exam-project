@@ -23,7 +23,20 @@ const ContestBox = (props) => {
   const ucFirstLetter = (string) =>
     string.charAt(0).toUpperCase() + string.slice(1);
 
-  const { id, title, contestType, prize, count } = props.data;
+  const getStatusName = (status) => {
+    switch (status) {
+      case CONSTANTS.CONTEST_STATUS_ACTIVE:
+        return 'Going';
+      case CONSTANTS.CONTEST_STATUS_PENDING:
+        return 'Waiting';
+      case CONSTANTS.CONTEST_STATUS_FINISHED:
+        return 'Ended';
+      default:
+        return null;
+    }
+  };
+
+  const { id, status, title, contestType, prize, count } = props.data;
   return (
     <div
       className={styles.contestBoxContainer}
@@ -77,7 +90,7 @@ const ContestBox = (props) => {
         </div>
         <div className={styles.timeContainer}>
           <span className={styles.timeContest}>{getTimeStr()}</span>
-          <span>Going</span>
+          <span>{getStatusName(status)}</span>
         </div>
       </div>
     </div>
