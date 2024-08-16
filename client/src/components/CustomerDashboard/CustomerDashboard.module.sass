@@ -62,36 +62,27 @@
     gap: 10px
 
 .filter
+  cursor: pointer
   transition: 0.2s all
   margin-top: 15px
   margin-inline: 10px
-  border: 2px dashed #556da5
+  border: 2px dashed #4e618d
   border-radius: 10px
   text-align: center
-  color: #46568a
+  color: #4e618d
   font-size: 18px
   padding: 10px
   @media(max-width: 1000px)
     height: 20px
     margin: 0 5px
-
   &:hover
     background-color: #eefaea
 
 .activeFilter
-  transition: 0.2s all
-  margin-inline: 10px
-  border: 2px solid #556da5
-  border-radius: 10px
-  margin-top: 15px
-  text-align: center
-  font-size: 18px
-  padding: 10px
-  background-color: #4e618d
   color: white
-  @media(max-width: 1000px)
-    height: 20px
-    margin: 0 5px
+  background-color: #4e618d
+  &:hover
+    background-color: #4e618d
 
 .headerFilter
   align-self: stretch

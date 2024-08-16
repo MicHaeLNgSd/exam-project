@@ -59,6 +59,12 @@ class CustomerDashboard extends React.Component {
     this.getContests();
   };
 
+  clickHandler = (filter) => {
+    if (this.props.customerFilter !== filter) {
+      this.props.newFilter(filter);
+    }
+  };
+
   render() {
     const { error, haveMore } = this.props;
     const { customerFilter } = this.props;
@@ -68,40 +74,32 @@ class CustomerDashboard extends React.Component {
           <span className={styles.headerFilter}>Filter Results</span>
           <div className={styles.inputsContainer}>
             <div
-              onClick={() =>
-                this.props.newFilter(CONSTANTS.CONTEST_STATUS_ACTIVE)
-              }
-              className={classNames({
+              onClick={() => this.clickHandler(CONSTANTS.CONTEST_STATUS_ACTIVE)}
+              className={classNames(styles.filter, {
                 [styles.activeFilter]:
                   CONSTANTS.CONTEST_STATUS_ACTIVE === customerFilter,
-                [styles.filter]:
-                  CONSTANTS.CONTEST_STATUS_ACTIVE !== customerFilter,
               })}
             >
               Active Contests
             </div>
             <div
               onClick={() =>
-                this.props.newFilter(CONSTANTS.CONTEST_STATUS_FINISHED)
+                this.clickHandler(CONSTANTS.CONTEST_STATUS_FINISHED)
               }
-              className={classNames({
+              className={classNames(styles.filter, {
                 [styles.activeFilter]:
                   CONSTANTS.CONTEST_STATUS_FINISHED === customerFilter,
-                [styles.filter]:
-                  CONSTANTS.CONTEST_STATUS_FINISHED !== customerFilter,
               })}
             >
               Completed Contests
             </div>
             <div
               onClick={() =>
-                this.props.newFilter(CONSTANTS.CONTEST_STATUS_PENDING)
+                this.clickHandler(CONSTANTS.CONTEST_STATUS_PENDING)
               }
-              className={classNames({
+              className={classNames(styles.filter, {
                 [styles.activeFilter]:
                   CONSTANTS.CONTEST_STATUS_PENDING === customerFilter,
-                [styles.filter]:
-                  CONSTANTS.CONTEST_STATUS_PENDING !== customerFilter,
               })}
             >
               Inactive Contests
