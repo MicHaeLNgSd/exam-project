@@ -44,6 +44,7 @@ const ContestPage = ({
   clearSetOfferStatusError,
   goToExpandedDialog,
   match,
+  setOfferStatus,
 }) => {
   const { role } = userStore.data;
   const {
@@ -69,7 +70,7 @@ const ContestPage = ({
         data={o}
         key={o.id}
         needButtons={needButtons}
-        setOfferStatus={setOfferStatus}
+        setOfferStatus={changeOfferStatus}
         contestType={contestData.contestType}
         date={new Date()}
       />
@@ -96,7 +97,7 @@ const ContestPage = ({
     );
   };
 
-  const setOfferStatus = (creatorId, offerId, command) => {
+  const changeOfferStatus = (creatorId, offerId, command) => {
     clearSetOfferStatusError();
     const { id, orderId, priority } = contestData;
     const obj = {
