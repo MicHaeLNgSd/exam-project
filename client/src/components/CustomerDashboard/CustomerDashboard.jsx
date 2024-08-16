@@ -65,44 +65,47 @@ class CustomerDashboard extends React.Component {
     return (
       <div className={styles.mainContainer}>
         <div className={styles.filterContainer}>
-          <div
-            onClick={() =>
-              this.props.newFilter(CONSTANTS.CONTEST_STATUS_ACTIVE)
-            }
-            className={classNames({
-              [styles.activeFilter]:
-                CONSTANTS.CONTEST_STATUS_ACTIVE === customerFilter,
-              [styles.filter]:
-                CONSTANTS.CONTEST_STATUS_ACTIVE !== customerFilter,
-            })}
-          >
-            Active Contests
-          </div>
-          <div
-            onClick={() =>
-              this.props.newFilter(CONSTANTS.CONTEST_STATUS_FINISHED)
-            }
-            className={classNames({
-              [styles.activeFilter]:
-                CONSTANTS.CONTEST_STATUS_FINISHED === customerFilter,
-              [styles.filter]:
-                CONSTANTS.CONTEST_STATUS_FINISHED !== customerFilter,
-            })}
-          >
-            Completed contests
-          </div>
-          <div
-            onClick={() =>
-              this.props.newFilter(CONSTANTS.CONTEST_STATUS_PENDING)
-            }
-            className={classNames({
-              [styles.activeFilter]:
-                CONSTANTS.CONTEST_STATUS_PENDING === customerFilter,
-              [styles.filter]:
-                CONSTANTS.CONTEST_STATUS_PENDING !== customerFilter,
-            })}
-          >
-            Inactive contests
+          <span className={styles.headerFilter}>Filter Results</span>
+          <div className={styles.inputsContainer}>
+            <div
+              onClick={() =>
+                this.props.newFilter(CONSTANTS.CONTEST_STATUS_ACTIVE)
+              }
+              className={classNames({
+                [styles.activeFilter]:
+                  CONSTANTS.CONTEST_STATUS_ACTIVE === customerFilter,
+                [styles.filter]:
+                  CONSTANTS.CONTEST_STATUS_ACTIVE !== customerFilter,
+              })}
+            >
+              Active Contests
+            </div>
+            <div
+              onClick={() =>
+                this.props.newFilter(CONSTANTS.CONTEST_STATUS_FINISHED)
+              }
+              className={classNames({
+                [styles.activeFilter]:
+                  CONSTANTS.CONTEST_STATUS_FINISHED === customerFilter,
+                [styles.filter]:
+                  CONSTANTS.CONTEST_STATUS_FINISHED !== customerFilter,
+              })}
+            >
+              Completed Contests
+            </div>
+            <div
+              onClick={() =>
+                this.props.newFilter(CONSTANTS.CONTEST_STATUS_PENDING)
+              }
+              className={classNames({
+                [styles.activeFilter]:
+                  CONSTANTS.CONTEST_STATUS_PENDING === customerFilter,
+                [styles.filter]:
+                  CONSTANTS.CONTEST_STATUS_PENDING !== customerFilter,
+              })}
+            >
+              Inactive Contests
+            </div>
           </div>
         </div>
         <div className={styles.contestsContainer}>
