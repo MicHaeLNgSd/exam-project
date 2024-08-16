@@ -1,23 +1,23 @@
-nav ul
+@import './../../../common/style/vars'
+@import './../../../common/style/templates'
+  
+.containerList
+  & *
+    box-sizing: border-box
+
+  @include flex(flex-start)
   margin: 0
   list-style: none
-  display: flex
-  justify-content: flex-start
-  align-items: center
   @media(max-width: 920px)
     padding: 0
   @media(max-width: 700px)
     flex-direction: column
     align-items: flex-start
 
-  &:last-child li
-    ul
-      width: 200px
-
-  li
-    display: flex
-    align-items: center
-    justify-content: flex-start
+  &Item
+    @include flex(flex-start)
+    position: relative
+    cursor: pointer
     margin-right: 30px
     text-transform: uppercase
     @media(max-width: 700px)
@@ -27,50 +27,53 @@ nav ul
     &:hover
       span
         color: #f27e51
-
-      ul
+      .dropDownList
         display: block
-        position: absolute
-        border: 1px solid #eee
-        z-index: 1000
-        top: 130px
-        background-color: white
-        @media(max-width: 700px)
-          top: auto
-          left: 145px
 
-    ul
-      padding: 0
-      margin: 0
-      width: 160px
-      display: none
-
-      li:last-child
-        width: 100%
-        box-sizing: border-box
-        border-top: 1px solid aquamarine
-
-      li
-        box-sizing: border-box
-        width: 100%
-        display: flex
-        justify-content: flex-start
-
-        &:hover
-          background: #f9fafb
-
-        a
-          width: 100%
-          padding: 10px 15px
-          font-size: 12px
-          text-decoration: none
-          color: #333
-
-          &:hover
-            color: #f27e51
+    &:last-child 
+      .dropDownList
+        right: 0
 
     span
       color: #495d8b
       font-size: 15px
       font-weight: 300
-      padding: 15px 0
+      padding: 10px 0
+
+.dropDownList
+  padding: 0
+  margin: 0
+  display: none
+  position: absolute
+  top: 100%
+  z-index: 1000
+
+  flex: 1
+  width: 160px
+  border: 1px solid #eee
+  background-color: white
+  @media(max-width: 700px)
+    top: 0
+    left: 145px
+
+  &Item:last-child
+    width: 100%
+    border-top: 1px solid aquamarine
+
+  &Item
+    width: 100%
+    display: flex
+    justify-content: flex-start
+
+    &:hover
+      background: #f9fafb
+
+    a
+      width: 100%
+      padding: 10px 15px
+      font-size: 12px
+      text-decoration: none
+      color: #333
+
+      &:hover
+        color: #f27e51

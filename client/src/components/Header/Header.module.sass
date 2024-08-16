@@ -86,22 +86,31 @@
   @media(max-width: 320px)
     margin-left: 0
 
+.emailWrapper
+  @include flex()
+  height: 100%
+  border-right: 1px solid #ebebeb
+
 .emailIcon
   padding: 0 15px
-  border-right: 1px solid #ebebeb
 
 .userInfo
   @include flex()
+  height: 100%
+  position: relative
   padding: 0 15px
   border-right: 1px solid #ebebeb
 
   &:hover
     ul
       display: block
-      position: absolute
-      top: 45px
 
   ul
+    & *
+      box-sizing: border-box
+    position: absolute
+    top: 100%
+    left: -1px
     border: 1px solid #eee
     z-index: 500
     padding: 5px 0
@@ -111,12 +120,19 @@
     display: none
 
     li
+      display: flex
+      cursor: pointer
       text-align: left
 
       &:hover
         background: #f9fafb
 
+      a
+        display: flex
+        width: 100%
+
       span
+        width: 100%
         display: inline-block
         padding: 5px 15px
         color: #333

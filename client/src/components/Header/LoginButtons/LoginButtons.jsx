@@ -42,11 +42,13 @@ function LoginButtons({ data, logOut }) {
           </li>
         </ul>
       </div>
-      <img
-        src={`${CONSTANTS.STATIC_IMAGES_PATH}email.png`}
-        className={styles.emailIcon}
-        alt="email"
-      />
+      <div className={styles.emailWrapper}>
+        <img
+          src={`${CONSTANTS.STATIC_IMAGES_PATH}email.png`}
+          className={styles.emailIcon}
+          alt="email"
+        />
+      </div>
     </>
   );
 }

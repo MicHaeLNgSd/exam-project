@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 function NavBarList({ navList = [] }) {
   return (
-    <ul>
+    <ul className={styles.containerList}>
       {navList.map(({ title, items }, index) => (
-        <li key={index}>
+        <li key={index} className={styles.containerListItem}>
           <span>{title}</span>
           <img
             src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
@@ -15,7 +15,7 @@ function NavBarList({ navList = [] }) {
           />
           <ul className={styles.dropDownList}>
             {items.map((i) => (
-              <li key={i.name}>
+              <li key={i.name} className={styles.dropDownListItem}>
                 <Link to={i.link}>{i.name}</Link>
               </li>
             ))}
