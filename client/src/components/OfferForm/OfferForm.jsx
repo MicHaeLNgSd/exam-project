@@ -53,7 +53,7 @@ const OfferForm = (props) => {
     resetForm();
   };
 
-  const { valid, addOfferError, clearOfferError } = props;
+  const { addOfferError, clearOfferError } = props;
   const validationSchema =
     props.contestType === CONTANTS.LOGO_CONTEST
       ? Schems.LogoOfferSchema
@@ -69,19 +69,14 @@ const OfferForm = (props) => {
       )}
       <Formik
         onSubmit={setOffer}
-        initialValues={{
-          offerData: '',
-        }}
+        initialValues={{ offerData: '' }}
         validationSchema={validationSchema}
       >
         <Form className={styles.form}>
           {renderOfferInput()}
-          {
-            //TODO check if btn need to be block at all // valid && ()
-            <button type="submit" className={styles.btnOffer}>
-              Send Offer
-            </button>
-          }
+          <button type="submit" className={styles.btnOffer}>
+            Send Offer
+          </button>
         </Form>
       </Formik>
     </div>

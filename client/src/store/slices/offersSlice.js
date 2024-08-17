@@ -57,8 +57,8 @@ const extraReducers = (builder) => {
     state.error = null;
   });
   builder.addCase(setOfferReviewStatus.fulfilled, (state, { payload }) => {
+    const { id, status } = payload;
     state.offers = state.offers.map((o) => {
-      const { id, status } = payload;
       if (o.id === id) o.status = status;
       return o;
     });

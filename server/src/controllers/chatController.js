@@ -138,7 +138,7 @@ module.exports.blackList = async (req, res, next) => {
       .getChatController()
       .emitChangeBlockStatus(interlocutorId, formattedConversation);
   } catch (err) {
-    res.send(err);
+    next(err);
   }
 };
 
@@ -158,7 +158,7 @@ module.exports.favoriteChat = async (req, res, next) => {
 
     res.send(formattedConversation);
   } catch (err) {
-    res.send(err);
+    next(err);
   }
 };
 

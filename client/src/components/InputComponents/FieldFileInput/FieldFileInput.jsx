@@ -1,15 +1,11 @@
 import React from 'react';
-import { Field, useField } from 'formik';
+import { useField } from 'formik';
 
 const FieldFileInput = ({ classes, name }) => {
   const { fileUploadContainer, labelClass, fileNameClass, fileInput } = classes;
+  const [{ value, ...field }, , helpers] = useField(name);
 
-  const [{ value, ...field }, meta, helpers] = useField(name);
-
-  //TODO think about: const getFileName = () => value?.name ?? '';
-  const getFileName = () => {
-    return value ? value.name : '';
-  };
+  const getFileName = () => (value ? value.name : '');
 
   const onChange = ({ target }) => {
     const file = target.files[0];
