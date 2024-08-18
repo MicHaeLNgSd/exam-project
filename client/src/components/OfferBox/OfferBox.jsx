@@ -9,6 +9,7 @@ import {
   FaCheckCircle,
   FaExclamationCircle,
   FaPauseCircle,
+  FaComments,
 } from 'react-icons/fa';
 import { goToExpandedDialog } from '../../store/slices/chatSlice';
 import {
@@ -195,9 +196,7 @@ const OfferBox = (props) => {
             />
           )}
         </div>
-        {role !== CONSTANTS.CREATOR && (
-          <i onClick={goChat} className="fas fa-comments" />
-        )}
+        {role !== CONSTANTS.CREATOR && <FaComments onClick={goChat} />}
       </div>
       {props.needButtons(data.status) && (
         <div className={styles.btnsContainer}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaRedo } from 'react-icons/fa';
 import styles from './ChatError.module.sass';
 
 const ChatError = (props) => {
@@ -7,7 +8,7 @@ const ChatError = (props) => {
     <div className={styles.errorContainer} onClick={() => getData()}>
       <div className={styles.container}>
         <span>Server Error</span>
-        <i className="fas fa-redo" />
+        <FaRedo className={styles.icon} />
       </div>
     </div>
   );

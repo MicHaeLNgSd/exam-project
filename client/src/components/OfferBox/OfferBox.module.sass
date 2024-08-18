@@ -12,7 +12,7 @@
   @media(max-width: 450px)
     padding: 10px 0
 
-  svg, i
+  svg
     position: absolute
     font-size: 40px
     right: calc(0px - 35px)
@@ -72,11 +72,11 @@
   .userInfo
     min-width: 215px
 
-  i
+  svg
     cursor: pointer
     position: absolute
     align-self: flex-start
-    font-size: 26px
+    font-size: 30px
     transition: font-size 0.2s
     color: #4e618d
     @media(max-width: 450px)
@@ -89,7 +89,6 @@
 
     &:hover
       font-size: 34px
-      transition: font-size 0.2s
 
 .responseConainer
   @include flex($jc:flex-start, $fd:column)

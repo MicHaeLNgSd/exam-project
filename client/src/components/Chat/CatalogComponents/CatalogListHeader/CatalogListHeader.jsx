@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
+import { FaLongArrowAltLeft, FaEdit } from 'react-icons/fa';
 import {
   changeShowModeCatalog,
   changeRenameCatalogMode,
@@ -23,15 +24,15 @@ const CatalogListHeader = (props) => {
   } = props;
   return (
     <div className={styles.headerContainer}>
-      <i
-        className="fas fa-long-arrow-alt-left"
+      <FaLongArrowAltLeft
+        className={styles.iconArrowLeft}
         onClick={() => changeShowModeCatalog()}
       />
       {!isRenameCatalog && (
         <div className={styles.infoContainer}>
           <span>{catalogName}</span>
-          <i
-            className="fas fa-edit"
+          <FaEdit
+            className={styles.iconEdit}
             onClick={() => changeRenameCatalogMode()}
           />
         </div>

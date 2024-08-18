@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaComments } from 'react-icons/fa';
 import styles from '../../Brief/Brief.module.sass';
 import CONSTANTS from '../../../constants';
 import LogoContestSpecialInfo from './LogoContestSpecialInfo';
@@ -40,7 +41,7 @@ const ContestInfo = (props) => {
               </div>
             )}
           {role !== CONSTANTS.CUSTOMER && (
-            <i onClick={goChat} className="fas fa-comments" />
+            <FaComments onClick={goChat} className={styles.icon} />
           )}
         </div>
         <div className={styles.dataContainer}>
