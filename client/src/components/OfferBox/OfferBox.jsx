@@ -88,8 +88,6 @@ const OfferBox = (props) => {
         return <FaPauseCircle className={styles.reviewing} />;
       case CONSTANTS.OFFER_STATUS_DENIED:
         return <FaExclamationCircle className={styles.denied} />;
-      // case CONSTANTS.OFFER_STATUS_PENDING:
-      //   return <FaCircle className={styles.pending} />;
       case CONSTANTS.OFFER_STATUS_REJECTED:
         return <FaTimesCircle className={styles.reject} />;
       case CONSTANTS.OFFER_STATUS_WON:

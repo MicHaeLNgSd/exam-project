@@ -4,7 +4,7 @@ import Chat from '../Chat/Chat';
 
 const ChatContainer = (props) => {
   const { data } = props;
-  return <>{data ? <Chat /> : null}</>;
+  return data && <Chat />;
 };
 
 const mapStateToProps = (state) => {
