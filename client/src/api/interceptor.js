@@ -34,6 +34,8 @@ instance.interceptors.response.use(
         window.location.pathname !== '/'
       ) {
         window.location.pathname = '/login';
+      } else {
+        window.history.go();
       }
     }
     return Promise.reject(err);
