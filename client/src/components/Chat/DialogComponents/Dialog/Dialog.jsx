@@ -12,14 +12,14 @@ import ChatInput from '../../ChatComponents/ChatInut/ChatInput';
 
 class Dialog extends React.Component {
   componentDidMount() {
-    this.props.getDialog({ interlocutorId: this.props.interlocutor.id });
+    this.props.getDialog({ interlocutorId: this.props.interlocutor?.id });
     this.scrollToBottom();
   }
 
   componentDidUpdate(prevProps) {
     if (this.messagesEnd.current) this.scrollToBottom();
-    if (prevProps.interlocutor.id !== this.props.interlocutor.id)
-      this.props.getDialog({ interlocutorId: this.props.interlocutor.id });
+    if (prevProps.interlocutor?.id !== this.props.interlocutor?.id)
+      this.props.getDialog({ interlocutorId: this.props.interlocutor?.id });
   }
 
   componentWillUnmount() {

@@ -30,6 +30,7 @@ const ChatHeader = (props) => {
     return blackList[participants.indexOf(userId)];
   };
 
+  if (!props.interlocutor) return null;
   const { avatar, displayName } = props.interlocutor;
   const { backToDialogList, chatData, userId } = props;
   return (
