@@ -91,7 +91,11 @@ class App extends Component {
             component={withAuth(TransactionsPage)}
           />
           <Route exact path="/how-it-works" component={HowItWorksPage} />
-          <Route exact path="/events" component={withAuth(EventsPage)} />
+          <Route
+            exact
+            path="/events"
+            component={withAuth(EventsPage, null, [CUSTOMER])}
+          />
           <Route
             exact
             path="/offers-review"
@@ -99,8 +103,8 @@ class App extends Component {
           />
           <Route component={NotFound} />
         </Switch>
-        <ChatContainer />
-        <EventsContainer />
+        <ChatContainer roles={[CUSTOMER, CREATOR]} />
+        <EventsContainer roles={[CUSTOMER]} />
       </Router>
     );
   }

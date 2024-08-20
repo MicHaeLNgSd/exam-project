@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Chat from '../Chat/Chat';
+import CONSTANTS from '../../../../constants';
+const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS;
 
-const ChatContainer = (props) => {
-  const { data } = props;
-  return data && <Chat />;
+const allRoles = [CUSTOMER, CREATOR, MODERATOR];
+
+const ChatContainer = ({ roles = allRoles, data }) => {
+  if (!data || !roles.includes(data?.role)) return null;
+  return <Chat />;
 };
 
 const mapStateToProps = (state) => {

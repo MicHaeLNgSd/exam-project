@@ -2,8 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import EventsHelper from '../EventsHelper/EventsHelper';
 import { getEvents, setEvents } from '../../../store/slices/eventsSlice';
+import CONSTANTS from '../../../constants';
+const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS;
 
-const EventsContainer = ({ data, dispatch }) => {
+const allRoles = [CUSTOMER, CREATOR, MODERATOR];
+
+const EventsContainer = ({ roles = allRoles, data, dispatch }) => {
   useEffect(() => {
     dispatch(getEvents());
     return () => {
@@ -11,7 +15,7 @@ const EventsContainer = ({ data, dispatch }) => {
     };
   }, [data, dispatch]);
 
-  if (!data) return null;
+  if (!data || !roles.includes(data?.role)) return null;
   return <EventsHelper />;
 };
 
