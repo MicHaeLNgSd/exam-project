@@ -45,7 +45,7 @@ const DialogBox = (props) => {
       <div className={styles.infoContainer}>
         <div className={styles.interlocutorInfo}>
           <span className={styles.interlocutorName}>
-            {interlocutor.firstName}
+            {interlocutor.displayName}
           </span>
           <span className={styles.interlocutorMessage}>{text}</span>
         </div>
