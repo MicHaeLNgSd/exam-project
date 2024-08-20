@@ -52,7 +52,7 @@ module.exports.registration = async ({ body }, res, next) => {
     const newUser = await userCreation(body);
     const accessToken = getAccessToken(newUser);
     await updateUser({ accessToken }, newUser.id);
-    res.send({ token: accessToken });
+    res.status(201).send({ token: accessToken });
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       next(new NotUniqueEmail());
@@ -172,7 +172,7 @@ module.exports.payment = async ({ body, tokenData }, res, next) => {
     await db.Transaction.create(newTransaction, { transaction });
 
     await transaction.commit();
-    res.send();
+    res.status(204).send();
   } catch (err) {
     await transaction.rollback();
     next(err);

@@ -202,7 +202,7 @@ module.exports.setNewOffer = async (req, res, next) => {
       .emitEntryCreated(req.body.customerId);
 
     const User = { ...req.tokenData, id: userId };
-    res.send({ ...response, User });
+    res.status(201).send({ ...response, User });
   } catch (e) {
     return next(new ServerError());
   }
