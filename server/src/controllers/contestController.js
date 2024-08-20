@@ -264,7 +264,8 @@ const resolveOffer = async (
     {
       status: db.sequelize.literal(` CASE
             WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS_WON}'
-            ELSE '${CONSTANTS.OFFER_STATUS_REJECTED}'
+            WHEN "status"='${CONSTANTS.OFFER_STATUS_PENDING}' THEN '${CONSTANTS.OFFER_STATUS_REJECTED}'
+            ELSE '${CONSTANTS.OFFER_STATUS_DENIED}'
             END
     `),
     },
@@ -348,8 +349,6 @@ module.exports.setOfferReviewStatus = async (req, res, next) => {
     const status = getStatusByCommand(command);
     if (!status) return null;
 
-    const updatedOffer = await updateOffer({ status }, { id: offerId });
-
     const offer = await db.Offer.findOne({
       where: { id: offerId },
       include: [
@@ -362,8 +361,18 @@ module.exports.setOfferReviewStatus = async (req, res, next) => {
     });
     const { email, displayName } = offer.User;
 
-    sendMail(email, status, displayName);
+    if (offer.dataValues.status !== CONSTANTS.OFFER_STATUS_REVIEWING) {
+      return res.status(202).send({
+        message:
+          'Status of this offer has already been changed. Offers reloaded.',
+        isReloadRequired: true,
+        ...offer.dataValues,
+      });
+    }
 
+    const updatedOffer = await updateOffer({ status }, { id: offerId });
+
+    sendMail(email, status, displayName);
     res.send(updatedOffer);
   } catch (err) {
     next(err);

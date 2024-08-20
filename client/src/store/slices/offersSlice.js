@@ -6,6 +6,8 @@ import {
   rejectedReducer,
 } from '../../utils/store';
 import * as restController from '../../api/rest/restController';
+import { toast } from 'react-toastify';
+import CONSTANTS from '../../constants';
 
 const OFFERS_SLICE_NAME = 'offers';
 
@@ -26,8 +28,18 @@ export const getOffers = decorateAsyncThunk({
 
 export const setOfferReviewStatus = decorateAsyncThunk({
   key: `${OFFERS_SLICE_NAME}/setOfferReviewStatus`,
-  thunk: async (payload) => {
+  thunk: async (payload, { dispatch }) => {
     const { data } = await restController.setOfferReviewStatus(payload);
+    if (data?.isReloadRequired) {
+      if (data?.message) toast(data?.message);
+      dispatch(clearOffers());
+      dispatch(
+        getOffers({
+          limit: 8,
+          status: CONSTANTS.OFFER_STATUS_REVIEWING,
+        })
+      );
+    }
     return data;
   },
 });
