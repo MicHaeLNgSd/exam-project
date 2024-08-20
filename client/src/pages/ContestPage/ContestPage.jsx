@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import isEqual from 'lodash/isEqual';
 import LightBox from 'react-18-image-lightbox';
 import { goToExpandedDialog } from '../../store/slices/chatSlice';
 import {
@@ -23,7 +22,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import TryAgain from '../../components/TryAgain/TryAgain';
 import 'react-18-image-lightbox/style.css';
 import Error from '../../components/Error/Error';
-import { sortByArr } from '../../utils/functions';
+import { findConversationInfo, sortByArr } from '../../utils/functions';
 
 const orderArr = [
   CONSTANTS.OFFER_STATUS_REVIEWING,
@@ -111,30 +110,13 @@ const ContestPage = ({
     setOfferStatus(obj);
   };
 
-  const findConversationInfo = (interlocutorId) => {
-    const { messagesPreview } = chatStore;
-    const { id } = userStore.data;
-    const participants = [id, interlocutorId].sort((a, b) => a - b);
-
-    const messagePreview = messagesPreview.find((mp) =>
-      isEqual(participants, mp.participants)
-    );
-
-    if (!messagePreview) return null;
-
-    return {
-      participants: messagePreview.participants,
-      id: messagePreview.id,
-      blackList: messagePreview.blackList,
-      favoriteList: messagePreview.favoriteList,
-    };
-  };
-
   const goChat = () => {
     const { User } = contestData;
+    const { messagesPreview } = chatStore;
+    const { id } = userStore.data;
     goToExpandedDialog({
       interlocutor: User,
-      conversationData: findConversationInfo(User.id),
+      conversationData: findConversationInfo(messagesPreview, id, User.id),
     });
   };
 

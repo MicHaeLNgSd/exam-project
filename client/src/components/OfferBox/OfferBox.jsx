@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Rating from 'react-rating';
 import { withRouter } from 'react-router-dom';
-import isEqual from 'lodash/isEqual';
 import { confirmAlert } from 'react-confirm-alert';
 import {
   FaTimesCircle,
@@ -21,22 +20,9 @@ import CONSTANTS from '../../constants';
 import styles from './OfferBox.module.sass';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './confirmStyle.css';
+import { findConversationInfo } from '../../utils/functions';
 
 const OfferBox = (props) => {
-  const findConversationInfo = () => {
-    const { messagesPreview, id } = props;
-    const participants = [id, props.data.User.id].sort((a, b) => a - b);
-
-    messagesPreview.forEach((mp) => {
-      if (isEqual(participants, mp.participants)) {
-        const { participants, id, blackList, favoriteList } = mp;
-        return { participants, id, blackList, favoriteList };
-      }
-    });
-
-    return null;
-  };
-
   const resolveOffer = () => {
     confirmAlert({
       title: 'confirm',
@@ -98,9 +84,10 @@ const OfferBox = (props) => {
   };
 
   const goChat = () => {
+    const { messagesPreview, id, data } = props;
     props.goToExpandedDialog({
-      interlocutor: props.data.User,
-      conversationData: findConversationInfo(),
+      interlocutor: data.User,
+      conversationData: findConversationInfo(messagesPreview, id, data.User.id),
     });
   };
 
