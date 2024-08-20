@@ -422,6 +422,11 @@ module.exports.getContests = (req, res, next) => {
 
   const data = [typeIndex, contestId, industry, awardSort];
   const { where, order } = UtilFunctions.createWhereForAllContests(...data);
+
+  if (!isOwnEntries && !contestId) {
+    where.status = CONSTANTS.CONTEST_STATUS_ACTIVE;
+  }
+
   db.Contest.findAll({
     where,
     order,

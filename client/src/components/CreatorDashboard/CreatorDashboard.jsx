@@ -217,8 +217,9 @@ class CreatorDashboard extends React.Component {
               <input
                 type="text"
                 onChange={({ target: { value } }) => {
-                  if (Number.isSafeInteger(+value))
+                  if (/^[0-9]*$/.test(value)) {
                     this.changePredicate({ name: 'contestId', value });
+                  }
                 }}
                 name="contestId"
                 value={creatorFilter.contestId}
