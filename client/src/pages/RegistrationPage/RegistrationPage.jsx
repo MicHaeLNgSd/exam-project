@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import RegistrationForm from '../../components/Forms/RegistrationForm/RegistrationForm';
 import styles from './RegistrationPage.module.sass';
 import { clearAuthError } from '../../store/slices/authSlice';
 import LoginRegHeader from '../../components/LoginRegHeader/LoginRegHeader';

@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import styles from './ContestBox.module.sass';
-import CONSTANTS from '../../constants';
+import CONSTANTS from '../../../constants';
 const { CONTEST_STATUS, CONTEST_TYPE, STATIC_IMAGES_PATH } = CONSTANTS;
 
 const ContestBox = (props) => {

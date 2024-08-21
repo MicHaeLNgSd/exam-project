@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './EventCreatorForm.module.sass';
 import { Form, Formik } from 'formik';
-import FormInput from '../../FormInput/FormInput';
+import FormInput from '../../InputComponents/FormInput/FormInput';
 import { useDispatch } from 'react-redux';
 import { addEvent, setEvents } from '../../../store/slices/eventsSlice';
 import Schems from '../../../utils/validators/validationSchems';
