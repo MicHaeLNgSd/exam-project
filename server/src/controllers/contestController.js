@@ -262,12 +262,12 @@ const resolveOffer = async (
 
   const updatedOffers = await updateOfferStatus(
     {
-      status: db.sequelize.literal(` CASE
-            WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS_WON}'
-            WHEN "status"='${CONSTANTS.OFFER_STATUS_PENDING}' THEN '${CONSTANTS.OFFER_STATUS_REJECTED}'
-            ELSE '${CONSTANTS.OFFER_STATUS_DENIED}'
-            END
-    `),
+      status: db.sequelize.literal(`CASE
+        WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS_WON}'
+        WHEN "status"='${CONSTANTS.OFFER_STATUS_PENDING}' THEN '${CONSTANTS.OFFER_STATUS_REJECTED}'
+        ELSE '${CONSTANTS.OFFER_STATUS_DENIED}'
+        END
+      `),
     },
     {
       contestId,
@@ -297,7 +297,10 @@ const resolveOffer = async (
   controller
     .getNotificationController()
     .emitChangeOfferStatus(creatorId, 'Someone of your offers WIN', contestId);
-  return updatedOffers[0].dataValues;
+
+  return updatedOffers.find(
+    (o) => o.dataValues.status === CONSTANTS.OFFER_STATUS_WON
+  );
 };
 
 module.exports.setOfferStatus = async (req, res, next) => {
