@@ -1,17 +1,13 @@
 const db = require('../models');
 const CONSTANTS = require('../constants');
-const {
-  CONTEST_STATUS_ACTIVE,
-  CONTEST_STATUS_PENDING,
-  CONTEST_STATUS_FINISHED,
-} = CONSTANTS;
+const { CONTEST_STATUS } = CONSTANTS;
 
 module.exports.createWhereForAllContests = (
   typeIndex,
   contestId,
   industry,
   awardSort,
-  statuses = [CONTEST_STATUS_ACTIVE, CONTEST_STATUS_FINISHED]
+  statuses = [CONTEST_STATUS.ACTIVE, CONTEST_STATUS.FINISHED]
 ) => {
   const where = {
     status: {

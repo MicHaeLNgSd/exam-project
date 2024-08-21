@@ -63,7 +63,7 @@ const DialogList = (props) => {
           changeBlackList={changeBlackList}
           chatMode={chatMode}
           catalogOperation={
-            chatMode === CONSTANTS.CATALOG_PREVIEW_CHAT_MODE
+            chatMode === CONSTANTS.CHAT_MODE.CATALOG_PREVIEW
               ? removeChat
               : changeShowCatalogCreation
           }
@@ -85,9 +85,9 @@ const DialogList = (props) => {
 
   const renderChatPreview = () => {
     const { chatMode } = props;
-    if (chatMode === CONSTANTS.FAVORITE_PREVIEW_CHAT_MODE)
+    if (chatMode === CONSTANTS.CHAT_MODE.FAVORITE_PREVIEW)
       return renderPreview(onlyFavoriteDialogs);
-    if (chatMode === CONSTANTS.BLOCKED_PREVIEW_CHAT_MODE)
+    if (chatMode === CONSTANTS.CHAT_MODE.BLOCKED_PREVIEW)
       return renderPreview(onlyBlockDialogs);
     return renderPreview();
   };

@@ -55,7 +55,7 @@ const UserInfo = (props) => {
               <span className={styles.label}>Role</span>
               <span className={styles.info}>{role}</span>
             </div>
-            {role === CONSTANTS.CREATOR && (
+            {role === CONSTANTS.USER_ROLE.CREATOR && (
               <div className={styles.infoBlock}>
                 <span className={styles.label}>Balance</span>
                 <span className={styles.info}>{`${balance}$`}</span>

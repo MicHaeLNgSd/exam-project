@@ -25,11 +25,11 @@ import Error from '../../components/Error/Error';
 import { findConversationInfo, sortByArr } from '../../utils/functions';
 
 const orderArr = [
-  CONSTANTS.OFFER_STATUS_REVIEWING,
-  CONSTANTS.OFFER_STATUS_PENDING,
-  CONSTANTS.OFFER_STATUS_WON,
-  CONSTANTS.OFFER_STATUS_DENIED,
-  CONSTANTS.OFFER_STATUS_REJECTED,
+  CONSTANTS.OFFER_STATUS.REVIEWING,
+  CONSTANTS.OFFER_STATUS.PENDING,
+  CONSTANTS.OFFER_STATUS.WON,
+  CONSTANTS.OFFER_STATUS.DENIED,
+  CONSTANTS.OFFER_STATUS.REJECTED,
 ];
 
 const ContestPage = ({
@@ -91,8 +91,8 @@ const ContestPage = ({
     const contestStatus = contestData.status;
     return (
       contestCreatorId === userId &&
-      contestStatus === CONSTANTS.CONTEST_STATUS_ACTIVE &&
-      offerStatus === CONSTANTS.OFFER_STATUS_PENDING
+      contestStatus === CONSTANTS.CONTEST_STATUS.ACTIVE &&
+      offerStatus === CONSTANTS.OFFER_STATUS.PENDING
     );
   };
 
@@ -164,8 +164,8 @@ const ContestPage = ({
               <Brief contestData={contestData} role={role} goChat={goChat} />
             ) : (
               <div className={styles.offersContainer}>
-                {role === CONSTANTS.CREATOR &&
-                  contestData.status === CONSTANTS.CONTEST_STATUS_ACTIVE && (
+                {role === CONSTANTS.USER_ROLE.CREATOR &&
+                  contestData.status === CONSTANTS.CONTEST_STATUS.ACTIVE && (
                     <OfferForm
                       contestType={contestData.contestType}
                       contestId={contestData.id}

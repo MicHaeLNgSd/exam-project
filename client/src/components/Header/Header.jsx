@@ -51,12 +51,12 @@ class Header extends React.Component {
         <div className={styles.headerContainer}>
           <div className={styles.loginSignnUpHeaders}>
             <div className={styles.numberContainer}>
-              <a href={`tel:${CONSTANTS.PHONE_NUMBER}`}>
+              <a href={`tel:${CONSTANTS.COMPANY_CONTACTS.TEL_NUMBER}`}>
                 <img
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`}
                   alt="phone"
                 />
-                <span>{CONSTANTS.PHONE_NUMBER}</span>
+                <span>{CONSTANTS.COMPANY_CONTACTS.TEL_NUMBER}</span>
               </a>
             </div>
             <div className={styles.userButtonsContainer}>
@@ -69,7 +69,7 @@ class Header extends React.Component {
               <nav className={styles.nav}>
                 <NavBarList navList={NAVIGATION_LIST} />
               </nav>
-              {this.props.data?.role === CONSTANTS.CUSTOMER && (
+              {this.props.data?.role === CONSTANTS.USER_ROLE.CUSTOMER && (
                 <button
                   className={styles.startContestBtn}
                   onClick={this.startContests}
@@ -77,7 +77,7 @@ class Header extends React.Component {
                   START CONTEST
                 </button>
               )}
-              {this.props.data?.role === CONSTANTS.MODERATOR && (
+              {this.props.data?.role === CONSTANTS.USER_ROLE.MODERATOR && (
                 <button
                   className={styles.startContestBtn}
                   onClick={this.startOffersReview}

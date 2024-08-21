@@ -26,7 +26,7 @@ function OffersReviewPage() {
         getOffers({
           limit,
           offset: startFrom,
-          status: CONSTANTS.OFFER_STATUS_REVIEWING,
+          status: CONSTANTS.OFFER_STATUS.REVIEWING,
         })
       );
     },
@@ -56,7 +56,7 @@ function OffersReviewPage() {
   }, [offers, haveMore, loadMore]);
 
   const tryGetOffers = useCallback(() => {
-    dispatch(getOffers({ limit: 8, status: CONSTANTS.OFFER_STATUS_REVIEWING }));
+    dispatch(getOffers({ limit: 8, status: CONSTANTS.OFFER_STATUS.REVIEWING }));
   }, [dispatch]);
 
   useEffect(() => {

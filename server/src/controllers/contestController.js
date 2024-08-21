@@ -54,13 +54,13 @@ module.exports.getContestById = async (req, res, next) => {
     } = req;
 
     const whereByRole = (role) => {
-      if (role === CONSTANTS.CREATOR) return { userId };
-      if (role === CONSTANTS.CUSTOMER)
+      if (role === CONSTANTS.USER_ROLE.CREATOR) return { userId };
+      if (role === CONSTANTS.USER_ROLE.CUSTOMER)
         return {
           status: {
             [db.Sequelize.Op.notIn]: [
-              CONSTANTS.OFFER_STATUS_REVIEWING,
-              CONSTANTS.OFFER_STATUS_DENIED,
+              CONSTANTS.OFFER_STATUS.REVIEWING,
+              CONSTANTS.OFFER_STATUS.DENIED,
             ],
           },
         };
@@ -154,7 +154,7 @@ module.exports.getOffers = async (req, res, next) => {
         {
           model: db.Contest,
           required: true,
-          where: { status: CONSTANTS.CONTEST_STATUS_ACTIVE },
+          where: { status: CONSTANTS.CONTEST_STATUS.ACTIVE },
           attributes: [
             'id',
             'title',
@@ -186,7 +186,7 @@ module.exports.setNewOffer = async (req, res, next) => {
   const { userId } = req.tokenData;
 
   const obj = { userId, contestId };
-  if (contestType === CONSTANTS.LOGO_CONTEST) {
+  if (contestType === CONSTANTS.CONTEST_TYPE.LOGO) {
     obj.fileName = req.file.filename;
     obj.originalFileName = req.file.originalname;
   } else {
@@ -210,7 +210,7 @@ module.exports.setNewOffer = async (req, res, next) => {
 
 const rejectOffer = async (offerId, creatorId, contestId) => {
   const rejectedOffer = await updateOffer(
-    { status: CONSTANTS.OFFER_STATUS_REJECTED },
+    { status: CONSTANTS.OFFER_STATUS.REJECTED },
     { id: offerId }
   );
   controller
@@ -235,12 +235,12 @@ const resolveOffer = async (
     {
       status: db.sequelize.literal(`CASE
         WHEN "id"=${contestId}  AND "orderId"='${orderId}' THEN '${
-        CONSTANTS.CONTEST_STATUS_FINISHED
+        CONSTANTS.CONTEST_STATUS.FINISHED
       }'
         WHEN "orderId"='${orderId}' AND "priority"=${priority + 1}  THEN '${
-        CONSTANTS.CONTEST_STATUS_ACTIVE
+        CONSTANTS.CONTEST_STATUS.ACTIVE
       }'
-        ELSE '${CONSTANTS.CONTEST_STATUS_PENDING}'
+        ELSE '${CONSTANTS.CONTEST_STATUS.PENDING}'
         END
     `),
     },
@@ -263,9 +263,9 @@ const resolveOffer = async (
   const updatedOffers = await updateOfferStatus(
     {
       status: db.sequelize.literal(`CASE
-        WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS_WON}'
-        WHEN "status"='${CONSTANTS.OFFER_STATUS_PENDING}' THEN '${CONSTANTS.OFFER_STATUS_REJECTED}'
-        ELSE '${CONSTANTS.OFFER_STATUS_DENIED}'
+        WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS.WON}'
+        WHEN "status"='${CONSTANTS.OFFER_STATUS.PENDING}' THEN '${CONSTANTS.OFFER_STATUS.REJECTED}'
+        ELSE '${CONSTANTS.OFFER_STATUS.DENIED}'
         END
       `),
     },
@@ -278,7 +278,7 @@ const resolveOffer = async (
   const arrayRoomsId = [];
   updatedOffers.forEach((offer) => {
     if (
-      offer.status === CONSTANTS.OFFER_STATUS_REJECTED &&
+      offer.status === CONSTANTS.OFFER_STATUS.REJECTED &&
       creatorId !== offer.userId
     ) {
       arrayRoomsId.push(offer.userId);
@@ -299,7 +299,7 @@ const resolveOffer = async (
     .emitChangeOfferStatus(creatorId, 'Someone of your offers WIN', contestId);
 
   return updatedOffers.find(
-    (o) => o.dataValues.status === CONSTANTS.OFFER_STATUS_WON
+    (o) => o.dataValues.status === CONSTANTS.OFFER_STATUS.WON
   );
 };
 
@@ -338,9 +338,9 @@ module.exports.setOfferStatus = async (req, res, next) => {
 const getStatusByCommand = (command) => {
   switch (command) {
     case 'approve':
-      return CONSTANTS.OFFER_STATUS_PENDING;
+      return CONSTANTS.OFFER_STATUS.PENDING;
     case 'deny':
-      return CONSTANTS.OFFER_STATUS_DENIED;
+      return CONSTANTS.OFFER_STATUS.DENIED;
     default:
       return null;
   }
@@ -364,7 +364,7 @@ module.exports.setOfferReviewStatus = async (req, res, next) => {
     });
     const { email, displayName } = offer.User;
 
-    if (offer.dataValues.status !== CONSTANTS.OFFER_STATUS_REVIEWING) {
+    if (offer.dataValues.status !== CONSTANTS.OFFER_STATUS.REVIEWING) {
       return res.status(202).send({
         message:
           'Status of this offer has already been changed. Offers reloaded.',
@@ -402,8 +402,8 @@ module.exports.getCustomersContests = async (req, res, next) => {
           where: {
             status: {
               [db.Sequelize.Op.notIn]: [
-                CONSTANTS.OFFER_STATUS_REVIEWING,
-                CONSTANTS.OFFER_STATUS_DENIED,
+                CONSTANTS.OFFER_STATUS.REVIEWING,
+                CONSTANTS.OFFER_STATUS.DENIED,
               ],
             },
           },
@@ -436,7 +436,7 @@ module.exports.getContests = (req, res, next) => {
   const { where, order } = UtilFunctions.createWhereForAllContests(...data);
 
   if (!isOwnEntries && !contestId) {
-    where.status = CONSTANTS.CONTEST_STATUS_ACTIVE;
+    where.status = CONSTANTS.CONTEST_STATUS.ACTIVE;
   }
 
   db.Contest.findAll({

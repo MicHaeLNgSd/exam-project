@@ -74,32 +74,32 @@ class CustomerDashboard extends React.Component {
           <span className={styles.headerFilter}>Filter Results</span>
           <div className={styles.inputsContainer}>
             <div
-              onClick={() => this.clickHandler(CONSTANTS.CONTEST_STATUS_ACTIVE)}
+              onClick={() => this.clickHandler(CONSTANTS.CONTEST_STATUS.ACTIVE)}
               className={classNames(styles.filter, {
                 [styles.activeFilter]:
-                  CONSTANTS.CONTEST_STATUS_ACTIVE === customerFilter,
+                  CONSTANTS.CONTEST_STATUS.ACTIVE === customerFilter,
               })}
             >
               Active Contests
             </div>
             <div
               onClick={() =>
-                this.clickHandler(CONSTANTS.CONTEST_STATUS_FINISHED)
+                this.clickHandler(CONSTANTS.CONTEST_STATUS.FINISHED)
               }
               className={classNames(styles.filter, {
                 [styles.activeFilter]:
-                  CONSTANTS.CONTEST_STATUS_FINISHED === customerFilter,
+                  CONSTANTS.CONTEST_STATUS.FINISHED === customerFilter,
               })}
             >
               Completed Contests
             </div>
             <div
               onClick={() =>
-                this.clickHandler(CONSTANTS.CONTEST_STATUS_PENDING)
+                this.clickHandler(CONSTANTS.CONTEST_STATUS.PENDING)
               }
               className={classNames(styles.filter, {
                 [styles.activeFilter]:
-                  CONSTANTS.CONTEST_STATUS_PENDING === customerFilter,
+                  CONSTANTS.CONTEST_STATUS.PENDING === customerFilter,
               })}
             >
               Inactive Contests
@@ -129,7 +129,9 @@ const mapStateToProps = (state) => state.contestsList;
 
 const mapDispatchToProps = (dispatch) => ({
   getContests: (data) =>
-    dispatch(getContests({ requestData: data, role: CONSTANTS.CUSTOMER })),
+    dispatch(
+      getContests({ requestData: data, role: CONSTANTS.USER_ROLE.CUSTOMER })
+    ),
   clearContestsList: () => dispatch(clearContestsList()),
   newFilter: (filter) => dispatch(setNewCustomerFilter(filter)),
 });

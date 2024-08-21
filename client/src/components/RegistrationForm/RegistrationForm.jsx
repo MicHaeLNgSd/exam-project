@@ -60,7 +60,7 @@ class RegistrationForm extends React.Component {
             email: '',
             password: '',
             confirmPassword: '',
-            role: CONSTANTS.CUSTOMER,
+            role: CONSTANTS.USER_ROLE.CUSTOMER,
             agreeOfTerms: false,
           }}
           onSubmit={this.clicked}
@@ -113,20 +113,20 @@ class RegistrationForm extends React.Component {
               <Field
                 name="role"
                 type="radio"
-                value={CONSTANTS.CUSTOMER}
+                value={CONSTANTS.USER_ROLE.CUSTOMER}
                 strRole="Join As a Buyer"
                 infoRole="I am looking for a Name, Logo or Tagline for my business, brand or product."
                 component={RoleInput}
-                id={CONSTANTS.CUSTOMER}
+                id={CONSTANTS.USER_ROLE.CUSTOMER}
               />
               <Field
                 name="role"
                 type="radio"
-                value={CONSTANTS.CREATOR}
+                value={CONSTANTS.USER_ROLE.CREATOR}
                 strRole="Join As a Creative"
                 infoRole="I plan to submit name ideas, Logo designs or sell names in Domain Marketplace."
                 component={RoleInput}
-                id={CONSTANTS.CREATOR}
+                id={CONSTANTS.USER_ROLE.CREATOR}
               />
             </div>
             <div className={styles.termsOfService}>
@@ -157,7 +157,7 @@ class RegistrationForm extends React.Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   initialValues: {
-    role: CONSTANTS.CUSTOMER,
+    role: CONSTANTS.USER_ROLE.CUSTOMER,
   },
 });
 

@@ -70,13 +70,13 @@ const OfferBox = (props) => {
   const offerStatus = () => {
     const { status } = props.data;
     switch (status) {
-      case CONSTANTS.OFFER_STATUS_REVIEWING:
+      case CONSTANTS.OFFER_STATUS.REVIEWING:
         return <FaPauseCircle className={styles.reviewing} />;
-      case CONSTANTS.OFFER_STATUS_DENIED:
+      case CONSTANTS.OFFER_STATUS.DENIED:
         return <FaExclamationCircle className={styles.denied} />;
-      case CONSTANTS.OFFER_STATUS_REJECTED:
+      case CONSTANTS.OFFER_STATUS.REJECTED:
         return <FaTimesCircle className={styles.reject} />;
-      case CONSTANTS.OFFER_STATUS_WON:
+      case CONSTANTS.OFFER_STATUS.WON:
         return <FaCheckCircle className={styles.resolve} />;
       default:
         return null;
@@ -140,7 +140,7 @@ const OfferBox = (props) => {
           </div>
         </div>
         <div className={styles.responseConainer}>
-          {contestType === CONSTANTS.LOGO_CONTEST ? (
+          {contestType === CONSTANTS.CONTEST_TYPE.LOGO ? (
             <img
               onClick={() =>
                 props.changeShowImage({
@@ -181,7 +181,9 @@ const OfferBox = (props) => {
             />
           )}
         </div>
-        {role !== CONSTANTS.CREATOR && <FaComments onClick={goChat} />}
+        {role !== CONSTANTS.USER_ROLE.CREATOR && (
+          <FaComments onClick={goChat} />
+        )}
       </div>
       {props.needButtons(data.status) && (
         <div className={styles.btnsContainer}>

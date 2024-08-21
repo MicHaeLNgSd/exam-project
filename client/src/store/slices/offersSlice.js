@@ -36,7 +36,7 @@ export const setOfferReviewStatus = decorateAsyncThunk({
       dispatch(
         getOffers({
           limit: 8,
-          status: CONSTANTS.OFFER_STATUS_REVIEWING,
+          status: CONSTANTS.OFFER_STATUS.REVIEWING,
         })
       );
     }

@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const { OFFER_STATUS_REVIEWING } = require('../constants');
+const { OFFER_STATUS } = require('../constants');
 module.exports = (sequelize, DataTypes) => {
   class Offer extends Model {
     /**
@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: OFFER_STATUS_REVIEWING,
+        defaultValue: OFFER_STATUS.REVIEWING,
       },
     },
     {

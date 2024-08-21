@@ -2,21 +2,30 @@ const env = process.env.NODE_ENV || 'development';
 const serverIP = 'localhost';
 const serverPort = 5000;
 const CONSTANTS = {
-  PHONE_NUMBER: '(877) 355-3585',
-  CUSTOMER: 'customer',
-  CREATOR: 'creator',
-  MODERATOR: 'moderator',
-  CONTEST_STATUS_ACTIVE: 'active',
-  CONTEST_STATUS_FINISHED: 'finished',
-  CONTEST_STATUS_PENDING: 'pending',
-  NAME_CONTEST: 'name',
-  LOGO_CONTEST: 'logo',
-  TAGLINE_CONTEST: 'tagline',
-  OFFER_STATUS_REVIEWING: 'reviewing',
-  OFFER_STATUS_DENIED: 'denied',
-  OFFER_STATUS_PENDING: 'pending',
-  OFFER_STATUS_REJECTED: 'rejected',
-  OFFER_STATUS_WON: 'won',
+  COMPANY_CONTACTS: { TEL_NUMBER: '(877) 355-3585' },
+  USER_ROLE: {
+    CUSTOMER: 'customer',
+    CREATOR: 'creator',
+    MODERATOR: 'moderator',
+  },
+  CONTEST_STATUS: {
+    ACTIVE: 'active',
+    FINISHED: 'finished',
+    PENDING: 'pending',
+  },
+  CONTEST_TYPE: {
+    NAME: 'name',
+    LOGO: 'logo',
+    TAGLINE: 'tagline',
+  },
+  OFFER_STATUS: {
+    REVIEWING: 'reviewing',
+    DENIED: 'denied',
+    PENDING: 'pending',
+    REJECTED: 'rejected',
+    WON: 'won',
+  },
+
   STATIC_IMAGES_PATH: '/staticImages/',
   ANONYM_IMAGE_PATH: '/staticImages/anonym.png',
   BASE_URL: `http://${serverIP}:${serverPort}/`,
@@ -29,10 +38,14 @@ const CONSTANTS = {
     env === 'production'
       ? `http://${serverIP}:80/contests/`
       : `http://${serverIP}:${serverPort}/public/contests/`,
-  NORMAL_PREVIEW_CHAT_MODE: 'NORMAL_PREVIEW_CHAT_MODE',
-  FAVORITE_PREVIEW_CHAT_MODE: 'FAVORITE_PREVIEW_CHAT_MODE',
-  BLOCKED_PREVIEW_CHAT_MODE: 'BLOCKED_PREVIEW_CHAT_MODE',
-  CATALOG_PREVIEW_CHAT_MODE: 'CATALOG_PREVIEW_CHAT_MODE',
+
+  CHAT_MODE: {
+    NORMAL_PREVIEW: 'NORMAL_PREVIEW_CHAT_MODE',
+    FAVORITE_PREVIEW: 'FAVORITE_PREVIEW_CHAT_MODE',
+    BLOCKED_PREVIEW: 'BLOCKED_PREVIEW_CHAT_MODE',
+    CATALOG_PREVIEW: 'CATALOG_PREVIEW_CHAT_MODE',
+  },
+
   CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS',
   ADD_CHAT_TO_OLD_CATALOG: 'ADD_CHAT_TO_OLD_CATALOG',
   CREATE_NEW_CATALOG_AND_ADD_CHAT: 'CREATE_NEW_CATALOG_AND_ADD_CHAT',
@@ -42,6 +55,7 @@ const CONSTANTS = {
     REGISTER: 'REGISTER',
     LOGIN: 'LOGIN',
   },
+
   HEADER_ANIMATION_TEXT: [
     'a Company',
     'a Brand',

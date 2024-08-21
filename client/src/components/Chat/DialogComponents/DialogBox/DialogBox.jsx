@@ -85,9 +85,9 @@ const DialogBox = (props) => {
             onClick={(event) => catalogOperation(event, id)}
             className={classNames({
               'far fa-plus-square':
-                chatMode !== CONSTANTS.CATALOG_PREVIEW_CHAT_MODE,
+                chatMode !== CONSTANTS.CHAT_MODE.CATALOG_PREVIEW,
               'fas fa-minus-circle':
-                chatMode === CONSTANTS.CATALOG_PREVIEW_CHAT_MODE,
+                chatMode === CONSTANTS.CHAT_MODE.CATALOG_PREVIEW,
             })}
           />
         </div>

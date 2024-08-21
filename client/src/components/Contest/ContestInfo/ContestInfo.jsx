@@ -32,7 +32,7 @@ const ContestInfo = (props) => {
             <span className={styles.data}>{contestType}</span>
           </div>
           {User.id === userId &&
-            status !== CONSTANTS.CONTEST_STATUS_FINISHED && (
+            status !== CONSTANTS.CONTEST_STATUS.FINISHED && (
               <div
                 onClick={() => changeEditContest(true)}
                 className={styles.editBtn}
@@ -40,7 +40,7 @@ const ContestInfo = (props) => {
                 Edit
               </div>
             )}
-          {role !== CONSTANTS.CUSTOMER && (
+          {role !== CONSTANTS.USER_ROLE.CUSTOMER && (
             <FaComments onClick={goChat} className={styles.icon} />
           )}
         </div>
@@ -48,12 +48,12 @@ const ContestInfo = (props) => {
           <span className={styles.label}>Title of the Project</span>
           <span className={styles.data}>{title}</span>
         </div>
-        {contestType === CONSTANTS.NAME_CONTEST ? (
+        {contestType === CONSTANTS.CONTEST_TYPE.NAME ? (
           <NameContestSpecialInfo
             typeOfName={typeOfName}
             styleName={styleName}
           />
-        ) : contestType === CONSTANTS.TAGLINE_CONTEST ? (
+        ) : contestType === CONSTANTS.CONTEST_TYPE.TAGLINE ? (
           <TaglineContestSpecialInfo
             typeOfTagline={typeOfTagline}
             nameVenture={contestData.nameVenture}

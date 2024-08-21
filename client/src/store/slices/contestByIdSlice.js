@@ -84,13 +84,13 @@ const setOfferStatusExtraReducers = createExtraReducers({
   thunk: setOfferStatus,
   fulfilledReducer: (state, { payload }) => {
     state.offers.forEach((offer) => {
-      if (payload.status === CONSTANTS.OFFER_STATUS_WON) {
+      if (payload.status === CONSTANTS.OFFER_STATUS.WON) {
         offer.status =
           payload.id === offer.id
-            ? CONSTANTS.OFFER_STATUS_WON
-            : CONSTANTS.OFFER_STATUS_REJECTED;
+            ? CONSTANTS.OFFER_STATUS.WON
+            : CONSTANTS.OFFER_STATUS.REJECTED;
       } else if (payload.id === offer.id) {
-        offer.status = CONSTANTS.OFFER_STATUS_REJECTED;
+        offer.status = CONSTANTS.OFFER_STATUS.REJECTED;
       }
     });
     state.error = null;

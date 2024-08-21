@@ -9,7 +9,7 @@ const initialState = {
   isFetching: true,
   error: null,
   contests: [],
-  customerFilter: CONSTANTS.CONTEST_STATUS_ACTIVE,
+  customerFilter: CONSTANTS.CONTEST_STATUS.ACTIVE,
   creatorFilter: {
     typeIndex: 1,
     contestId: '',
@@ -24,7 +24,7 @@ export const getContests = decorateAsyncThunk({
   key: `${CONTESTS_SLICE_NAME}/getContests`,
   thunk: async ({ requestData, role }) => {
     const { data } =
-      role === CONSTANTS.CUSTOMER
+      role === CONSTANTS.USER_ROLE.CUSTOMER
         ? await restController.getCustomersContests(requestData)
         : await restController.getActiveContests(requestData);
     return data;

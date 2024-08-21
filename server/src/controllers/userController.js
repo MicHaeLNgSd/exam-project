@@ -125,9 +125,9 @@ module.exports.payment = async ({ body, tokenData }, res, next) => {
               AND "cvc"='${cvc}' 
               AND "expiry"='${expiry}'
             THEN "balance" - ${price}
-            WHEN "cardNumber"='${CONSTANTS.SQUADHELP_BANK_NUMBER}' 
-              AND "cvc"='${CONSTANTS.SQUADHELP_BANK_CVC}' 
-              AND "expiry"='${CONSTANTS.SQUADHELP_BANK_EXPIRY}'
+            WHEN "cardNumber"='${CONSTANTS.SQUADHELP_BANK.NUMBER}' 
+              AND "cvc"='${CONSTANTS.SQUADHELP_BANK.CVC}' 
+              AND "expiry"='${CONSTANTS.SQUADHELP_BANK.EXPIRY}'
             THEN "balance" + ${price}
           END
         `),
@@ -135,7 +135,7 @@ module.exports.payment = async ({ body, tokenData }, res, next) => {
       {
         cardNumber: {
           [db.Sequelize.Op.in]: [
-            CONSTANTS.SQUADHELP_BANK_NUMBER,
+            CONSTANTS.SQUADHELP_BANK.NUMBER,
             number.replace(/ /g, ''),
           ],
         },
@@ -224,9 +224,9 @@ module.exports.cashout = async ({ body, tokenData }, res, next) => {
               AND "expiry"='${expiry}' 
               AND "cvc"='${cvc}'
             THEN "balance" + ${sum}
-            WHEN "cardNumber"='${CONSTANTS.SQUADHELP_BANK_NUMBER}' 
-              AND "expiry"='${CONSTANTS.SQUADHELP_BANK_EXPIRY}' 
-              AND "cvc"='${CONSTANTS.SQUADHELP_BANK_CVC}'
+            WHEN "cardNumber"='${CONSTANTS.SQUADHELP_BANK.NUMBER}' 
+              AND "expiry"='${CONSTANTS.SQUADHELP_BANK.EXPIRY}' 
+              AND "cvc"='${CONSTANTS.SQUADHELP_BANK.CVC}'
             THEN "balance" - ${sum}
           END
         `),
@@ -234,7 +234,7 @@ module.exports.cashout = async ({ body, tokenData }, res, next) => {
       {
         cardNumber: {
           [db.Sequelize.Op.in]: [
-            CONSTANTS.SQUADHELP_BANK_NUMBER,
+            CONSTANTS.SQUADHELP_BANK.NUMBER,
             number.replace(/ /g, ''),
           ],
         },

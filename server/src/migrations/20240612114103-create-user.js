@@ -1,4 +1,5 @@
-const { CUSTOMER, CREATOR, MODERATOR } = require('../constants');
+const { USER_ROLE } = require('../constants');
+const { CUSTOMER, CREATOR, MODERATOR } = USER_ROLE;
 
 module.exports = {
   up: (queryInterface, Sequelize) => {

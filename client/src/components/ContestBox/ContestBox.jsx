@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import styles from './ContestBox.module.sass';
 import CONSTANTS from '../../constants';
+const { CONTEST_STATUS, CONTEST_TYPE, STATIC_IMAGES_PATH } = CONSTANTS;
 
 const ContestBox = (props) => {
   const getTimeStr = () => {
@@ -15,8 +16,8 @@ const ContestBox = (props) => {
 
   const getPreferenceContest = () => {
     const { data } = props;
-    if (data.contestType === CONSTANTS.NAME_CONTEST) return data.typeOfName;
-    if (data.contestType === CONSTANTS.LOGO_CONTEST) return data.brandStyle;
+    if (data.contestType === CONTEST_TYPE.NAME) return data.typeOfName;
+    if (data.contestType === CONTEST_TYPE.LOGO) return data.brandStyle;
     return data.typeOfTagline;
   };
 
@@ -25,11 +26,11 @@ const ContestBox = (props) => {
 
   const getStatusName = (status) => {
     switch (status) {
-      case CONSTANTS.CONTEST_STATUS_ACTIVE:
+      case CONTEST_STATUS.ACTIVE:
         return 'Going';
-      case CONSTANTS.CONTEST_STATUS_PENDING:
+      case CONTEST_STATUS.PENDING:
         return 'Waiting';
-      case CONSTANTS.CONTEST_STATUS_FINISHED:
+      case CONTEST_STATUS.FINISHED:
         return 'Ended';
       default:
         return null;
@@ -61,18 +62,12 @@ const ContestBox = (props) => {
         <div className={styles.prizeContainer}>
           <div className={styles.guaranteedContainer}>
             <div>
-              <img
-                src={`${CONSTANTS.STATIC_IMAGES_PATH}smallCheck.png`}
-                alt="check"
-              />
+              <img src={`${STATIC_IMAGES_PATH}smallCheck.png`} alt="check" />
             </div>
             <span>Guaranteed prize</span>
           </div>
           <div className={styles.prize}>
-            <img
-              src={`${CONSTANTS.STATIC_IMAGES_PATH}diamond.png`}
-              alt="diamond"
-            />
+            <img src={`${STATIC_IMAGES_PATH}diamond.png`} alt="diamond" />
             <span>{`$${prize}`}</span>
           </div>
         </div>
@@ -80,10 +75,7 @@ const ContestBox = (props) => {
       <div className={styles.entryAndTimeContainer}>
         <div className={styles.entriesContainer}>
           <div className={styles.entriesCounter}>
-            <img
-              src={`${CONSTANTS.STATIC_IMAGES_PATH}entrieImage.png`}
-              alt="logo"
-            />
+            <img src={`${STATIC_IMAGES_PATH}entrieImage.png`} alt="logo" />
             <span>{count}</span>
           </div>
           <span>Entries</span>

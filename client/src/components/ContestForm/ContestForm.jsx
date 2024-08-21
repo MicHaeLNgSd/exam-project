@@ -16,16 +16,16 @@ import OptionalSelects from '../OptionalSelects/OptionalSelects';
 import BUTTON_GROUP_LIST from '../OptionalSelects/ButtonGroupData';
 
 const variableOptions = {
-  [CONSTANTS.NAME_CONTEST]: {
+  [CONSTANTS.CONTEST_TYPE.NAME]: {
     styleName: '',
     typeOfName: '',
     nameMatchingDomain: BUTTON_GROUP_LIST[0].value,
   },
-  [CONSTANTS.LOGO_CONTEST]: {
+  [CONSTANTS.CONTEST_TYPE.LOGO]: {
     nameVenture: '',
     brandStyle: '',
   },
-  [CONSTANTS.TAGLINE_CONTEST]: {
+  [CONSTANTS.CONTEST_TYPE.TAGLINE]: {
     nameVenture: '',
     typeOfTagline: '',
   },
@@ -62,18 +62,18 @@ class ContestForm extends React.Component {
   getPreference = () => {
     const { contestType } = this.props;
     switch (contestType) {
-      case CONSTANTS.NAME_CONTEST: {
+      case CONSTANTS.CONTEST_TYPE.NAME: {
         this.props.getData({
           characteristic1: 'nameStyle',
           characteristic2: 'typeOfName',
         });
         break;
       }
-      case CONSTANTS.TAGLINE_CONTEST: {
+      case CONSTANTS.CONTEST_TYPE.TAGLINE: {
         this.props.getData({ characteristic1: 'typeOfTagline' });
         break;
       }
-      case CONSTANTS.LOGO_CONTEST: {
+      case CONSTANTS.CONTEST_TYPE.LOGO: {
         this.props.getData({ characteristic1: 'brandStyle' });
         break;
       }

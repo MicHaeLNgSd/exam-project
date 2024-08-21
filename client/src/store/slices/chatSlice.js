@@ -22,7 +22,7 @@ const initialState = {
   interlocutor: [],
   messagesPreview: [],
   isShow: false,
-  chatMode: CONSTANTS.NORMAL_PREVIEW_CHAT_MODE,
+  chatMode: CONSTANTS.CHAT_MODE.NORMAL_PREVIEW,
   catalogList: [],
   isRenameCatalog: false,
   isShowChatsInCatalog: false,

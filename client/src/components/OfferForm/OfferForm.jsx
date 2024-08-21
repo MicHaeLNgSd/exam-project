@@ -14,7 +14,7 @@ import Error from '../Error/Error';
 
 const OfferForm = (props) => {
   const renderOfferInput = () => {
-    if (props.contestType === CONTANTS.LOGO_CONTEST) {
+    if (props.contestType === CONTANTS.CONTEST_TYPE.LOGO) {
       return (
         <ImageUpload
           name="offerData"
@@ -55,7 +55,7 @@ const OfferForm = (props) => {
 
   const { addOfferError, clearOfferError } = props;
   const validationSchema =
-    props.contestType === CONTANTS.LOGO_CONTEST
+    props.contestType === CONTANTS.CONTEST_TYPE.LOGO
       ? Schems.LogoOfferSchema
       : Schems.TextOfferSchema;
   return (
