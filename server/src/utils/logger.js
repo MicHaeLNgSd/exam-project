@@ -14,9 +14,9 @@ if (!fs.existsSync(dirPath)) {
 const getLoggerErrors = async (filePath) => {
   try {
     const fileText = await fsP.readFile(filePath, 'utf-8').catch(() => '');
-    return fileText ? JSON.parse(fileText) : [];
+    return JSON.parse(fileText || '[]');
   } catch (err) {
-    console.error(err);
+    console.error('Failed to parse log file:', err);
   }
 };
 
