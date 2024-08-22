@@ -56,6 +56,7 @@ const classesFieldFileInput = {
   fileNameClass: styles.fileName,
   fileInput: styles.fileInput,
   warning: styles.warning,
+  closeIcon: styles.closeIcon,
 };
 
 class ContestForm extends React.Component {

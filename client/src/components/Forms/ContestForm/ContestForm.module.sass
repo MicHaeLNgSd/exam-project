@@ -152,6 +152,7 @@
 
 
 .fileUploadContainer
+  position: relative
   display: flex
   align-items: center
   justify-content: center
@@ -169,22 +170,37 @@
     align-items: center
     height: 120px
 
-  .label
-    text-align: center
-    display: inline-block
-    width: 150px
-    background-color: white
-    padding: 20px
-    font-size: 16px
-    cursor: pointer
+.label
+  text-align: center
+  display: inline-block
+  width: 150px
+  background-color: white
+  padding: 20px
+  font-size: 16px
+  cursor: pointer
 
-  .fileName
-    width: 100px
-    display: inline-block
-    white-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
-    padding: 12px
+.fileName
+  width: 100px
+  display: inline-block
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  padding: 12px
 
-  .fileInput
-    display: none
+.fileInput
+  display: none
+
+.closeIcon
+  position: absolute
+  top: 0
+  right: 0
+  color: #4e618d
+  font-size: 26px
+  position: absolute
+  cursor: pointer
+  transform: translate(25%, -25%)
+  transition: all 0.2s
+
+  &:hover
+    color: #8aca6b
+    transform: scale(1.2) translate(25%, -25%)
