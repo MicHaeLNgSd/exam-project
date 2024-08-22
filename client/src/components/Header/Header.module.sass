@@ -81,7 +81,7 @@
   height: 40px
   @media(max-width: 600px)
     margin-left: 60px
-  @media(max-width: 400px)
+  @media(max-width: 500px)
     margin-left: 20px
   @media(max-width: 320px)
     margin-left: 0
@@ -95,11 +95,17 @@
   padding: 0 15px
 
 .userInfo
+  box-sizing: border-box
   @include flex()
   height: 100%
   position: relative
   padding: 0 15px
   border-right: 1px solid #ebebeb
+  max-width: 300px
+  @media(max-width: 600px)
+    max-width: 200px
+  @media(max-width: 400px)
+    max-width: 150px
 
   &:hover
     ul
@@ -139,6 +145,7 @@
         font-size: 16px
 
   img
+    flex-shrink: 0
     width: 20px
     height: 20px
     border-radius: 10px
@@ -150,6 +157,9 @@
     font-weight: 400
     font-size: 16px
     border: none
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
 
 .numberContainer
   @include flex()
@@ -160,7 +170,7 @@
   border-left: 1px solid #ebebeb
   margin-left: 120px
   height: 40px
-  @media(max-width: 600px)
+  @media(max-width: 700px)
     margin-left: 10px
   @media(max-width: 360px)
     padding: 0 5px

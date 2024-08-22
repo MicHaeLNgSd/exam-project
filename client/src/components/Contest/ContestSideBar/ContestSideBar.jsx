@@ -91,7 +91,10 @@ const ContestSideBar = (props) => {
                 alt="user"
               />
               <div className={styles.customerNameContainer}>
-                <span>{`${User.firstName} ${User.lastName}`}</span>
+                <div className={styles.customerFullNameContainer}>
+                  <span>{User.firstName}</span>
+                  <span>{User.lastName}</span>
+                </div>
                 <span>{User.displayName}</span>
               </div>
             </div>

@@ -34,6 +34,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('First Name is required'),
     lastName: yup
       .string()
@@ -42,6 +43,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('Last Name is required'),
     displayName: yup
       .string()
@@ -50,6 +52,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('Display Name is required'),
     role: yup
       .string()
@@ -180,6 +183,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('required'),
     lastName: yup
       .string()
@@ -188,6 +192,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('required'),
     displayName: yup
       .string()
@@ -196,6 +201,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('required'),
     file: yup.mixed(),
   }),
@@ -227,8 +233,8 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
-      .min(3, 'Write minimum 3 characters')
-      .max(80, 'Write maximum 80 characters')
+      .min(3, 'Minimum 3 characters')
+      .max(80, 'Maximum 80 characters')
       .required('required'),
     endTime: yup
       .date()
