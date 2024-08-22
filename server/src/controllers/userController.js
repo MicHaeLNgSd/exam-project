@@ -98,7 +98,7 @@ module.exports.changeMark = async (req, res, next) => {
       transaction,
     });
 
-    const sum = offers.reduce((acc, { dataValues: mark }) => acc + mark, 0);
+    const sum = offers.reduce((acc, { dataValues: { mark } }) => acc + mark, 0);
     const avg = sum / offers.length;
 
     await updateUser({ rating: avg }, creatorId, transaction);
