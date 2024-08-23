@@ -64,7 +64,7 @@ module.exports.addMessage = async (req, res, next) => {
 };
 
 module.exports.getChat = async (req, res, next) => {
-  const { interlocutorId } = req.query; //TODO maybe params
+  const { interlocutorId } = req.query;
   const { userId } = req.tokenData;
 
   try {

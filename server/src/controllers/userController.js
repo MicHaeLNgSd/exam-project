@@ -205,7 +205,6 @@ module.exports.updateUser = async ({ file, body, tokenData }, res, next) => {
 };
 
 module.exports.cashout = async ({ body, tokenData }, res, next) => {
-  //TODO rename: sum != payment.price != db.amount
   const { number, cvc, expiry, sum } = body;
   const { userId } = tokenData;
 
