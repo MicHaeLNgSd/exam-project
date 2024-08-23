@@ -10,11 +10,26 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ User, Contest, Rating }) {
       // define association here
-      Offer.belongsTo(User, { foreignKey: 'userId', sourceKey: 'id' });
+      Offer.belongsTo(User, {
+        foreignKey: 'userId',
+        sourceKey: 'id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
 
-      Offer.belongsTo(Contest, { foreignKey: 'contestId', sourceKey: 'id' });
+      Offer.belongsTo(Contest, {
+        foreignKey: 'contestId',
+        sourceKey: 'id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
 
-      Offer.hasOne(Rating, { foreignKey: 'offerId', targetKey: 'id' });
+      Offer.hasOne(Rating, {
+        foreignKey: 'offerId',
+        targetKey: 'id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Offer.init(
@@ -28,10 +43,14 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       contestId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       text: {
         type: DataTypes.STRING,
