@@ -127,8 +127,8 @@ module.exports.updateContest = async (req, res, next) => {
   } = req;
 
   if (file) {
-    req.body.filename = file.filename;
-    req.body.originalname = file.originalname;
+    req.body.fileName = file.filename;
+    req.body.originalFileName = file.originalname;
   }
 
   try {
