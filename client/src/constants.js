@@ -67,7 +67,7 @@ const CONSTANTS = {
     'a Product',
     'a Startup',
   ],
-  FooterItems: [
+  FOOTER_ITEMS: [
     {
       title: 'SQUADHELP',
       items: ['About', 'Contact', 'How It Works?', 'Testimonials', 'Our Work'],

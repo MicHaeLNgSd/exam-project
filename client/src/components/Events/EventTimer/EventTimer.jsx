@@ -6,7 +6,7 @@ import styles from './EventTimer.module.sass';
 import { useDispatch } from 'react-redux';
 import { deleteEvent, setEvents } from '../../../store/slices/eventsSlice';
 
-function EventTimer({ event }) {
+const EventTimer = ({ event }) => {
   const { text, endTime, createdAt, reminderTime } = event;
 
   const dispatch = useDispatch();
@@ -77,6 +77,6 @@ function EventTimer({ event }) {
       </button>
     </div>
   );
-}
+};
 
 export default EventTimer;

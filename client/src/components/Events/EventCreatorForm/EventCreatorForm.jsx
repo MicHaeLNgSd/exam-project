@@ -21,7 +21,7 @@ const classes = {
 const classesText = { ...classes, input: styles.textInput };
 const classesTime = { ...classes, input: styles.timeInput };
 
-function EventCreatorForm() {
+const EventCreatorForm = () => {
   const dispatch = useDispatch();
   const submitHandler = (values, { resetForm }) => {
     dispatch(addEvent(values));
@@ -76,6 +76,6 @@ function EventCreatorForm() {
       </Formik>
     </>
   );
-}
+};
 
 export default EventCreatorForm;

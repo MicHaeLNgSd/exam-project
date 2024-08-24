@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
-function EventsHelper() {
+const EventsHelper = () => {
   const events = useSelector((state) => state.eventsStore.events);
   const [now, setNow] = useState(moment());
 
@@ -39,6 +39,6 @@ function EventsHelper() {
       </Link>
     </div>
   );
-}
+};
 
 export default EventsHelper;

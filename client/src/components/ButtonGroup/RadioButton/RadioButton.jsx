@@ -13,7 +13,7 @@ const initClasses = {
   recommend: styles.recommend,
 };
 
-function RadioButton({ name, button, classes = {} }) {
+const RadioButton = ({ name, button, classes = {} }) => {
   const { header, text, value, isRecommended } = button;
   const newClasses = { ...initClasses, ...classes };
   const {
@@ -37,6 +37,6 @@ function RadioButton({ name, button, classes = {} }) {
       </div>
     </label>
   );
-}
+};
 
 export default RadioButton;

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './EventsList.module.sass';
 import EventTimer from './../EventTimer/EventTimer';
 
-function EventsList({ events = [] }) {
+const EventsList = ({ events = [] }) => {
   if (!events.length)
     return (
       <div className={styles.notEvents}>There is no event at the moment</div>
@@ -17,6 +17,6 @@ function EventsList({ events = [] }) {
       ))}
     </ul>
   );
-}
+};
 
 export default EventsList;

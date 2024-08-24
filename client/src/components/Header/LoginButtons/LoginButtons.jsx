@@ -4,7 +4,7 @@ import CONSTANTS from '../../../constants';
 import { Link } from 'react-router-dom';
 import styles from '../Header.module.sass';
 
-function LoginButtons({ data, logOut }) {
+const LoginButtons = ({ data, logOut }) => {
   if (!data) {
     return (
       <>
@@ -51,6 +51,6 @@ function LoginButtons({ data, logOut }) {
       </div>
     </>
   );
-}
+};
 
 export default LoginButtons;

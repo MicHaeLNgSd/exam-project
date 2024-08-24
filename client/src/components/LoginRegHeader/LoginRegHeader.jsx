@@ -4,7 +4,7 @@ import styles from './LoginRegHeader.module.sass';
 import CONSTANTS from '../../constants';
 import Logo from '../Logo';
 
-function LoginRegHeader({ to, linkText }) {
+const LoginRegHeader = ({ to, linkText }) => {
   return (
     <div className={styles.header}>
       <Logo src={`${CONSTANTS.STATIC_IMAGES_PATH}logo.png`} />
@@ -13,6 +13,6 @@ function LoginRegHeader({ to, linkText }) {
       </Link>
     </div>
   );
-}
+};
 
 export default LoginRegHeader;

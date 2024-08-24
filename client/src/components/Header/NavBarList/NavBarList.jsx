@@ -3,7 +3,7 @@ import styles from './NavBarList.module.sass';
 import CONSTANTS from '../../../constants';
 import { Link } from 'react-router-dom';
 
-function NavBarList({ navList = [] }) {
+const NavBarList = ({ navList = [] }) => {
   return (
     <ul className={styles.containerList}>
       {navList.map(({ title, items }, index) => (
@@ -24,6 +24,6 @@ function NavBarList({ navList = [] }) {
       ))}
     </ul>
   );
-}
+};
 
 export default NavBarList;
