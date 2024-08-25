@@ -1,9 +1,9 @@
 import { isEqual } from 'lodash';
 
 /**
- * @param {array} arrToSort
- * @param {String} param
- * @param {array} orderArr
+ * @param {Array.<object>} arrToSort
+ * @param {string} param
+ * @param {Array.<string>} orderArr
  * @returns new array sorted by arrToSort.param position in orderArr
  */
 export const sortByArr = (arrToSort, param, orderArr) => {

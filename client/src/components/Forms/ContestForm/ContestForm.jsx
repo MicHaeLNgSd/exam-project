@@ -94,7 +94,7 @@ const ContestForm = ({
 
   useEffect(() => getPreference(), [getPreference]);
 
-  if (error) return <TryAgain getData={this.getPreference} />;
+  if (error) return <TryAgain getData={getPreference} />;
   if (isFetching) return <Spinner />;
   return (
     <div className={styles.formContainer}>
@@ -163,7 +163,7 @@ const ContestForm = ({
             type="file"
             classes={classesFieldFileInput}
           />
-          {isEditContest ?? (
+          {isEditContest && (
             <button type="submit" className={styles.changeData}>
               Set Data
             </button>
