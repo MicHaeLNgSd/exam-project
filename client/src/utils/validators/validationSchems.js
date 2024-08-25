@@ -75,6 +75,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(255)
       .required('title of contest required'),
     industry: yup.string().required('industry required'),
     focusOfWork: yup

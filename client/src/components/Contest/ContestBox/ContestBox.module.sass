@@ -1,14 +1,20 @@
 .contestBoxContainer
+  box-sizing: border-box
+  width: 100%
   display: flex
   align-items: center
   justify-content: space-between
   background-color: #f9fafb
   padding: 30px 20px 10px 20px
   margin-bottom: 15px
-  @media(max-width: 400px)
+  cursor: pointer
+  @media(max-width: 500px)
     flex-direction: column
+    gap: 10px
 
   .mainContestInfo
+    min-width: 0
+    max-width: 100%
     flex: 1 1
     display: flex
     flex-direction: column
@@ -61,7 +67,7 @@
     .titleAndIdContainer
       width: 100%
       display: flex
-      justify-content: flex-start
+      justify-content: space-between
       align-items: center
 
       .id
@@ -73,6 +79,10 @@
         font-size: 18px
         font-weight: 500
         margin-right: 20px
+        max-width: 100%
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
 
   .entryAndTimeContainer
     display: flex
@@ -82,9 +92,6 @@
     border-right: 1px solid #eee
     border-bottom: 1px solid #eee
     box-shadow: 2px 2px rgba(0, 0, 0, 0.2)
-    @media(max-width: 400px)
-      margin-top: 10px
-      align-self: flex-start
 
     .timeContainer
       display: flex
@@ -97,6 +104,7 @@
       .timeContest
         font-size: 18px
         color: #46568a
+        text-align: right
 
       span
         font-size: 15px

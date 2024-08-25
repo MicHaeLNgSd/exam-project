@@ -24,7 +24,7 @@ module.exports.contestSchem = yup.object().shape({
     .required(),
   fileName: yup.string().min(1),
   originalFileName: yup.string().min(1),
-  title: yup.string().required().min(1),
+  title: yup.string().required().min(1).max(255),
   typeOfName: yup.string().min(1),
   industry: yup.string().required().min(1),
   focusOfWork: yup.string().required().min(1),

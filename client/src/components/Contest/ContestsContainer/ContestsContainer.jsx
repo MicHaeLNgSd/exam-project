@@ -24,7 +24,7 @@ const ContestsContainer = ({ isFetching, haveMore, loadMore, children }) => {
     return <div className={styles.notFound}>Nothing was found</div>;
   }
   return (
-    <div>
+    <div className={styles.contestsContainer}>
       {children}
       {isFetching && (
         <div className={styles.spinnerContainer}>
