@@ -3,10 +3,10 @@ import styles from './Footer.module.sass';
 import CONSTANTS from '../../constants';
 
 const Footer = () => {
-  const topFooterItemsRender = (item) => (
-    <div key={item.title}>
-      <h4>{item.title}</h4>
-      {item.items.map((i) => (
+  const topFooterItemsRender = ({ title, items }) => (
+    <div key={title}>
+      <h4>{title}</h4>
+      {items.map((i) => (
         <a key={i} href="https://google.com">
           {i}
         </a>
@@ -14,14 +14,10 @@ const Footer = () => {
     </div>
   );
 
-  const topFooterRender = () => {
-    return CONSTANTS.FOOTER_ITEMS.map((item) => topFooterItemsRender(item));
-  };
-
   return (
     <div className={styles.footerContainer}>
       <div className={styles.footerTop}>
-        <div>{topFooterRender()}</div>
+        <div>{CONSTANTS.FOOTER_ITEMS.map((i) => topFooterItemsRender(i))}</div>
       </div>
     </div>
   );

@@ -42,10 +42,11 @@ const DialogList = (props) => {
   };
 
   const renderPreview = (filterFunc) => {
-    const arrayList = [];
     const { userId, preview, goToExpandedDialog, chatMode, removeChat } = props;
-    preview.forEach((chatPreview, index) => {
-      const dialogNode = (
+
+    const filteredDialogs = preview
+      .filter((chatPreview) => !filterFunc || filterFunc(chatPreview, userId))
+      .map((chatPreview, index) => (
         <DialogBox
           interlocutor={chatPreview.interlocutor}
           chatPreview={chatPreview}
@@ -62,15 +63,10 @@ const DialogList = (props) => {
           }
           goToExpandedDialog={goToExpandedDialog}
         />
-      );
-      if (filterFunc && filterFunc(chatPreview, userId)) {
-        arrayList.push(dialogNode);
-      } else if (!filterFunc) {
-        arrayList.push(dialogNode);
-      }
-    });
-    return arrayList.length ? (
-      arrayList
+      ));
+
+    return filteredDialogs.length ? (
+      filteredDialogs
     ) : (
       <span className={styles.notFound}>Not found</span>
     );

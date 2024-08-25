@@ -40,16 +40,6 @@ const CreatorDashboard = ({
   newFilter,
 }) => {
   const renderSelectType = () => {
-    const array = [];
-    types.forEach(
-      (el, i) =>
-        !i ||
-        array.push(
-          <option key={i - 1} value={el}>
-            {el}
-          </option>
-        )
-    );
     return (
       <select
         name={'typeIndex'}
@@ -62,7 +52,11 @@ const CreatorDashboard = ({
         value={types[creatorFilter.typeIndex]}
         className={styles.input}
       >
-        {array}
+        {types.slice(1).map((el, i) => (
+          <option key={i} value={el}>
+            {el}
+          </option>
+        ))}
       </select>
     );
   };
@@ -81,19 +75,6 @@ const CreatorDashboard = ({
   const renderIndustryType = () => {
     const industry = dataForContest.data?.industry || [];
 
-    const array = [];
-    array.push(
-      <option key={0} value={null}>
-        Choose industry
-      </option>
-    );
-    industry.forEach((industry, i) =>
-      array.push(
-        <option key={i + 1} value={industry}>
-          {industry}
-        </option>
-      )
-    );
     return (
       <select
         name={'industry'}
@@ -106,7 +87,14 @@ const CreatorDashboard = ({
         value={creatorFilter.industry}
         className={styles.input}
       >
-        {array}
+        <option key={0} value={null}>
+          Choose industry
+        </option>
+        {industry.map((industry, i) => (
+          <option key={i + 1} value={industry}>
+            {industry}
+          </option>
+        ))}
       </select>
     );
   };
@@ -150,19 +138,16 @@ const CreatorDashboard = ({
   }, [location.search, parseUrlForParams]);
 
   const changePredicate = ({ name, value }) => {
-    newFilter({
-      [name]: value === 'Choose industry' ? null : value,
-    });
-    parseParamsToUrl({
-      ...creatorFilter,
-      ...{ [name]: value === 'Choose industry' ? null : value },
-    });
+    const filterObj = { [name]: value === 'Choose industry' ? null : value };
+
+    newFilter(filterObj);
+    parseParamsToUrl({ ...creatorFilter, ...filterObj });
   };
 
   const parseParamsToUrl = (creatorFilter) => {
     const obj = {};
-    Object.keys(creatorFilter).forEach((el) => {
-      if (creatorFilter[el]) obj[el] = creatorFilter[el];
+    Object.entries(creatorFilter).forEach(([key, value]) => {
+      if (value) obj[key] = value;
     });
     history.push(`/dashboard?${queryString.stringify(obj)}`);
   };
@@ -180,10 +165,9 @@ const CreatorDashboard = ({
   };
 
   const setContestList = () => {
-    const array = contests.map((c) => (
+    return contests.map((c) => (
       <ContestBox key={c.id} data={c} goToExtended={goToExtended} />
     ));
-    return array;
   };
 
   const tryLoadAgain = () => {

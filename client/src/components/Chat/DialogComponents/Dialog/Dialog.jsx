@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import className from 'classnames';
 import {
   getDialogMessages,
   clearMessageList,
@@ -9,6 +7,7 @@ import {
 import ChatHeader from '../../ChatComponents/ChatHeader/ChatHeader';
 import styles from './Dialog.module.sass';
 import ChatInput from '../../ChatComponents/ChatInut/ChatInput';
+import RenderMainDialog from './RenderMainDialog/RenderMainDialog';
 
 const Dialog = ({
   getDialog,
@@ -36,36 +35,6 @@ const Dialog = ({
     scrollToBottom();
   }, [messages]);
 
-  const renderMainDialog = () => {
-    const messagesArray = [];
-    let currentTime = moment();
-    messages.forEach((message, i) => {
-      if (!currentTime.isSame(message.createdAt, 'date')) {
-        messagesArray.push(
-          <div key={message.createdAt} className={styles.date}>
-            {moment(message.createdAt).format('MMMM DD, YYYY')}
-          </div>
-        );
-        currentTime = moment(message.createdAt);
-      }
-      messagesArray.push(
-        <div
-          key={i}
-          className={className(
-            userId === message.sender ? styles.ownMessage : styles.message
-          )}
-        >
-          <span>{message.body}</span>
-          <span className={styles.messageTime}>
-            {moment(message.createdAt).format('HH:mm')}
-          </span>
-          <div ref={messagesEnd} />
-        </div>
-      );
-    });
-    return <div className={styles.messageList}>{messagesArray}</div>;
-  };
-
   const blockMessage = () => {
     const { blackList, participants } = chatData;
     const userIndex = participants.indexOf(userId);
@@ -80,8 +49,11 @@ const Dialog = ({
   return (
     <>
       <ChatHeader userId={userId} />
-      {renderMainDialog()}
-      <div ref={messagesEnd} />
+      <RenderMainDialog
+        userId={userId}
+        messages={messages}
+        messagesEnd={messagesEnd}
+      />
       {chatData?.blackList.includes(true) ? blockMessage() : <ChatInput />}
     </>
   );
