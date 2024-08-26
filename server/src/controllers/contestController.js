@@ -261,7 +261,8 @@ const resolveOffer = async (
     {
       status: db.sequelize.literal(`CASE
         WHEN "id"=${offerId} THEN '${CONSTANTS.OFFER_STATUS.WON}'
-        WHEN "status"='${CONSTANTS.OFFER_STATUS.PENDING}' THEN '${CONSTANTS.OFFER_STATUS.REJECTED}'
+        WHEN "status"='${CONSTANTS.OFFER_STATUS.PENDING}' 
+          OR "status"='${CONSTANTS.OFFER_STATUS.REJECTED}' THEN '${CONSTANTS.OFFER_STATUS.REJECTED}'
         ELSE '${CONSTANTS.OFFER_STATUS.DENIED}'
         END
       `),
