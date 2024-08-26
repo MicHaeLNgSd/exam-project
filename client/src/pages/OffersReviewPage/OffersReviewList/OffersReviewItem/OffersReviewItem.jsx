@@ -47,6 +47,7 @@ function OffersReviewItem({ offer }) {
           href={`${CONSTANTS.publicContestsURL}${contestFileName}`}
           download={contestOriginalFileName}
           rel="noreferrer"
+          className={styles.filename}
         >
           {contestOriginalFileName}
         </a>
