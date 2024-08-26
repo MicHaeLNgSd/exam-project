@@ -182,7 +182,7 @@ module.exports.getOffers = async (req, res, next) => {
 };
 
 module.exports.setNewOffer = async (req, res, next) => {
-  const { contestType, offerData, contestId } = req.body;
+  const { contestType, offerData, contestId, customerId } = req.body;
   const { userId } = req.tokenData;
 
   const obj = { userId, contestId };
@@ -196,10 +196,7 @@ module.exports.setNewOffer = async (req, res, next) => {
   try {
     const result = await createOffer(obj);
     const { contestId, userId: uId, ...response } = result;
-
-    controller
-      .getNotificationController()
-      .emitEntryCreated(req.body.customerId);
+    controller.getNotificationController().emitEntryCreated(customerId);
 
     const User = { ...req.tokenData, id: userId };
     res.status(201).send({ ...response, User });
