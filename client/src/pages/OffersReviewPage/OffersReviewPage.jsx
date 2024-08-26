@@ -50,7 +50,7 @@ function OffersReviewPage() {
 
   useEffect(() => {
     if (offers.length > 0 && offers.length < 8 && haveMore) {
-      loadMore(offers.length);
+      loadMore(offers.length + 1);
     }
   }, [offers, haveMore, loadMore]);
 
