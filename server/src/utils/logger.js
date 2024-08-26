@@ -32,8 +32,8 @@ const logFormat = ({ message, code, stack }) => {
 const logError = async (err) => {
   try {
     const errors = await getLoggerErrors(filePath);
-    const newData = [...errors, logFormat(err)];
-    await fsP.writeFile(filePath, JSON.stringify(newData, null, 2));
+    errors.push(logFormat(err));
+    await fsP.writeFile(filePath, JSON.stringify(errors, null, 2));
   } catch (err) {
     console.error(err);
   }
