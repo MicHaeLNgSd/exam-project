@@ -21,7 +21,6 @@ function OffersReviewPage() {
 
   const loadMore = useCallback(
     (startFrom = 0, limit = 8) => {
-      console.log(startFrom, limit);
       dispatch(
         getOffers({
           limit,
