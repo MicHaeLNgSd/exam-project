@@ -88,7 +88,7 @@ const CreatorDashboard = ({
         value={creatorFilter.industry}
         className={styles.input}
       >
-        <option key={0} value={null}>
+        <option key={0} value={''}>
           Choose industry
         </option>
         {industry.map((industry, i) => (
