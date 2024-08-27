@@ -46,6 +46,7 @@ const DialogList = (props) => {
 
     const filteredDialogs = preview
       .filter((chatPreview) => !filterFunc || filterFunc(chatPreview, userId))
+      .sort((a, b) => new Date(b.createAt) - new Date(a.createAt))
       .map((chatPreview, index) => (
         <DialogBox
           interlocutor={chatPreview.interlocutor}

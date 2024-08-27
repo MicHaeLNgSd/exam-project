@@ -36,8 +36,8 @@ module.exports.addMessage = async (req, res, next) => {
 
     const messageData = {
       sender: userId,
-      text: messageBody,
-      createAt: message.createdAt,
+      body: messageBody,
+      createdAt: message.createdAt,
     };
 
     const preview = formatConversation(conversation, messageData);
