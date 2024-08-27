@@ -52,7 +52,7 @@ class App extends Component {
           <Route
             exact
             path="/start-contest"
-            component={withAuth(StartContestPage)}
+            component={withAuth(StartContestPage, null, [CUSTOMER])}
           />
           <Route
             exact
