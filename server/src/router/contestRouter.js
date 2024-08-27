@@ -12,6 +12,8 @@ contestRouter.get(
 //take id from tokent
 contestRouter.get('/customers', contestController.getCustomersContests); // '/'
 
+contestRouter.get('/data', contestController.dataForContest);
+
 contestRouter
   .route('/:contestId')
   .get(basicMiddlewares.canGetContest, contestController.getContestById)
@@ -19,7 +21,6 @@ contestRouter
 
 //=========================
 
-contestRouter.post('/data', contestController.dataForContest);
 contestRouter.get('/files/:fileName', contestController.downloadFile);
 
 module.exports = contestRouter;

@@ -29,6 +29,7 @@ const types = [
 const CreatorDashboard = ({
   creatorFilter,
   dataForContest,
+  getDataForContest,
   location,
   history,
   getContestsData,
@@ -131,7 +132,7 @@ const CreatorDashboard = ({
   useEffect(() => {
     getDataForContest();
     return () => clearContestsList();
-  }, [clearContestsList]);
+  }, [getDataForContest, clearContestsList]);
 
   useEffect(() => {
     parseUrlForParams(location.search);

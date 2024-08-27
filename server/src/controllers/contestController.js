@@ -16,9 +16,7 @@ const { updateUser } = require('./services/user.service');
 module.exports.dataForContest = async (req, res, next) => {
   const response = {};
   try {
-    const {
-      body: { characteristic1, characteristic2 },
-    } = req;
+    const { characteristic1, characteristic2 } = req.query;
     const types = [characteristic1, characteristic2, 'industry'].filter(
       Boolean
     );
