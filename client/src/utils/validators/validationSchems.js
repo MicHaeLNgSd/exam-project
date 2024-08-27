@@ -224,6 +224,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(60, '60 chars top')
       .required('required'),
   }),
   EventCreationSchema: yup.object({

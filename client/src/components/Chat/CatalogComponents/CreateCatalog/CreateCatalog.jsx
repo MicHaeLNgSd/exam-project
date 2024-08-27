@@ -29,6 +29,7 @@ const CreateCatalog = (props) => {
             warning: styles.fieldWarning,
             notValid: styles.notValid,
           }}
+          isError={false}
         />
         <button className={styles.btn} type="submit">
           Create Catalog

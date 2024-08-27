@@ -55,6 +55,7 @@ const CatalogListHeader = (props) => {
                 }}
                 type="text"
                 label="Catalog Name"
+                isError={false}
               />
               <button className={styles.btn} type="submit">
                 Change

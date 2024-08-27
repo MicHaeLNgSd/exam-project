@@ -2,6 +2,8 @@
 @import './../../../../common/style/templates'
 
 .headerContainer
+  box-sizing: border-box
+  width: 100%
   @include flex(flex-start)
   height: 50px
   background-color: #4e618d
@@ -10,13 +12,14 @@
   z-index: 600
 
   svg
+    flex-shrink: 0
     cursor: pointer
     font-size: 24px
     color: white
-    transition: font-size 0.2s
+    transition: all 0.2s
 
     &:hover
-      font-size: 28px
+      transform: scale(1.2)
 
 .btn
   border: none
@@ -26,21 +29,29 @@
   cursor: pointer
 
 .infoContainer
-  margin-left: 25px
+  min-width: 0
+  box-sizing: border-box
+  width: 100%
+  margin: 0 20px 0 25px
   display: flex
+  justify-content: space-between
   align-items: center
 
   span
+    width: 100%
     font-size: 18px
     color: white
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
 
   .iconEdit
     font-size: 14px
-    transition: font-size 0.2s
+    transition: all 0.2s
     margin-left: 5px
 
     &:hover
-      font-size: 16px
+      transform: scale(1.2)
 
 .changeContainer, .changeContainer > form, .inputContainer
   @include flex(flex-start)
