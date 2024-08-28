@@ -56,8 +56,9 @@ const logsToNewFile = async (newFilePath) => {
   }
 };
 
-cron.schedule('0 20 * * *', () =>
-  logsToNewFile(path.join(dirPath, `${Date.now()}.log`))
+cron.schedule(
+  '0 2 * * *',
+  async () => await logsToNewFile(path.join(dirPath, `${Date.now()}.log`))
 );
 
 module.exports = logError;
