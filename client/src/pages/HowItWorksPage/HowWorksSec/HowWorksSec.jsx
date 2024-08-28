@@ -1,6 +1,6 @@
 import React from 'react';
+import { FaPlay } from 'react-icons/fa';
 import styles from './HowWorksSec.module.sass';
-import classNames from 'classnames';
 
 function HowWorksSec({ imgPath }) {
   return (
@@ -21,7 +21,7 @@ function HowWorksSec({ imgPath }) {
             className={styles.howItWorksBtn}
             href="https://vimeo.com/368584367"
           >
-            <i className={classNames('fas fa-play', styles.playBtn)} />
+            <FaPlay className={styles.playBtn} />
             Play Video
           </a>
         </div>

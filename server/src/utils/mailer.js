@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { OFFER_STATUS_DENIED, MAILER_EMAIL } = require('../constants');
+const { OFFER_STATUS, MAILER_EMAIL } = require('../constants');
 
 const mailOptionalText = [
   `We understand this news might be disappointing, but please know that we appreciate the time and effort you put into your submission.
@@ -20,11 +20,11 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports.sendMail = async (to, status, userName) => {
-  const reviewStatus = status === OFFER_STATUS_DENIED ? 'denied' : 'approved';
+  const reviewStatus = status === OFFER_STATUS.DENIED ? 'denied' : 'approved';
   const reviewText =
-    status === OFFER_STATUS_DENIED ? mailOptionalText[0] : mailOptionalText[1];
+    status === OFFER_STATUS.DENIED ? mailOptionalText[0] : mailOptionalText[1];
 
-  const info = await transporter.sendMail({
+  const mailData = {
     from: `"SquadHelp" ${MAILER_EMAIL.ADDRESS}`,
     to,
     subject: `Moderator has ${reviewStatus} your offer`,
@@ -35,5 +35,8 @@ We are pleased to inform you that your offer has been ${reviewStatus} by our mod
 
 Best regards,
 The SquadHelp Team`,
-  });
+  };
+
+  // console.log(mailData);
+  const info = await transporter.sendMail(mailData);
 };

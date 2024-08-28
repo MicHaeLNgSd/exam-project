@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import LoginForm from '../../components/Forms/LoginForm/LoginForm';
 import styles from './LoginPage.module.sass';
 import { clearAuthError } from '../../store/slices/authSlice';
 import LoginRegHeader from '../../components/LoginRegHeader/LoginRegHeader';

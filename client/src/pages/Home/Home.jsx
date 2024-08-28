@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { FaCheck } from 'react-icons/fa';
 import Header from '../../components/Header/Header';
 import CONSTANTS from '../../constants';
 import SlideBar from '../../components/SlideBar/SlideBar';
@@ -12,10 +13,9 @@ import Spinner from '../../components/Spinner/Spinner';
 const Home = (props) => {
   const [index, setIndex] = useState(0);
   const [styleName, setStyle] = useState(styles.headline__static);
-  let timeout;
 
   useEffect(() => {
-    timeout = setInterval(() => {
+    const timeout = setInterval(() => {
       setIndex(index + 1);
       setStyle(styles.headline__isloading);
     }, 3000);
@@ -161,14 +161,14 @@ const Home = (props) => {
                 <div>
                   <h3>Step 1: Launch a Naming Contest</h3>
                   <p>
-                    <i className="fas fa-check" />
+                    <FaCheck className={styles.icon} />
                     <span>
                       Start your project right with our proven Naming Brief
                       template
                     </span>
                   </p>
                   <p>
-                    <i className="fas fa-check" />
+                    <FaCheck className={styles.icon} />
                     <span>
                       We’ll walk you through exactly what you need to share
                       about your project in order to get an awesome Name
@@ -190,13 +190,13 @@ const Home = (props) => {
                 <div className={styles.greenStep}>
                   <h3>Step 2: Ideas start pouring in within minutes</h3>
                   <p>
-                    <i className="fas fa-check" />
+                    <FaCheck className={styles.icon} />
                     <span>
                       100s of naming experts start submitting name ideas
                     </span>
                   </p>
                   <p>
-                    <i className="fas fa-check" />
+                    <FaCheck className={styles.icon} />
                     <span>
                       Names automatically checked for URL availability
                     </span>
@@ -209,17 +209,17 @@ const Home = (props) => {
                 <div>
                   <h3>Step 3: Rate Entries & Brainstorm with Creatives</h3>
                   <p>
-                    <i className="fas fa-check" />
+                    <FaCheck className={styles.icon} />
                     <span>Provide instant feedback on Names</span>
                   </p>
                   <p>
-                    <i className="fas fa-check" />
+                    <FaCheck className={styles.icon} />
                     <span>
                       Send private feedback or public messages to all creatives
                     </span>
                   </p>
                   <p>
-                    <i className="fas fa-check" />
+                    <FaCheck className={styles.icon} />
                     <span>
                       The more entries you rate - the submissions get better and
                       better

@@ -1,55 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import moment from 'moment';
 import Header from '../../components/Header/Header';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SpinnerLoader from '../../components/Spinner/Spinner';
 import { getUserTransactions } from '../../store/slices/transactionsSlice';
 import styles from './TransactionsPage.module.sass';
+import TryAgain from '../../components/TryAgain/TryAgain';
 
-function TransactionsPage({ transactions, isFetching, error, get }) {
+function TransactionsPage() {
+  const dispatch = useDispatch();
+  const { isFetching, error, transactions } = useSelector(
+    (state) => state.transactionsStore
+  );
+
+  const tryGetTransactions = useCallback(() => {
+    dispatch(getUserTransactions());
+  }, [dispatch]);
+
   useEffect(() => {
-    get();
-  }, []);
+    tryGetTransactions();
+  }, [tryGetTransactions]);
 
-  if (isFetching)
+  const renderData = () => {
+    if (isFetching) return <SpinnerLoader />;
+    if (error) return <TryAgain getData={tryGetTransactions} />;
+    if (transactions.length === 0 && !isFetching)
+      return (
+        <div className={styles.notFound}>
+          There is no transaction at the moment
+        </div>
+      );
     return (
-      <>
-        <Header />
-        <SpinnerLoader />
-      </>
+      <table className={styles.transitionsTable}>
+        <caption>Finance Operations</caption>
+        <thead>
+          <tr>
+            <th>Operation Type</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((t) => (
+            <tr key={t.id}>
+              <td>{t.operationType}</td>
+              <td>{t.amount}</td>
+              <td>{moment(t.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     );
-  if (error) return <Header />;
+  };
 
   return (
     <>
       <Header />
-      <main className={styles.main}>
-        <table className={styles.transitionsTable}>
-          <caption>Finance Operations</caption>
-          <thead>
-            <th>Operation Type</th>
-            <th>Amount</th>
-            <th>Date</th>
-          </thead>
-          <tbody>
-            {transactions.map((t) => (
-              <tr key={t.id}>
-                <td>{t.operationType}</td>
-                <td>{t.amount}</td>
-                <td>{moment(t.createdAt).format('DD/MM/YYYY HH:mm:ss')}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </main>
+      <main className={styles.main}>{renderData()}</main>
     </>
   );
 }
 
-const mapStateToProps = ({ transactionsStore }) => transactionsStore;
-
-const mapDispatchToProps = (dispatch) => ({
-  get: () => dispatch(getUserTransactions()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TransactionsPage);
+export default TransactionsPage;

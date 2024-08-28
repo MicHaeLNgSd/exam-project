@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 import styles from './Catalog.module.sass';
 
 const Catalog = (props) => {
@@ -13,9 +14,9 @@ const Catalog = (props) => {
       <div className={styles.infoContainer}>
         <span>Chats number: </span>
         <span className={styles.numbers}>{chats.length}</span>
-        <i
-          className="fas fa-trash-alt"
+        <FaTrashAlt
           onClick={(event) => deleteCatalog(event, id)}
+          className={styles.iconTrash}
         />
       </div>
     </div>

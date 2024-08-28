@@ -13,6 +13,8 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
         },
       },
       contestId: {
@@ -21,6 +23,8 @@ module.exports = {
         references: {
           model: 'Contests',
           key: 'id',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
         },
       },
       text: {

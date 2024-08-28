@@ -20,7 +20,8 @@ export const getContestById = ({ contestId }) =>
 export const updateContest = (data) =>
   http.put(`contests/${data.get('contestId')}`, data);
 
-export const dataForContest = (data) => http.post('contests/data', data);
+export const dataForContest = (data) =>
+  http.get('contests/data', { params: { ...data } });
 export const downloadContestFile = ({ fileName }) =>
   http.get(`contests/files/${fileName}`);
 

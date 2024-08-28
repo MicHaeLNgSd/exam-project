@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './EventsPage.module.sass';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import EventCreatorForm from '../../components/Events/EventCreatorForm/EventCreatorForm';
+import EventCreatorForm from '../../components/Forms/EventCreatorForm/EventCreatorForm';
 import EventsSection from './EventsSection/EventsSection';
 
 function EventsPage() {

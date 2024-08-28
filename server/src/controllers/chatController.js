@@ -36,8 +36,8 @@ module.exports.addMessage = async (req, res, next) => {
 
     const messageData = {
       sender: userId,
-      text: messageBody,
-      createAt: message.createdAt,
+      body: messageBody,
+      createdAt: message.createdAt,
     };
 
     const preview = formatConversation(conversation, messageData);
@@ -57,14 +57,14 @@ module.exports.addMessage = async (req, res, next) => {
       },
     });
 
-    res.send({ message, preview: { ...preview, interlocutor } });
+    res.status(201).send({ message, preview: { ...preview, interlocutor } });
   } catch (err) {
     next(err);
   }
 };
 
 module.exports.getChat = async (req, res, next) => {
-  const { interlocutorId } = req.query; //TODO maybe params
+  const { interlocutorId } = req.query;
   const { userId } = req.tokenData;
 
   try {
@@ -138,7 +138,7 @@ module.exports.blackList = async (req, res, next) => {
       .getChatController()
       .emitChangeBlockStatus(interlocutorId, formattedConversation);
   } catch (err) {
-    res.send(err);
+    next(err);
   }
 };
 
@@ -158,7 +158,7 @@ module.exports.favoriteChat = async (req, res, next) => {
 
     res.send(formattedConversation);
   } catch (err) {
-    res.send(err);
+    next(err);
   }
 };
 
@@ -176,7 +176,7 @@ module.exports.createCatalog = async (req, res, next) => {
 
     catalog.dataValues.chats = [conversation.dataValues];
 
-    res.send(catalog);
+    res.status(201).send(catalog);
   } catch (err) {
     next(err);
   }
@@ -215,7 +215,7 @@ module.exports.addNewChatToCatalog = async (req, res, next) => {
 
     conversationsToChatsIds([catalog], [chat.id]);
 
-    res.send(catalog);
+    res.status(201).send(catalog);
   } catch (err) {
     next(err);
   }
@@ -252,7 +252,7 @@ module.exports.deleteCatalog = async (req, res, next) => {
     await db.Catalog.destroy({
       where: { id: catalogId, userId },
     });
-    res.send();
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

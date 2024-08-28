@@ -4,9 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { getUser } from '../../store/slices/userSlice';
 import Spinner from '../../components/Spinner/Spinner';
 import CONSTANTS from '../../constants';
-const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS;
-
-const allRoles = [CUSTOMER, CREATOR, MODERATOR];
+const allRoles = Object.values(CONSTANTS.USER_ROLE);
 
 const withAuth = (Component, props, accessRoles = allRoles) => {
   const Hoc = ({ data, isFetching, getUser, history, match }) => {

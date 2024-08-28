@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const { OFFER_STATUS_REVIEWING } = require('../constants');
+const { OFFER_STATUS } = require('../constants');
 module.exports = (sequelize, DataTypes) => {
   class Offer extends Model {
     /**
@@ -10,11 +10,26 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ User, Contest, Rating }) {
       // define association here
-      Offer.belongsTo(User, { foreignKey: 'userId', sourceKey: 'id' });
+      Offer.belongsTo(User, {
+        foreignKey: 'userId',
+        sourceKey: 'id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
 
-      Offer.belongsTo(Contest, { foreignKey: 'contestId', sourceKey: 'id' });
+      Offer.belongsTo(Contest, {
+        foreignKey: 'contestId',
+        sourceKey: 'id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
 
-      Offer.hasOne(Rating, { foreignKey: 'offerId', targetKey: 'id' });
+      Offer.hasOne(Rating, {
+        foreignKey: 'offerId',
+        targetKey: 'id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Offer.init(
@@ -28,10 +43,14 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       contestId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       text: {
         type: DataTypes.STRING,
@@ -48,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: OFFER_STATUS_REVIEWING,
+        defaultValue: OFFER_STATUS.REVIEWING,
       },
     },
     {

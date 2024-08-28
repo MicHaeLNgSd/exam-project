@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
+import { FaLongArrowAltLeft, FaEdit } from 'react-icons/fa';
 import {
   changeShowModeCatalog,
   changeRenameCatalogMode,
   changeCatalogName,
 } from '../../../../store/slices/chatSlice';
 import styles from './CatalogHeader.module.sass';
-import FormInput from '../../../FormInput/FormInput';
+import FormInput from '../../../InputComponents/FormInput/FormInput';
 import Schems from '../../../../utils/validators/validationSchems';
 
 const CatalogListHeader = (props) => {
@@ -23,15 +24,15 @@ const CatalogListHeader = (props) => {
   } = props;
   return (
     <div className={styles.headerContainer}>
-      <i
-        className="fas fa-long-arrow-alt-left"
+      <FaLongArrowAltLeft
+        className={styles.iconArrowLeft}
         onClick={() => changeShowModeCatalog()}
       />
       {!isRenameCatalog && (
         <div className={styles.infoContainer}>
           <span>{catalogName}</span>
-          <i
-            className="fas fa-edit"
+          <FaEdit
+            className={styles.iconEdit}
             onClick={() => changeRenameCatalogMode()}
           />
         </div>
@@ -54,8 +55,11 @@ const CatalogListHeader = (props) => {
                 }}
                 type="text"
                 label="Catalog Name"
+                isError={false}
               />
-              <button type="submit">Change</button>
+              <button className={styles.btn} type="submit">
+                Change
+              </button>
             </Form>
           </Formik>
         </div>

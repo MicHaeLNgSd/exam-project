@@ -8,7 +8,7 @@ const initClasses = {
   btnWrapper: styles.btnWrapper,
 };
 
-function ButtonGroup({ name, header, buttons = [], classes = {} }) {
+const ButtonGroup = ({ name, header, buttons = [], classes = {} }) => {
   const newClasses = { ...initClasses, ...classes };
   const { groupContainer, groupHeader, btnWrapper, ...btnClasses } = newClasses;
 
@@ -22,6 +22,6 @@ function ButtonGroup({ name, header, buttons = [], classes = {} }) {
       </div>
     </div>
   );
-}
+};
 
 export default ButtonGroup;

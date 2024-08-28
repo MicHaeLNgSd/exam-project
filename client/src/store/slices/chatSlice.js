@@ -22,7 +22,7 @@ const initialState = {
   interlocutor: [],
   messagesPreview: [],
   isShow: false,
-  chatMode: CONSTANTS.NORMAL_PREVIEW_CHAT_MODE,
+  chatMode: CONSTANTS.CHAT_MODE.NORMAL_PREVIEW,
   catalogList: [],
   isRenameCatalog: false,
   isShowChatsInCatalog: false,
@@ -349,10 +349,16 @@ const reducers = {
   },
 
   goToExpandedDialog: (state, { payload }) => {
-    state.interlocutor = { ...state.interlocutor, ...payload.interlocutor };
-    state.chatData = payload.conversationData;
     state.isShow = true;
     state.isExpanded = true;
+
+    const isSameChat =
+      payload.conversationData?.id &&
+      state.chatData?.id === payload.conversationData.id;
+    if (isSameChat) return state;
+
+    state.interlocutor = { ...state.interlocutor, ...payload.interlocutor };
+    state.chatData = payload.conversationData;
     state.messages = [];
   },
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { pay, clearPaymentStore } from '../../store/slices/paymentSlice';
-import PayForm from '../../components/PayForm/PayForm';
+import PayForm from '../../components/Forms/PayForm/PayForm';
 import styles from './Payment.module.sass';
 import Error from '../../components/Error/Error';
 import Logo from '../../components/Logo';
@@ -40,9 +40,13 @@ const Payment = (props) => {
   const { contests } = props.contestCreationStore;
   const { error } = props.payment;
   const { clearPaymentStore } = props;
-  if (isEmpty(contests)) {
-    props.history.replace('/start-contest');
-  }
+
+  useEffect(() => {
+    if (isEmpty(contests)) {
+      props.history.replace('/start-contest');
+    }
+  }, [contests, props.history]);
+
   return (
     <div>
       <div className={styles.header}>

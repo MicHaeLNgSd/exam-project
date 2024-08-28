@@ -34,6 +34,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('First Name is required'),
     lastName: yup
       .string()
@@ -42,6 +43,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('Last Name is required'),
     displayName: yup
       .string()
@@ -50,6 +52,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('Display Name is required'),
     role: yup
       .string()
@@ -61,7 +64,6 @@ const Schems = {
       .required('Must Accept Terms and Conditions'),
   }),
   ContestSchem: yup.object({
-    nameVenture: yup.string().min(3),
     contestType: yup
       .string()
       .matches(/(name|tagline|logo)/)
@@ -73,6 +75,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(255)
       .required('title of contest required'),
     industry: yup.string().required('industry required'),
     focusOfWork: yup
@@ -91,6 +94,13 @@ const Schems = {
         (value) => value && value.trim().length >= 1
       )
       .required('target customers required'),
+    nameVenture: yup
+      .string()
+      .min(3)
+      .when('contestType', {
+        is: (val) => /(tagline|logo)/.test(val),
+        then: yup.string().required('name of venture required'),
+      }),
     styleName: yup.string().min(1),
     typeOfName: yup.string().min(1),
     typeOfTagline: yup.string().min(1),
@@ -174,6 +184,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('required'),
     lastName: yup
       .string()
@@ -182,6 +193,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('required'),
     displayName: yup
       .string()
@@ -190,6 +202,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(30, 'Maximum 30 characters')
       .required('required'),
     file: yup.mixed(),
   }),
@@ -211,6 +224,7 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
+      .max(60, '60 chars top')
       .required('required'),
   }),
   EventCreationSchema: yup.object({
@@ -221,8 +235,8 @@ const Schems = {
         'required',
         (value) => value && value.trim().length >= 1
       )
-      .min(3, 'Write minimum 3 characters')
-      .max(80, 'Write maximum 80 characters')
+      .min(3, 'Minimum 3 characters')
+      .max(80, 'Maximum 80 characters')
       .required('required'),
     endTime: yup
       .date()

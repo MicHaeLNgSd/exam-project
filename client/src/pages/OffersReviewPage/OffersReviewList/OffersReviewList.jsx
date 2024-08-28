@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './OffersReviewList.module.sass';
 import OffersReviewItem from './OffersReviewItem/OffersReviewItem';
 
-function OffersReviewList({ offers }) {
+function OffersReviewList({ offers = [] }) {
   return (
     <table className={styles.table}>
       <caption>OffersReview</caption>

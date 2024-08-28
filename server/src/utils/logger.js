@@ -14,9 +14,9 @@ if (!fs.existsSync(dirPath)) {
 const getLoggerErrors = async (filePath) => {
   try {
     const fileText = await fsP.readFile(filePath, 'utf-8').catch(() => '');
-    return fileText ? JSON.parse(fileText) : [];
+    return JSON.parse(fileText || '[]');
   } catch (err) {
-    console.error(err);
+    console.error('Failed to parse log file:', err);
   }
 };
 
@@ -32,8 +32,8 @@ const logFormat = ({ message, code, stack }) => {
 const logError = async (err) => {
   try {
     const errors = await getLoggerErrors(filePath);
-    const newData = [...errors, logFormat(err)];
-    await fsP.writeFile(filePath, JSON.stringify(newData, null, 2));
+    errors.push(logFormat(err));
+    await fsP.writeFile(filePath, JSON.stringify(errors, null, 2));
   } catch (err) {
     console.error(err);
   }
@@ -56,8 +56,9 @@ const logsToNewFile = async (newFilePath) => {
   }
 };
 
-cron.schedule('0 20 * * *', () =>
-  logsToNewFile(path.join(dirPath, `${Date.now()}.log`))
+cron.schedule(
+  '0 2 * * *',
+  async () => await logsToNewFile(path.join(dirPath, `${Date.now()}.log`))
 );
 
 module.exports = logError;

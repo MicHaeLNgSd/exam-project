@@ -4,7 +4,7 @@ import CONSTANTS from '../../../constants';
 import { Link } from 'react-router-dom';
 import styles from '../Header.module.sass';
 
-function LoginButtons({ data, logOut }) {
+const LoginButtons = ({ data, logOut }) => {
   if (!data) {
     return (
       <>
@@ -42,13 +42,15 @@ function LoginButtons({ data, logOut }) {
           </li>
         </ul>
       </div>
-      <img
-        src={`${CONSTANTS.STATIC_IMAGES_PATH}email.png`}
-        className={styles.emailIcon}
-        alt="email"
-      />
+      <div className={styles.emailWrapper}>
+        <img
+          src={`${CONSTANTS.STATIC_IMAGES_PATH}email.png`}
+          className={styles.emailIcon}
+          alt="email"
+        />
+      </div>
     </>
   );
-}
+};
 
 export default LoginButtons;

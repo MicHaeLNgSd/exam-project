@@ -1,8 +1,8 @@
 import React from 'react';
 import CONSTANTS from '../../constants';
-import SelectInput from '../SelectInput/SelectInput';
-import FormInput from '../FormInput/FormInput';
-import styles from '../ContestForm/ContestForm.module.sass';
+import SelectInput from '../InputComponents/SelectInput/SelectInput';
+import FormInput from '../InputComponents/FormInput/FormInput';
+import styles from '../Forms/ContestForm/ContestForm.module.sass';
 import Spinner from '../Spinner/Spinner';
 import ButtonGroup from '../ButtonGroup/ButtonGroup';
 import BUTTON_GROUP_LIST from './ButtonGroupData';
@@ -30,7 +30,7 @@ const OptionalSelects = (props) => {
     return <Spinner />;
   }
   switch (props.contestType) {
-    case CONSTANTS.NAME_CONTEST: {
+    case CONSTANTS.CONTEST_TYPE.NAME: {
       return (
         <>
           <ButtonGroup
@@ -54,7 +54,7 @@ const OptionalSelects = (props) => {
         </>
       );
     }
-    case CONSTANTS.LOGO_CONTEST: {
+    case CONSTANTS.CONTEST_TYPE.LOGO: {
       return (
         <>
           <div className={styles.inputContainer}>
@@ -77,7 +77,7 @@ const OptionalSelects = (props) => {
         </>
       );
     }
-    case CONSTANTS.TAGLINE_CONTEST: {
+    case CONSTANTS.CONTEST_TYPE.TAGLINE: {
       return (
         <>
           <div className={styles.inputContainer}>

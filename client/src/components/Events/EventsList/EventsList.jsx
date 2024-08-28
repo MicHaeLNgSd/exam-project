@@ -2,13 +2,11 @@ import React from 'react';
 import styles from './EventsList.module.sass';
 import EventTimer from './../EventTimer/EventTimer';
 
-function EventsList({ events }) {
-  const isEventsEmpty = !events?.length;
-  if (isEventsEmpty) {
+const EventsList = ({ events = [] }) => {
+  if (!events.length)
     return (
-      <p className={styles.emptyEventsString}>There is any events right now</p>
+      <div className={styles.notEvents}>There is no event at the moment</div>
     );
-  }
 
   return (
     <ul className={styles.timersList}>
@@ -19,6 +17,6 @@ function EventsList({ events }) {
       ))}
     </ul>
   );
-}
+};
 
 export default EventsList;

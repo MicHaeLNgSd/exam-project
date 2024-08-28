@@ -1,9 +1,9 @@
 import axios from 'axios';
 import CONTANTS from '../constants';
 
-const instance = axios.create({
-  baseURL: `${CONTANTS.BASE_URL}api/`,
-});
+const AUTH_PATHS = ['/login', '/registration', '/'];
+
+const instance = axios.create({ baseURL: `${CONTANTS.BASE_URL}api/` });
 
 instance.interceptors.request.use(
   (config) => {
@@ -24,16 +24,13 @@ instance.interceptors.response.use(
     return response;
   },
   (err) => {
-    //TODO rewrite for the better if you know how
     if (err.response.status === 408) {
       window.localStorage.removeItem(CONTANTS.ACCESS_TOKEN);
 
-      if (
-        window.location.pathname !== '/login' &&
-        window.location.pathname !== '/registration' &&
-        window.location.pathname !== '/'
-      ) {
+      if (!AUTH_PATHS.includes(window.location.pathname)) {
         window.location.pathname = '/login';
+      } else {
+        window.history.go();
       }
     }
     return Promise.reject(err);

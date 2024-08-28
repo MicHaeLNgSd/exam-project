@@ -38,16 +38,16 @@ function OffersReviewItem({ offer }) {
         {contestType} / {typeOfName || brandStyle || typeOfTagline}
       </td>
       <td>
-        <p>Title: {title}</p>
+        <p className={styles.title}>Title: {title}</p>
         {nameVenture && <p>Venture: {nameVenture}</p>}
         {styleName && <p>Style: {styleName}</p>}
         <p>{industry}</p>
         <a
           target="_blank"
-          // className={styles.file}
           href={`${CONSTANTS.publicContestsURL}${contestFileName}`}
           download={contestOriginalFileName}
           rel="noreferrer"
+          className={styles.filename}
         >
           {contestOriginalFileName}
         </a>
@@ -68,7 +68,7 @@ function OffersReviewItem({ offer }) {
             alt="logo"
           />
         ) : (
-          <span className={styles.response}>{text}</span>
+          <p className={styles.response}>{text}</p>
         )}
       </td>
       <td className={styles.btnTd}>

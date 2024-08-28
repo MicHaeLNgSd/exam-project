@@ -13,6 +13,7 @@ function SearchSec({ imgPath }) {
             className={styles.glassIcon}
           ></img>
           <input
+            name={'searchInput'}
             className={styles.searchInput}
             type="text"
             placeholder="Search Over 200,000+ Premium Names"

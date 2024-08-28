@@ -1,9 +1,9 @@
 const yup = require('yup');
 
 module.exports.registrationSchem = yup.object().shape({
-  firstName: yup.string().required().min(1),
-  lastName: yup.string().required().min(1),
-  displayName: yup.string().required().min(1),
+  firstName: yup.string().required().min(1).max(30),
+  lastName: yup.string().required().min(1).max(30),
+  displayName: yup.string().required().min(1).max(30),
   email: yup.string().email().required().min(4),
   password: yup.string().required().min(1),
   role: yup
@@ -24,7 +24,7 @@ module.exports.contestSchem = yup.object().shape({
     .required(),
   fileName: yup.string().min(1),
   originalFileName: yup.string().min(1),
-  title: yup.string().required().min(1),
+  title: yup.string().required().min(1).max(255),
   typeOfName: yup.string().min(1),
   industry: yup.string().required().min(1),
   focusOfWork: yup.string().required().min(1),

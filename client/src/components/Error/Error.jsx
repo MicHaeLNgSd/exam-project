@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import styles from './Error.module.sass';
 
 const Error = (props) => {
@@ -24,7 +25,7 @@ const Error = (props) => {
   return (
     <div className={styles.errorContainer}>
       <span>{getMessage()}</span>
-      <i className="far fa-times-circle" onClick={() => clearError()} />
+      <FaRegTimesCircle className={styles.icon} onClick={() => clearError()} />
     </div>
   );
 };

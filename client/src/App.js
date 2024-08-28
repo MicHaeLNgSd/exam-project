@@ -23,7 +23,7 @@ import EventsPage from './pages/EventsPage/EventsPage';
 import EventsContainer from './components/Events/EventsContainer/EventsContainer';
 import OffersReviewPage from './pages/OffersReviewPage/OffersReviewPage';
 
-const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS;
+const { CREATOR, CUSTOMER, MODERATOR } = CONSTANTS.USER_ROLE;
 
 class App extends Component {
   render() {
@@ -52,13 +52,13 @@ class App extends Component {
           <Route
             exact
             path="/start-contest"
-            component={withAuth(StartContestPage)}
+            component={withAuth(StartContestPage, null, [CUSTOMER])}
           />
           <Route
             exact
             path="/start-contest/name-contest"
             component={withAuth(ContestCreationPage, {
-              contestType: CONSTANTS.NAME_CONTEST,
+              contestType: CONSTANTS.CONTEST_TYPE.NAME,
               title: 'Company Name',
             })}
           />
@@ -66,7 +66,7 @@ class App extends Component {
             exact
             path="/start-contest/tagline-contest"
             component={withAuth(ContestCreationPage, {
-              contestType: CONSTANTS.TAGLINE_CONTEST,
+              contestType: CONSTANTS.CONTEST_TYPE.TAGLINE,
               title: 'TAGLINE',
             })}
           />
@@ -74,7 +74,7 @@ class App extends Component {
             exact
             path="/start-contest/logo-contest"
             component={withAuth(ContestCreationPage, {
-              contestType: CONSTANTS.LOGO_CONTEST,
+              contestType: CONSTANTS.CONTEST_TYPE.LOGO,
               title: 'LOGO',
             })}
           />
@@ -91,7 +91,11 @@ class App extends Component {
             component={withAuth(TransactionsPage)}
           />
           <Route exact path="/how-it-works" component={HowItWorksPage} />
-          <Route exact path="/events" component={withAuth(EventsPage)} />
+          <Route
+            exact
+            path="/events"
+            component={withAuth(EventsPage, null, [CUSTOMER])}
+          />
           <Route
             exact
             path="/offers-review"
@@ -99,8 +103,8 @@ class App extends Component {
           />
           <Route component={NotFound} />
         </Switch>
-        <ChatContainer />
-        <EventsContainer />
+        <ChatContainer roles={[CUSTOMER, CREATOR]} />
+        <EventsContainer roles={[CUSTOMER]} />
       </Router>
     );
   }

@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Rating from 'react-rating';
 import { withRouter } from 'react-router-dom';
-import isEqual from 'lodash/isEqual';
 import { confirmAlert } from 'react-confirm-alert';
 import {
   FaTimesCircle,
   FaCheckCircle,
   FaExclamationCircle,
   FaPauseCircle,
+  FaComments,
 } from 'react-icons/fa';
 import { goToExpandedDialog } from '../../store/slices/chatSlice';
 import {
@@ -20,25 +20,9 @@ import CONSTANTS from '../../constants';
 import styles from './OfferBox.module.sass';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './confirmStyle.css';
+import { findConversationInfo } from '../../utils/functions';
 
 const OfferBox = (props) => {
-  const findConversationInfo = () => {
-    const { messagesPreview, id } = props;
-    const participants = [id, props.data.User.id];
-    participants.sort((a, b) => a - b);
-    for (let i = 0; i < messagesPreview.length; i++) {
-      if (isEqual(participants, messagesPreview[i].participants)) {
-        return {
-          participants: messagesPreview[i].participants,
-          id: messagesPreview[i].id,
-          blackList: messagesPreview[i].blackList,
-          favoriteList: messagesPreview[i].favoriteList,
-        };
-      }
-    }
-    return null;
-  };
-
   const resolveOffer = () => {
     confirmAlert({
       title: 'confirm',
@@ -86,15 +70,13 @@ const OfferBox = (props) => {
   const offerStatus = () => {
     const { status } = props.data;
     switch (status) {
-      case CONSTANTS.OFFER_STATUS_REVIEWING:
+      case CONSTANTS.OFFER_STATUS.REVIEWING:
         return <FaPauseCircle className={styles.reviewing} />;
-      case CONSTANTS.OFFER_STATUS_DENIED:
+      case CONSTANTS.OFFER_STATUS.DENIED:
         return <FaExclamationCircle className={styles.denied} />;
-      // case CONSTANTS.OFFER_STATUS_PENDING:
-      //   return <FaCircle className={styles.pending} />;
-      case CONSTANTS.OFFER_STATUS_REJECTED:
+      case CONSTANTS.OFFER_STATUS.REJECTED:
         return <FaTimesCircle className={styles.reject} />;
-      case CONSTANTS.OFFER_STATUS_WON:
+      case CONSTANTS.OFFER_STATUS.WON:
         return <FaCheckCircle className={styles.resolve} />;
       default:
         return null;
@@ -102,9 +84,10 @@ const OfferBox = (props) => {
   };
 
   const goChat = () => {
+    const { messagesPreview, id, data } = props;
     props.goToExpandedDialog({
-      interlocutor: props.data.User,
-      conversationData: findConversationInfo(),
+      interlocutor: data.User,
+      conversationData: findConversationInfo(messagesPreview, id, data.User.id),
     });
   };
 
@@ -157,7 +140,7 @@ const OfferBox = (props) => {
           </div>
         </div>
         <div className={styles.responseConainer}>
-          {contestType === CONSTANTS.LOGO_CONTEST ? (
+          {contestType === CONSTANTS.CONTEST_TYPE.LOGO ? (
             <img
               onClick={() =>
                 props.changeShowImage({
@@ -198,8 +181,8 @@ const OfferBox = (props) => {
             />
           )}
         </div>
-        {role !== CONSTANTS.CREATOR && (
-          <i onClick={goChat} className="fas fa-comments" />
+        {role !== CONSTANTS.USER_ROLE.CREATOR && (
+          <FaComments onClick={goChat} />
         )}
       </div>
       {props.needButtons(data.status) && (

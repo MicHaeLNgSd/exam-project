@@ -1,6 +1,7 @@
 'use strict';
 const bcrypt = require('bcrypt');
-const { MODERATOR, CREATOR, CUSTOMER, SALT_ROUNDS } = require('../constants');
+const { USER_ROLE, SALT_ROUNDS } = require('../constants');
+const { MODERATOR, CREATOR, CUSTOMER } = USER_ROLE;
 
 /** @type {import('sequelize-cli').Migration} */
 

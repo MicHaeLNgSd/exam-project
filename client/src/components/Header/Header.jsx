@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import styles from './Header.module.sass';
@@ -11,54 +11,58 @@ import { NAVIGATION_LIST } from './HeaderData';
 import LoginButtons from './LoginButtons/LoginButtons';
 import { clearChatStore } from '../../store/slices/chatSlice';
 
-class Header extends React.Component {
-  componentDidMount() {
+const Header = ({
+  history,
+  clearUserStore,
+  clearChatStore,
+  data,
+  getUser,
+  isFetching,
+}) => {
+  const logOut = () => {
+    localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
+    clearUserStore();
+    clearChatStore();
+    history.replace('/login');
+  };
+
+  useEffect(() => {
     const hasToken = localStorage.getItem(CONSTANTS.ACCESS_TOKEN) !== null;
-    if (!this.props.data && hasToken) {
-      this.props.getUser();
-    }
-  }
+    if (!data && hasToken) getUser();
+  }, [data, getUser]);
 
-  logOut = () => {
-    localStorage.clear();
-    this.props.clearUserStore();
-    this.props.clearChatStore();
-    this.props.history.replace('/login');
+  const startContests = () => {
+    history.push('/start-contest');
   };
 
-  startContests = () => {
-    this.props.history.push('/start-contest');
+  const startOffersReview = () => {
+    history.push('/offers-review');
   };
 
-  startOffersReview = () => {
-    this.props.history.push('/offers-review');
-  };
+  if (isFetching) return null;
+  return (
+    <>
+      <div className={styles.fixedHeader}>
+        <span className={styles.info}>
+          Squadhelp recognized as one of the Most Innovative Companies by Inc
+          Magazine.
+        </span>
+        <a href="http://www.google.com">Read Announcement</a>
+      </div>
 
-  render() {
-    if (this.props.isFetching) {
-      return null;
-    }
-    return (
       <div className={styles.headerContainer}>
-        <div className={styles.fixedHeader}>
-          <span className={styles.info}>
-            Squadhelp recognized as one of the Most Innovative Companies by Inc
-            Magazine.
-          </span>
-          <a href="http://www.google.com">Read Announcement</a>
-        </div>
         <div className={styles.loginSignnUpHeaders}>
           <div className={styles.numberContainer}>
-            <a href={`tel:${CONSTANTS.PHONE_NUMBER}`}>
+            <a href={`tel:${CONSTANTS.COMPANY_CONTACTS.TEL_NUMBER}`}>
               <img
                 src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`}
                 alt="phone"
               />
-              <span>{CONSTANTS.PHONE_NUMBER}</span>
+              <span>{CONSTANTS.COMPANY_CONTACTS.TEL_NUMBER}</span>
             </a>
           </div>
           <div className={styles.userButtonsContainer}>
-            <LoginButtons data={this.props.data} logOut={this.logOut} />
+            <LoginButtons data={data} logOut={logOut} />
           </div>
         </div>
         <div className={styles.navContainer}>
@@ -67,28 +71,28 @@ class Header extends React.Component {
             <nav className={styles.nav}>
               <NavBarList navList={NAVIGATION_LIST} />
             </nav>
-            {this.props.data?.role === CONSTANTS.CUSTOMER && (
-              <div
+            {data?.role === CONSTANTS.USER_ROLE.CUSTOMER && (
+              <button
                 className={styles.startContestBtn}
-                onClick={this.startContests}
+                onClick={startContests}
               >
                 START CONTEST
-              </div>
+              </button>
             )}
-            {this.props.data?.role === CONSTANTS.MODERATOR && (
-              <div
+            {data?.role === CONSTANTS.USER_ROLE.MODERATOR && (
+              <button
                 className={styles.startContestBtn}
-                onClick={this.startOffersReview}
+                onClick={startOffersReview}
               >
                 START OFFERS REVIEW
-              </div>
+              </button>
             )}
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
 const mapStateToProps = (state) => state.userStore;
 const mapDispatchToProps = (dispatch) => ({

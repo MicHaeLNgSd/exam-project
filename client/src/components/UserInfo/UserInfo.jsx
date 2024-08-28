@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import UpdateUserInfoForm from '../UpdateUserInfoForm/UpdateUserInfoForm';
+import UpdateUserInfoForm from '../Forms/UpdateUserInfoForm/UpdateUserInfoForm';
 import { updateUser } from '../../store/slices/userSlice';
 import { changeEditModeOnUserProfile } from '../../store/slices/userProfileSlice';
 import CONSTANTS from '../../constants';
@@ -9,7 +9,7 @@ import styles from './UserInfo.module.sass';
 const UserInfo = (props) => {
   const updateUserData = (values) => {
     const formData = new FormData();
-    formData.append('file', values.file);
+    formData.append('file', values.avatar);
     formData.append('firstName', values.firstName);
     formData.append('lastName', values.lastName);
     formData.append('displayName', values.displayName);
@@ -34,7 +34,7 @@ const UserInfo = (props) => {
             className={styles.avatar}
             alt="user"
           />
-          <div className={styles.infoContainer}>
+          <div className={styles.infoWrapper}>
             <div className={styles.infoBlock}>
               <span className={styles.label}>First Name</span>
               <span className={styles.info}>{firstName}</span>
@@ -55,7 +55,7 @@ const UserInfo = (props) => {
               <span className={styles.label}>Role</span>
               <span className={styles.info}>{role}</span>
             </div>
-            {role === CONSTANTS.CREATOR && (
+            {role === CONSTANTS.USER_ROLE.CREATOR && (
               <div className={styles.infoBlock}>
                 <span className={styles.label}>Balance</span>
                 <span className={styles.info}>{`${balance}$`}</span>
