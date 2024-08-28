@@ -26,7 +26,6 @@ const eventsSlice = createSlice({
       state.events = sortedEvents;
     },
     deleteEvent: (state, { payload }) => {
-      //Todo maybe rewrite with "uuid" in the future
       state.events = state.events.filter((e) => e.createdAt !== payload);
     },
   },

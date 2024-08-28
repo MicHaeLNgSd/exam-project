@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment'; //TODO change to date-fns but everywhere
+import moment from 'moment';
 import _ from 'lodash';
 import { IoClose } from 'react-icons/io5';
 import styles from './EventTimer.module.sass';
@@ -31,9 +31,7 @@ const EventTimer = ({ event }) => {
 
   const fullPercentage = _.round((1 - remainTime / fullTime) * 100, 2);
   const progressPercentage = _.clamp(fullPercentage, 0, 100);
-  // console.log(moment(remainTime).format('Y[y]:D[d]:HH[h]:mm[m]:ss[s]'));
 
-  //TODO redo (perfectly if with moment itself)
   const formatDuration = (time) => {
     const duration = moment.duration(time, 'seconds');
     if (duration <= 0) return '0s';
@@ -62,7 +60,7 @@ const EventTimer = ({ event }) => {
     const readyColor = '#FCDECD';
     const endColor = '#F8CFCF';
     const timerColor = remainTime <= 0 ? endColor : readyColor;
-    progressStyle.backgroundColor = timerColor; //TODO spam
+    progressStyle.backgroundColor = timerColor;
   }
 
   return (
