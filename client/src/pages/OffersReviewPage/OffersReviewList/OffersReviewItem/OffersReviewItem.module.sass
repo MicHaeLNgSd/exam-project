@@ -1,0 +1,33 @@
+.responseLogo
+  width: auto
+  height: 100px
+
+%btn
+  width: 100px
+  cursor: pointer
+  text-align: center
+  padding: 10px
+  border-radius: 8px
+  color: white
+  border: none
+  font-size: 1rem
+
+.approveBtn
+  @extend %btn
+  background-color: #8aca6b
+  &:hover
+    background-color: rgba(138, 202, 107, 0.7)
+
+.denyBtn
+  @extend %btn
+  background-color: #CD5C5C
+  &:hover
+    background-color: rgba(205, 92, 92, 0.7)
+
+.title, .response, .filename
+  display: block
+  min-width: 0
+  width: 240px
+  max-width: 100%
+  overflow: hidden
+  text-overflow: ellipsis

@@ -2,30 +2,25 @@ import React from 'react';
 import styles from './BundleBox.module.sass';
 import CONSTANTS from '../../constants';
 
-const BundleBox = props => {
+const BundleBox = (props) => {
   const defaultPathToImages = `${CONSTANTS.STATIC_IMAGES_PATH}contestLabels/`;
 
   const renderImage = () => {
-    const array = [];
-    for (let i = 0; i < props.path.length; i++) {
-      array.push(
-        <img
-          src={defaultPathToImages + props.path[i]}
-          key={i}
-          className={styles.imgContainer}
-          alt={props.path[i].replace(/.png/g, 'Contest')}
-        />
-      );
-    }
-    return array;
+    return props.path.map((p, i) => (
+      <img
+        src={defaultPathToImages + p}
+        key={i}
+        className={styles.imgContainer}
+        alt={p.replace(/.png/g, 'Contest')}
+      />
+    ));
   };
 
   const mouseOverHandler = () => {
     const element = document.getElementById(props.header);
     for (let i = 0; i < element.children[0].children.length; i++) {
-      element.children[0].children[
-        i
-      ].src = `${defaultPathToImages}blue_${props.path[i]}`;
+      const child = element.children[0].children[i];
+      child.src = `${defaultPathToImages}blue_${props.path[i]}`;
     }
   };
 

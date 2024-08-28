@@ -1,39 +1,49 @@
-import React from 'react';
-import { Field } from 'formik';
+import React, { useRef } from 'react';
+import { useField } from 'formik';
+import { FaRegTimesCircle } from 'react-icons/fa';
 
-const FieldFileInput = ({ classes, ...rest }) => {
-  const { fileUploadContainer, labelClass, fileNameClass, fileInput } = classes;
+const FieldFileInput = ({ classes, name }) => {
+  const {
+    fileUploadContainer,
+    labelClass,
+    fileNameClass,
+    fileInput,
+    closeIcon,
+  } = classes;
+  const [{ value, ...field }, , helpers] = useField(name);
+  const fileInputRef = useRef(null);
+
+  const getFileName = () => (value ? value.name : '');
+
+  const onChange = ({ target }) => {
+    const file = target.files[0];
+    helpers.setValue(file || value);
+  };
+
+  const clearFile = () => {
+    helpers.setValue(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null;
+    }
+  };
 
   return (
-    <Field name={rest.name}>
-      {props => {
-        const { field } = props;
-
-        const getFileName = () => {
-          if (props.field.value) {
-            return props.field.value.name;
-          }
-          return '';
-        };
-
-        return (
-          <div className={fileUploadContainer}>
-            <label htmlFor='fileInput' className={labelClass}>
-              Choose file
-            </label>
-            <span id='fileNameContainer' className={fileNameClass}>
-              {getFileName()}
-            </span>
-            <input
-              {...field}
-              className={fileInput}
-              id='fileInput'
-              type='file'
-            />
-          </div>
-        );
-      }}
-    </Field>
+    <div className={fileUploadContainer}>
+      <label className={labelClass}>
+        Choose file
+        <input
+          {...field}
+          ref={fileInputRef}
+          className={fileInput}
+          type="file"
+          onChange={onChange}
+        />
+      </label>
+      <span id="fileNameContainer" className={fileNameClass}>
+        {getFileName()}
+      </span>
+      {value && <FaRegTimesCircle className={closeIcon} onClick={clearFile} />}
+    </div>
   );
 };
 

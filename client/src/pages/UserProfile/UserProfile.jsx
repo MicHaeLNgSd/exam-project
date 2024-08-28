@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import styles from './UserProfile.module.sass';
 import CONSTANTS from '../../constants';
 import UserInfo from '../../components/UserInfo/UserInfo';
-import PayForm from '../../components/PayForm/PayForm';
+import PayForm from '../../components/Forms/PayForm/PayForm';
 import { cashOut, clearPaymentStore } from '../../store/slices/paymentSlice';
 import { changeProfileViewMode } from '../../store/slices/userProfileSlice';
 import Error from '../../components/Error/Error';
@@ -45,7 +45,7 @@ const UserProfile = (props) => {
             >
               UserInfo
             </div>
-            {role === CONSTANTS.CREATOR && (
+            {role === CONSTANTS.USER_ROLE.CREATOR && (
               <div
                 className={classNames(styles.optionContainer, {
                   [styles.currentOption]:
@@ -63,9 +63,9 @@ const UserProfile = (props) => {
         ) : (
           <div className={styles.container}>
             {parseInt(balance) === 0 ? (
-              <span className={styles.notMoney}>
+              <div className={styles.notMoney}>
                 There is no money on your balance
-              </span>
+              </div>
             ) : (
               <div>
                 {error && (

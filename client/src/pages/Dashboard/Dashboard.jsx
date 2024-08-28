@@ -5,12 +5,12 @@ import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashbo
 import CreatorDashboard from '../../components/CreatorDashboard/CreatorDashboard';
 import Header from '../../components/Header/Header';
 
-const Dashboard = props => {
+const Dashboard = (props) => {
   const { role, history } = props;
   return (
     <div>
       <Header />
-      {role === CONSTANTS.CUSTOMER ? (
+      {role === CONSTANTS.USER_ROLE.CUSTOMER ? (
         <CustomerDashboard history={history} match={props.match} />
       ) : (
         <CreatorDashboard history={history} match={props.match} />
@@ -19,6 +19,6 @@ const Dashboard = props => {
   );
 };
 
-const mapStateToProps = state => state.userStore.data;
+const mapStateToProps = (state) => state.userStore.data;
 
 export default connect(mapStateToProps)(Dashboard);

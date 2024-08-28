@@ -1,28 +1,29 @@
+@import './../../common/style/vars'
+@import './../../common/style/templates'
+
+$color: #4e618d
+
 .container
-  display: flex
-  justify-content: center
-  align-items: center
+  @include flex()
   position: relative
+  cursor: pointer
 
-  span
-    cursor: pointer
-    margin-right: 8px
-    font-size: 20px
-    font-weight: 600
-    color: #4e618d
+.text
+  margin-right: 8px
+  font-size: 20px
+  font-weight: 600
+  color: $color
 
-  i
-    right: -24px
-    position: absolute
-    font-size: 24px
-    cursor: pointer
-    transition: font-size 0.2s
-    color: #4e618d
+.icon
+  position: absolute
+  right: -24px
+  font-size: 24px
+  transition: font-size 0.2s
+  color: $color
 
-    &:hover
-      animation: rot 0.4s infinite linear
-      font-size: 30px
-      transition: font-size 0.2s
+  &:hover
+    animation: rot 0.4s infinite linear
+    font-size: 30px
 
 @keyframes rot
   0%

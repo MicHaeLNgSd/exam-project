@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
+import { FaLongArrowAltLeft, FaEdit } from 'react-icons/fa';
 import {
   changeShowModeCatalog,
   changeRenameCatalogMode,
   changeCatalogName,
 } from '../../../../store/slices/chatSlice';
 import styles from './CatalogHeader.module.sass';
-import FormInput from '../../../FormInput/FormInput';
+import FormInput from '../../../InputComponents/FormInput/FormInput';
 import Schems from '../../../../utils/validators/validationSchems';
 
 const CatalogListHeader = (props) => {
   const changeCatalogName = (values) => {
-    const { changeCatalogName, _id } = props;
-    changeCatalogName({ catalogName: values.catalogName, catalogId: _id });
+    const { changeCatalogName, id } = props;
+    changeCatalogName({ catalogName: values.catalogName, catalogId: id });
   };
   const {
     catalogName,
@@ -23,15 +24,15 @@ const CatalogListHeader = (props) => {
   } = props;
   return (
     <div className={styles.headerContainer}>
-      <i
-        className="fas fa-long-arrow-alt-left"
+      <FaLongArrowAltLeft
+        className={styles.iconArrowLeft}
         onClick={() => changeShowModeCatalog()}
       />
       {!isRenameCatalog && (
         <div className={styles.infoContainer}>
           <span>{catalogName}</span>
-          <i
-            className="fas fa-edit"
+          <FaEdit
+            className={styles.iconEdit}
             onClick={() => changeRenameCatalogMode()}
           />
         </div>
@@ -54,8 +55,11 @@ const CatalogListHeader = (props) => {
                 }}
                 type="text"
                 label="Catalog Name"
+                isError={false}
               />
-              <button type="submit">Change</button>
+              <button className={styles.btn} type="submit">
+                Change
+              </button>
             </Form>
           </Formik>
         </div>
@@ -66,9 +70,9 @@ const CatalogListHeader = (props) => {
 
 const mapStateToProps = (state) => {
   const { isRenameCatalog } = state.chatStore;
-  const { catalogName, _id } = state.chatStore.currentCatalog;
+  const { catalogName, id } = state.chatStore.currentCatalog;
   return {
-    _id,
+    id,
     catalogName,
     isRenameCatalog,
     initialValues: {

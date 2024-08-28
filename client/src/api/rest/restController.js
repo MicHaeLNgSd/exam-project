@@ -1,63 +1,54 @@
 import http from '../interceptor';
 
-export const registerRequest = data => http.post('registration', data);
-export const loginRequest = data => http.post('login', data);
-export const getUser = () => http.post('getUser');
-export const updateContest = data => http.post('updateContest', data);
-export const setNewOffer = data => http.post('setNewOffer', data);
-export const setOfferStatus = data => http.post('setOfferStatus', data);
-export const downloadContestFile = data =>
-  http.get(`downloadFile/${data.fileName}`);
-export const payMent = data => http.post('pay', data.formData);
-export const changeMark = data => http.post('changeMark', data);
-export const getPreviewChat = () => http.post('getPreview');
-export const getDialog = data => http.post('getChat', data);
-export const dataForContest = data => http.post('dataForContest', data);
-export const cashOut = data => http.post('cashout', data);
-export const updateUser = data => http.post('updateUser', data);
-export const newMessage = data => http.post('newMessage', data);
-export const changeChatFavorite = data => http.post('favorite', data);
-export const changeChatBlock = data => http.post('blackList', data);
-export const getCatalogList = data => http.post('getCatalogs', data);
-export const addChatToCatalog = data => http.post('addNewChatToCatalog', data);
-export const createCatalog = data => http.post('createCatalog', data);
-export const deleteCatalog = data => http.post('deleteCatalog', data);
-export const removeChatFromCatalog = data =>
-  http.post('removeChatFromCatalog', data);
-export const changeCatalogName = data => http.post('updateNameCatalog', data);
-export const getCustomersContests = data =>
-  http.post(
-    'getCustomersContests',
-    { limit: data.limit, offset: data.offset },
-    {
-      headers: {
-        status: data.contestStatus,
-      },
-    }
-  );
+//*USERS
+export const registerRequest = (data) => http.post('user/registration', data);
+export const loginRequest = (data) => http.post('user/login', data);
+export const payMent = (data) => http.post('user/pay', data.formData);
+export const cashOut = (data) => http.post('user/cashout', data);
+export const getUser = () => http.get('user');
+export const getUserTransactions = () => http.get('user/transactions');
+export const updateUser = (data) => http.put('user', data);
+export const changeMark = (data) => http.put('user/changeMark', data);
 
-export const getActiveContests = ({
-  offset,
-  limit,
-  typeIndex,
-  contestId,
-  industry,
-  awardSort,
-  ownEntries,
-}) =>
-  http.post('getAllContests', {
-    offset,
-    limit,
-    typeIndex,
-    contestId,
-    industry,
-    awardSort,
-    ownEntries,
-  });
+//*CONTESTS
+export const getCustomersContests = (data) =>
+  http.get(`contests/customers`, { params: { ...data } });
+export const getActiveContests = (data) =>
+  http.get(`contests`, { params: { ...data } });
+export const getContestById = ({ contestId }) =>
+  http.get(`contests/${contestId}`);
+export const updateContest = (data) =>
+  http.put(`contests/${data.get('contestId')}`, data);
 
-export const getContestById = data =>
-  http.get('getContestById', {
-    headers: {
-      contestId: data.contestId,
-    },
-  });
+export const dataForContest = (data) =>
+  http.get('contests/data', { params: { ...data } });
+export const downloadContestFile = ({ fileName }) =>
+  http.get(`contests/files/${fileName}`);
+
+//*OFFERS
+export const setNewOffer = (data) => http.post('offers', data);
+export const getOffers = (data) => http.get('offers', { params: { ...data } });
+export const setOfferStatus = (data) => http.put('offers', data);
+export const setOfferReviewStatus = (data) => http.put('offers/review', data);
+
+//*CHATS
+export const newMessage = (data) => http.post('chats/newMessage', data);
+export const changeChatBlock = (data) => http.post('chats/blackList', data);
+export const changeChatFavorite = (data) => http.post('chats/favorite', data);
+export const getDialog = (data) => http.get('chats', { params: { ...data } });
+export const getPreviewChat = () => http.get('chats/preview');
+
+//*CHATS/CATALOGS
+export const createCatalog = (data) => http.post('chats/catalogs', data);
+export const getCatalogList = (data) =>
+  http.get('chats/catalogs', { params: { ...data } });
+
+export const changeCatalogName = ({ catalogId, ...data }) =>
+  http.put(`chats/catalogs/${catalogId}`, data);
+export const deleteCatalog = ({ catalogId, ...data }) =>
+  http.delete(`chats/catalogs/${catalogId}`, data);
+
+export const addChatToCatalog = ({ catalogId, chatId }) =>
+  http.post(`chats/catalogs/${catalogId}/chat-items/${chatId}`);
+export const removeChatFromCatalog = ({ catalogId, chatId }) =>
+  http.delete(`chats/catalogs/${catalogId}/chat-items/${chatId}`);

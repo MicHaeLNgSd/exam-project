@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
-import FormInput from '../../../FormInput/FormInput';
+import FormInput from '../../../InputComponents/FormInput/FormInput';
 import styles from './CreateCatalog.module.sass';
 import { createCatalog } from '../../../../store/slices/chatSlice';
 import Schems from '../../../../utils/validators/validationSchems';
@@ -29,8 +29,11 @@ const CreateCatalog = (props) => {
             warning: styles.fieldWarning,
             notValid: styles.notValid,
           }}
+          isError={false}
         />
-        <button type="submit">Create Catalog</button>
+        <button className={styles.btn} type="submit">
+          Create Catalog
+        </button>
       </Form>
     </Formik>
   );

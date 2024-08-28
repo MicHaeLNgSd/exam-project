@@ -1,0 +1,47 @@
+@import './../../../common/style/vars'
+@import './../../../common/style/templates'
+
+$timerFillerColor: rgb(209, 233, 207)
+$timerDefaultColor: rgb(238, 238, 238)
+$closeBtnSize: 20px
+
+.timer
+  position: relative
+  border-radius: 4px
+  overflow: hidden
+  background-color: $timerDefaultColor
+  font-weight: 700
+  @include flex($gap: 10px)
+  padding: 0 10px
+  &:hover .closeBtn
+    max-width: $closeBtnSize
+
+.info
+  position: relative
+  width: 100%
+  @include flex(space-between)
+  background-color: transparent
+  padding: 15px 0
+
+.progress
+  position: absolute
+  left:0
+  background-color: $timerFillerColor,
+  height: 100%
+
+.timeInfo
+  color: rgb(187,187,187)
+
+.closeBtn
+  @include flex()
+  z-index: 10
+  border: none
+  background: none
+  padding: 0
+
+  max-width: 0
+  transition: all 0.3s ease
+
+.closeIcon
+  width: $closeBtnSize
+  height: $closeBtnSize

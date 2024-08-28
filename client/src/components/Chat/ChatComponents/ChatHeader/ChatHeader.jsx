@@ -30,7 +30,8 @@ const ChatHeader = (props) => {
     return blackList[participants.indexOf(userId)];
   };
 
-  const { avatar, firstName } = props.interlocutor;
+  if (!props.interlocutor) return null;
+  const { avatar, displayName } = props.interlocutor;
   const { backToDialogList, chatData, userId } = props;
   return (
     <div className={styles.chatHeader}>
@@ -49,11 +50,11 @@ const ChatHeader = (props) => {
             src={
               avatar === 'anon.png'
                 ? CONSTANTS.ANONYM_IMAGE_PATH
-                : `${CONSTANTS.publicURL}${avatar}`
+                : `${CONSTANTS.publicImagesURL}${avatar}`
             }
             alt="user"
           />
-          <span>{firstName}</span>
+          <span>{displayName}</span>
         </div>
         {chatData && (
           <div>

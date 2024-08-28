@@ -1,0 +1,50 @@
+@import './../HowItWorksPage.module'
+
+.howWorksSec
+  @extend %section
+  padding: 40px 0 60px
+  background-color: #FBFBFB
+
+.howWorksContainter
+  @extend %container
+  flex-direction: row
+  @media(min-width: 1200px)
+    max-width: 1040px
+  @media(max-width: 992px)
+    flex-direction: column-reverse
+    text-align: center
+
+.howWorksImg
+  max-width: 450px
+  width: 100%
+  object-fit: contain
+  @media(max-width: 768px)
+    max-width: 516px
+  @media(max-width: 576px) 
+    max-width: 100% 
+
+.howWorksInfo
+  max-width: 490px
+  width: 100%
+  @media(max-width: 992px)
+    max-width: 670px
+
+.howWorksTag
+  @extend %tag
+  font-size: 12px
+  @media(max-width: 992px)
+    margin-top: 30px
+
+.howWorksInfo
+  @include flex($fd: column, $ai: flex-start)
+  @media(max-width: 992px)
+    align-items: center
+
+.howWorksHeader
+  margin-bottom: 10px
+  @media(max-width: 992px)
+    font-size: 24px 
+
+.howWorksText
+  color: $plainTextColor
+  margin-bottom: 40px

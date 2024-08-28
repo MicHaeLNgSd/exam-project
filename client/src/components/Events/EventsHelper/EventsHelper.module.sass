@@ -1,0 +1,71 @@
+@import './../../../common/style/vars'
+@import './../../../common/style/templates'
+  
+$maincolor: rgb(69, 90, 137)
+$secondcolor: #8aca6b
+$animationTime: 0.3s
+
+$helperSize: 55px
+$messageBoxSize: 0.4 * $helperSize
+$howFarFromBorder: 0.4 * $helperSize
+
+%messageBox
+  @include flex()
+  font-size: 0.75rem
+  position: absolute
+  content: ''
+  width: $messageBoxSize
+  height: $messageBoxSize
+  border-radius: 50%
+  color: $maincolor
+  font-weight: 700
+  overflow: hidden
+
+.eventsHelper
+  position: fixed
+  bottom: $howFarFromBorder
+  right: $howFarFromBorder
+  width: $helperSize
+  height: $helperSize
+  transition: all $animationTime ease
+
+  background-color: $maincolor
+  border-radius: 50%
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px 1px
+
+  &:hover
+    background-color: $secondcolor
+
+.eventsLink
+  @include flex()
+  position: relative
+  color: white
+  width: 100%
+  height: 100%
+  border-radius: 50%
+  transition: all $animationTime ease
+
+  &:hover
+    color: $maincolor
+
+  &:focus
+    outline: none
+    
+    // &::after
+    //   background-color: $maincolor
+
+.remindAmount
+  @extend %messageBox
+  top: -($messageBoxSize / 8)
+  left: -($messageBoxSize / 8)
+  background-color: orange
+
+.finishAmount
+  @extend %messageBox
+  top: -($messageBoxSize / 8)
+  right: -($messageBoxSize / 8)
+  background-color: rgb(228 52 34)
+
+.timerIcon
+  width: 50%
+  height: 50%

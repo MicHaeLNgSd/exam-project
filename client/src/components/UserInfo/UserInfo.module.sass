@@ -1,8 +1,8 @@
+@import './../../common/style/vars'
+@import './../../common/style/templates'
+
 .mainContainer
-  display: flex
-  flex-direction: row
-  justify-content: center
-  align-items: flex-start
+  @include flex($ai: flex-start)
   border: 1px solid #c0c0c0
   border-radius: 4px
   width: 100%
@@ -11,51 +11,54 @@
     justify-content: flex-start
     align-items: center
 
-  .buttonEdit
-    padding: 15px 35px
-    border-radius: 12px
-    background-color: #455a89
+.buttonEdit
+  padding: 15px 35px
+  border-radius: 12px
+  background-color: #455a89
+  color: white
+  font-weight: 500
+  margin-top: 100px
+  font-size: 18px
+  margin-left: 50px
+  transition: background-color 0.2s
+  @media(max-width: 420px)
+    margin: 20px 0
+    margin-left: 0
+
+  &:hover
+    background-color: #f27e51
     color: white
-    font-weight: 500
-    margin-top: 100px
-    font-size: 18px
-    margin-left: 50px
-    transition: background-color 0.2s
-    @media(max-width: 420px)
-      margin: 20px 0
-      margin-left: 0
 
-    &:hover
-      transition: background-color 0.2s
-      background-color: #f27e51
-      color: white
+.infoContainer
+  @include flex(flex-end, $fd: column)
+  margin: 40px 0
+  gap: 40px
 
-  .infoContainer
-    display: flex
-    flex-direction: column
-    justify-content: flex-end
-    align-items: center
+.infoWrapper
+  @include flex(flex-end, $fd: column)
 
-    .avatar
-      align-self: center
-      width: 140px
-      height: 140px
-      margin: 40px 0
+.avatar
+  border: 2px solid #556da5
+  border-radius: 50%
+  align-self: center
+  width: 140px
+  height: 140px
 
-    .infoBlock
-      display: flex
-      flex-direction: row
-      margin-bottom: 25px
-      align-items: center
-      width: 200px
-      justify-content: space-between
+.infoBlock
+  @include flex(space-between, $gap: 10px)
+  margin-bottom: 25px
+  width: 200px
 
-      .label
-        font-family: sans-serif
-        font-size: 16px
-        color: #515b5f
+.label
+  font-family: sans-serif
+  font-size: 16px
+  color: #515b5f
 
-      .info
-        font-size: 16px
-        color: #455a89
+.info
+  font-size: 16px
+  color: #455a89
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+
 

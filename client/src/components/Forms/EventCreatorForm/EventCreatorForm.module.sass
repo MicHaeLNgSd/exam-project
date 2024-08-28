@@ -1,0 +1,85 @@
+@import './../../../common/style/vars'
+@import './../../../common/style/templates'
+@import './../../../pages/EventsPage/EventsPage.module'
+
+%label
+  margin-bottom: 5px
+  font-weight: 700
+  font-size: 1.1rem
+  color: #333
+
+%input
+  font-size: 1.1rem
+  height: 34px
+  padding: 6px 12px
+  color: #555
+  border: 1px solid #ccc
+  border-radius: 4px
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
+  transition: border-color ease-in-out .2s, box-shadow ease-in-out .2s
+
+.formHeader
+  font-size: 1.4rem
+
+.form
+  font-size: 1.2rem
+  max-width: 650px
+  width: 100%
+  margin: 20px auto 0
+  @include flex($fd: column, $gap: 10px)
+  @media(max-width: 600px)
+    gap: 20px
+    max-width: 100%
+
+.textWrapper
+  @extend %label
+  width: 100%
+  margin-bottom: 10px
+  @include flex($ai: flex-start, $fd: column, $gap: 10px)
+  @media(max-width: 600px)
+    align-items: center
+    font-size: 1.3rem 
+
+.textInput
+  @extend %input
+  width: 100%
+  @media(max-width: 600px)
+    width: 85%
+  @media(max-width: 400px)
+    width: 100%
+
+.timeContiner
+  width: 100%
+  @include flex($jc: space-between, $ai: flex-start, $gap: 20px)
+  @media(max-width: 600px)
+    flex-direction: column
+    align-items: center
+
+.timeWrapper
+  @extend %label
+  @include flex($ai: flex-start, $fd: column, $gap: 10px)
+  @media(max-width: 600px)
+    align-items: center
+    font-size: 1.3rem
+
+.timeInput
+  @extend %input
+  @media(max-width: 600px)
+    font-size: 1.2rem
+
+.warning
+  color: red
+  font-size: 0.75rem
+
+.inputContainer
+  @include flex($ai: flex-start, $fd: column, $gap: 10px)
+  width: 100%
+  @media(max-width: 600px)
+    align-items: center
+
+.notValid
+  border: 0.5px solid red !important
+
+.btnsWrapper
+  width: 100%
+  @include flex(space-around)

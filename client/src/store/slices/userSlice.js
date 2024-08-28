@@ -1,64 +1,51 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import * as restController from '../../api/rest/restController';
 import { controller } from '../../api/ws/socketController';
-import { rejectedReducer } from '../../utils/store';
 import { changeEditModeOnUserProfile } from './userProfileSlice';
+import { decorateAsyncThunk, rejectedReducer } from '../../utils/store';
 
 const USER_SLICE_NAME = 'user';
 
 const initialState = {
-  isFetching: true,
+  isFetching: false,
   error: null,
   data: null,
 };
 
-export const getUser = createAsyncThunk(
-  `${USER_SLICE_NAME}/getUser`,
-  async (replace, { rejectWithValue }) => {
-    try {
-      const { data } = await restController.getUser();
-      controller.subscribe(data.id);
-      if (replace) {
-        replace('/');
-      }
-      return data;
-    } catch (err) {
-      return rejectWithValue({
-        data: err?.response?.data ?? 'Gateway Timeout',
-        status: err?.response?.status ?? 504,
-      });
+export const getUser = decorateAsyncThunk({
+  key: `${USER_SLICE_NAME}/getUser`,
+  thunk: async (replace) => {
+    const { data } = await restController.getUser();
+    controller.subscribe(data.id);
+    if (replace) {
+      replace('/');
     }
-  }
-);
+    return data;
+  },
+});
 
-export const updateUser = createAsyncThunk(
-  `${USER_SLICE_NAME}/updateUser`,
-  async (payload, { rejectWithValue, dispatch }) => {
-    try {
-      const { data } = await restController.updateUser(payload);
-      dispatch(changeEditModeOnUserProfile(false));
-      return data;
-    } catch (err) {
-      return rejectWithValue({
-        data: err?.response?.data ?? 'Gateway Timeout',
-        status: err?.response?.status ?? 504,
-      });
-    }
-  }
-);
+export const updateUser = decorateAsyncThunk({
+  key: `${USER_SLICE_NAME}/updateUser`,
+  thunk: async (payload, { dispatch }) => {
+    const { data } = await restController.updateUser(payload);
+    dispatch(changeEditModeOnUserProfile(false));
+    return data;
+  },
+});
 
 const reducers = {
-  clearUserStore: state => {
+  clearUserStore: (state) => {
+    controller.unsubscribe(state.data.id);
     state.error = null;
     state.data = null;
   },
-  clearUserError: state => {
+  clearUserError: (state) => {
     state.error = null;
   },
 };
 
-const extraReducers = builder => {
-  builder.addCase(getUser.pending, state => {
+const extraReducers = (builder) => {
+  builder.addCase(getUser.pending, (state) => {
     state.isFetching = true;
     state.error = null;
     state.data = null;

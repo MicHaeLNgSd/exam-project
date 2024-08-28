@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import styles from './ContestCreationPage.module.sass';
 import { saveContestToStore } from '../../store/slices/contestCreationSlice';
 import NextButton from '../../components/NextButton/NextButton';
-import ContestForm from '../../components/ContestForm/ContestForm';
+import ContestForm from '../../components/Forms/ContestForm/ContestForm';
 import BackButton from '../../components/BackButton/BackButton';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import Footer from '../../components/Footer/Footer';
@@ -20,7 +20,7 @@ const ContestCreationPage = (props) => {
     const route =
       props.bundleStore.bundle[props.contestType] === 'payment'
         ? '/payment'
-        : `${props.bundleStore.bundle[props.contestType]}Contest`;
+        : `${props.bundleStore.bundle[props.contestType]}-contest`;
     props.history.push(route);
   };
 
@@ -30,7 +30,11 @@ const ContestCreationPage = (props) => {
     }
   };
 
-  !props.bundleStore.bundle && props.history.replace('/startContest');
+  useEffect(() => {
+    if (!props.bundleStore.bundle) {
+      props.history.replace('/start-contest');
+    }
+  }, [props.bundleStore.bundle, props.history]);
 
   return (
     <div>

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { pay, clearPaymentStore } from '../../store/slices/paymentSlice';
-import PayForm from '../../components/PayForm/PayForm';
+import PayForm from '../../components/Forms/PayForm/PayForm';
 import styles from './Payment.module.sass';
-import CONSTANTS from '../../constants';
 import Error from '../../components/Error/Error';
+import Logo from '../../components/Logo';
 
 const Payment = (props) => {
   const pay = (values) => {
@@ -40,16 +40,17 @@ const Payment = (props) => {
   const { contests } = props.contestCreationStore;
   const { error } = props.payment;
   const { clearPaymentStore } = props;
-  if (isEmpty(contests)) {
-    props.history.replace('startContest');
-  }
+
+  useEffect(() => {
+    if (isEmpty(contests)) {
+      props.history.replace('/start-contest');
+    }
+  }, [contests, props.history]);
+
   return (
     <div>
       <div className={styles.header}>
-        <img
-          src={`${CONSTANTS.STATIC_IMAGES_PATH}blue-logo.png`}
-          alt="blue-logo"
-        />
+        <Logo alt="blue-logo" />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.paymentContainer}>

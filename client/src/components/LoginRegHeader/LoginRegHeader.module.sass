@@ -1,0 +1,22 @@
+@import './../../common/style/vars'
+@import './../../common/style/templates'
+  
+.header
+  @include flex(space-between, $gap: 10px)
+  margin-top: 26px
+  padding-left: 45px
+  padding-right: 100px
+  @media (max-width: 530px)
+    padding-right: 45px
+  @media (max-width: 400px)
+    padding: 0 30px
+
+.loginRegLink
+  @include flex()
+  color: white
+  width: 80px
+  height: 40px
+  border: 1px solid white
+  border-radius: 4px
+  font-size: 18px
+  font-weight: bold

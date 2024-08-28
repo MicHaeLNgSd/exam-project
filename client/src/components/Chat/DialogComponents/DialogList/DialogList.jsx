@@ -36,23 +36,18 @@ const DialogList = (props) => {
   const getTimeStr = (time) => {
     const currentTime = moment();
     if (currentTime.isSame(time, 'day')) return moment(time).format('HH:mm');
-    if (currentTime.isSame(time, 'week')) return moment(time).format('dddd');
+    if (currentTime.isSame(time, 'week')) return moment(time).format('ddd');
     if (currentTime.isSame(time, 'year')) return moment(time).format('MM DD');
     return moment(time).format('MMMM DD, YYYY');
   };
 
   const renderPreview = (filterFunc) => {
-    const arrayList = [];
-    const {
-      userId,
-      preview,
-      goToExpandedDialog,
-      chatMode,
-      removeChat,
-      interlocutor,
-    } = props;
-    preview.forEach((chatPreview, index) => {
-      const dialogNode = (
+    const { userId, preview, goToExpandedDialog, chatMode, removeChat } = props;
+
+    const filteredDialogs = preview
+      .filter((chatPreview) => !filterFunc || filterFunc(chatPreview, userId))
+      .sort((a, b) => new Date(b.createAt) - new Date(a.createAt))
+      .map((chatPreview, index) => (
         <DialogBox
           interlocutor={chatPreview.interlocutor}
           chatPreview={chatPreview}
@@ -63,21 +58,16 @@ const DialogList = (props) => {
           changeBlackList={changeBlackList}
           chatMode={chatMode}
           catalogOperation={
-            chatMode === CONSTANTS.CATALOG_PREVIEW_CHAT_MODE
+            chatMode === CONSTANTS.CHAT_MODE.CATALOG_PREVIEW
               ? removeChat
               : changeShowCatalogCreation
           }
           goToExpandedDialog={goToExpandedDialog}
         />
-      );
-      if (filterFunc && filterFunc(chatPreview, userId)) {
-        arrayList.push(dialogNode);
-      } else if (!filterFunc) {
-        arrayList.push(dialogNode);
-      }
-    });
-    return arrayList.length ? (
-      arrayList
+      ));
+
+    return filteredDialogs.length ? (
+      filteredDialogs
     ) : (
       <span className={styles.notFound}>Not found</span>
     );
@@ -85,9 +75,9 @@ const DialogList = (props) => {
 
   const renderChatPreview = () => {
     const { chatMode } = props;
-    if (chatMode === CONSTANTS.FAVORITE_PREVIEW_CHAT_MODE)
+    if (chatMode === CONSTANTS.CHAT_MODE.FAVORITE_PREVIEW)
       return renderPreview(onlyFavoriteDialogs);
-    if (chatMode === CONSTANTS.BLOCKED_PREVIEW_CHAT_MODE)
+    if (chatMode === CONSTANTS.CHAT_MODE.BLOCKED_PREVIEW)
       return renderPreview(onlyBlockDialogs);
     return renderPreview();
   };
