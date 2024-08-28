@@ -70,6 +70,7 @@
     flex-direction: column
 
   .userInfo
+    width: 100%
     min-width: 215px
 
   svg
@@ -104,6 +105,7 @@
   height: 100px
 
 .response
+  word-break: break-all
   text-align: center
   overflow-wrap: break-word
   align-self: stretch
@@ -125,17 +127,23 @@
 .creativeInfoContainer
   @include flex(flex-start)
   img
+    flex-shrink: 0
     width: 50px
     height: 50px
     border-radius: 25px
 
 .nameAndEmail
+  min-width: 0
   @include flex(flex-start, flex-start, column)
   span
+    width: 100%
     color: #556da5
     font-size: 16px
     font-weight: 500
     margin-left: 10px
+    display: inline-block
+    overflow: hidden
+    text-overflow: ellipsis
 
 .winner
   background-color: #8aca6b
