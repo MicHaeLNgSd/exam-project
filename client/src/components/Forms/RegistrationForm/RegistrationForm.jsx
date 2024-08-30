@@ -73,6 +73,7 @@ const RegistrationForm = ({
               classes={formInputClasses}
               type="text"
               label="First name"
+              autoFocus
             />
             <FormInput
               name="lastName"

@@ -35,6 +35,7 @@ const ChatInput = (props) => {
               input: styles.input,
               notValid: styles.notValid,
             }}
+            autoFocus
           />
           <button type="submit">
             <img

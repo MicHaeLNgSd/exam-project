@@ -40,6 +40,7 @@ const UpdateUserInfoForm = (props) => {
             name="firstName"
             type="text"
             label="First Name"
+            autoFocus
             classes={{
               container: styles.inputContainer,
               input: styles.input,
