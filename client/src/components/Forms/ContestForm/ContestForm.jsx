@@ -121,6 +121,7 @@ const ContestForm = ({
               type="text"
               label="Title"
               classes={classesFormInput}
+              autoFocus
             />
           </div>
           <div className={styles.inputContainer}>

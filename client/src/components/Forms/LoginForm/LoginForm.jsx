@@ -43,6 +43,7 @@ const LoginForm = ({ authClear, loginRequest, history, auth, submitting }) => {
             name="email"
             type="text"
             label="Email Address"
+            autoFocus
           />
           <FormInput
             classes={formInputClasses}

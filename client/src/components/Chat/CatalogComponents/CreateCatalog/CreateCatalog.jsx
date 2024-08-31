@@ -23,6 +23,7 @@ const CreateCatalog = (props) => {
           name="catalogName"
           type="text"
           label="name of catalog"
+          autoFocus
           classes={{
             container: styles.inputContainer,
             input: styles.input,
