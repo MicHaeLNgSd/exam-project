@@ -12,14 +12,14 @@ const ButtonGroup = ({ name, header, buttons = [], classes = {} }) => {
   const newClasses = { ...initClasses, ...classes };
   const { groupContainer, groupHeader, btnWrapper, ...btnClasses } = newClasses;
 
+  const radioButtons = buttons.map((b, i) => (
+    <RadioButton key={i} name={name} button={b} classes={btnClasses} />
+  ));
+
   return (
     <div className={groupContainer}>
       <span className={groupHeader}>{header}</span>
-      <div className={btnWrapper}>
-        {buttons.map((b, i) => (
-          <RadioButton key={i} name={name} button={b} classes={btnClasses} />
-        ))}
-      </div>
+      <div className={btnWrapper}>{radioButtons}</div>
     </div>
   );
 };
