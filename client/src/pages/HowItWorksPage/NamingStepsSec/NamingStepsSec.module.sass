@@ -30,10 +30,6 @@
   position: relative
   @extend %infoItem
   @include flex(flex-start, flex-start, column, 10px)
-  .namingStepsText
-    color: $plainTextColor
-    margin-bottom: 35px
-
   &:last-child .stepArrow
     display: none
   
@@ -41,31 +37,36 @@
     min-width: 40%
     max-width: 50%
     width: 100%
-    font-size: 14px
     padding: 10px
-    .namingStepsText
-      margin-bottom: 15px
+    font-size: 14px
   @media(max-width: 576px)
     max-width: 100%
     min-height: 250px
 
+.namingStepsText
+  color: $plainTextColor
+  margin-bottom: 35px
+
+  @media(max-width: 992px)
+    margin-bottom: 15px
+
 .stepArrow
-  display: block
-  width: 28px
-  height: 14px
   position: absolute
   top: 50%
   left: 100%
-  color: $plainTextColor
   z-index: 99
+  display: block
+  width: 28px
+  height: 14px
   margin: -2px 0 0 -14px
+  color: $plainTextColor
 
 .namingStepsNumber
-  font-size: 14px
-  color: #fff
-  font-weight: 700
   height: 32px
+  padding: 0 15px
+  font-size: 14px
+  font-weight: 700
+  line-height: 32px
+  color: #fff
   background: #4942F3
   border-radius: 20px
-  line-height: 32px
-  padding: 0 15px
